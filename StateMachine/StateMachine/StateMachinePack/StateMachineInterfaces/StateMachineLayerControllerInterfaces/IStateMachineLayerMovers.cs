@@ -1,6 +1,6 @@
-﻿using StateMachine;
+﻿using StateMachinePack;
 
-namespace StateMachine.StateMachineInterfaces.StateMachineLayerControllerInterfaces
+namespace StateMachinePack.StateMachineInterfaces.StateMachineLayerControllerInterfaces
 {
     public interface IStateMachineLayerMovers
     {

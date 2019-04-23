@@ -1,9 +1,10 @@
 ﻿using System;
-using StateMachine.StateMachineInterfaces;
-using StateMachine.StateMachineInterfaces.StateMachineLayerControllerInterfaces;
-using StateMachine.StateMachineInterfaces.StateMachineStateControllerInterfaces;
+using System.Collections.Generic;
+using StateMachinePack.StateMachineInterfaces;
+using StateMachinePack.StateMachineInterfaces.StateMachineLayerControllerInterfaces;
+using StateMachinePack.StateMachineInterfaces.StateMachineStateControllerInterfaces;
 
-namespace StateMachine
+namespace StateMachinePack
 {
     public delegate void StateMachineEvent(StateMachine machine);
     public delegate void StateEvent(StateInfo stateInfo, StateMachine machine, Layer layer);
@@ -16,7 +17,7 @@ namespace StateMachine
     {
         //vars
         public string name;
-        private Layer[] layers;
+        private List<Layer> layers = new List<Layer>();
         private MachineExecutionType executionType { get; set; }
         private MachineExecutionOrder machineExecutionOrder { get; set; }
         private TimeSpan executionTimeSpan { get; set; }
@@ -43,7 +44,7 @@ namespace StateMachine
         //Constructors
         public StateMachine()
         {
-
+            layers.Add(new Layer("DEFAULT"));
         }
 
         public StateMachine(params IStateMachineEventMethods[] methods)
@@ -117,7 +118,17 @@ namespace StateMachine
 
         public Layer AddLayer(string iD, params State[] states)
         {
-            throw new NotImplementedException();
+            string TrimediD = iD.Trim();
+            if (TrimediD == "")
+                throw new Exception("The ID is not valid!");
+            if (layers.Find(layerTofind => layerTofind.iD == iD) != null)
+                throw new Exception(string.Format("The layer with this ID = {0} Exists.", iD));
+            if (states == null)
+                throw new Exception(string.Format("The layer's states can't be null", iD));
+
+            Layer layer = new Layer(TrimediD.ToString(), states);
+            layers.Add(layer);
+            return layer;
         }
 
         public Layer AddLayer(string iD, int index, params State[] states)
@@ -125,7 +136,7 @@ namespace StateMachine
             throw new NotImplementedException();
         }
 
-        public Layer AddLayer(string iD, InListLocation LocationToAdd, params State[] states)
+        public Layer AddLayer(string iD, InListLocation LocationToAdd, params State[] states)//DONE
         {
             throw new NotImplementedException();
         }
@@ -135,7 +146,7 @@ namespace StateMachine
             throw new NotImplementedException();
         }
 
-        public bool HasLayer(Layer layerToCheck)
+        public bool HasLayer(Layer layerToCheck)//ERROR --> Ambiguity 
         {
             throw new NotImplementedException();
         }
@@ -152,20 +163,20 @@ namespace StateMachine
 
         public Layer GetFirstLayer()
         {
-            throw new NotImplementedException();
-        }
+            return layers[0];
+        }//DONE
 
         public Layer GetLastLayer()
         {
-            throw new NotImplementedException();
-        }
+            return layers[layers.Count - 1];
+        }//DONE
 
         public int GetLayersListCount()
         {
-            throw new NotImplementedException();
-        }
+            return layers.Count;
+        }//DONE
 
-        public Layer[] GetLayers(Predicate<Layer> layerCheckerMethod)
+        Layer[] IStateMachineLayerGetters.GetLayers(Predicate<Layer> layerCheckerMethod)
         {
             throw new NotImplementedException();
         }
@@ -199,11 +210,12 @@ namespace StateMachine
         {
             throw new NotImplementedException();
         }
-
-        public void MoveLayer(InListLocation layerTargetLocation, int targetIndex)
+        //ASK OMID
+        public void MoveLayer(InListLocation layerSourceLocation, int targetIndex)
         {
             throw new NotImplementedException();
         }
+
 
         public void MoveLayer(InListLocation layerSourceLocation, InListLocation layerTargetLocation)
         {
@@ -389,5 +401,7 @@ namespace StateMachine
         {
             throw new NotImplementedException();
         }
+
+
     }
 }

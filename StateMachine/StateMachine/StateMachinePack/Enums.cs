@@ -1,4 +1,4 @@
-﻿namespace StateMachine
+﻿namespace StateMachinePack
 {
     public enum InListLocation
     {

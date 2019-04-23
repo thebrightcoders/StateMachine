@@ -1,7 +1,8 @@
-﻿using StateMachine;
+﻿using StateMachinePack;
 using System;
+using System.Collections.Generic;
 
-namespace StateMachine.StateMachineInterfaces.StateMachineLayerControllerInterfaces
+namespace StateMachinePack.StateMachineInterfaces.StateMachineLayerControllerInterfaces
 {
     public interface IStateMachineLayerGetters
     {

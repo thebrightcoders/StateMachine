@@ -1,4 +1,4 @@
-﻿namespace StateMachine.StateMachineInterfaces.StateMachineStateControllerInterfaces
+﻿namespace StateMachinePack.StateMachineInterfaces.StateMachineStateControllerInterfaces
 {
     public interface IStateMachineStateMethods :
         IStateMachineStateAdders,

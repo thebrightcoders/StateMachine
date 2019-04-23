@@ -1,4 +1,4 @@
-﻿namespace StateMachine.StateMachineInterfaces
+﻿namespace StateMachinePack.StateMachineInterfaces
 {
     public interface IStateMachineEventMethods
     {

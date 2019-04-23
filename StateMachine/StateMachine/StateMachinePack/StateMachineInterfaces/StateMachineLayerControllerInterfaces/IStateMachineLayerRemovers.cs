@@ -1,7 +1,7 @@
-﻿using StateMachine;
+﻿using StateMachinePack;
 using System;
 
-namespace StateMachine.StateMachineInterfaces.StateMachineLayerControllerInterfaces
+namespace StateMachinePack.StateMachineInterfaces.StateMachineLayerControllerInterfaces
 {
     public interface IStateMachineLayerRemovers
     {

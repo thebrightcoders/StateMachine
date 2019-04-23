@@ -1,7 +1,7 @@
-﻿using StateMachine;
+﻿using StateMachinePack;
 using System;
 
-namespace StateMachine.StateMachineInterfaces.StateMachineStateControllerInterfaces
+namespace StateMachinePack.StateMachineInterfaces.StateMachineStateControllerInterfaces
 {
     public interface IStateMachineStateGetters
     {
