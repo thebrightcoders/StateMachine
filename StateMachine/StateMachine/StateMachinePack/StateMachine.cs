@@ -366,22 +366,32 @@ namespace StateMachinePack
 
         public void RemoveLayer(Layer layerToRemove)
         {
-            throw new NotImplementedException();
+            if (layerToRemove == null)
+                throw new Exception("LayerToRemove is null");
+            if(layers.Find(layer=>layer == layerToRemove) == null)
+                throw new Exception("LayerToRemove is not found! 404 ;)");
+            layers.Remove(layerToRemove);
         }
 
         public void RemoveLayer(int index)
         {
-            throw new NotImplementedException();
+            RemoveLayer(GetLayer(index));
         }
 
         public void RemoveLayer(InListLocation layerTargetLocation)
         {
-            throw new NotImplementedException();
+            RemoveLayer(layerTargetLocation == InListLocation.First ? 0 : layers.Count - 1);
         }
 
         public void RemoveLayers(Predicate<Layer> layerCheckerMethod)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < layers.Count; i++)
+            {
+                if (layerCheckerMethod(layers[i]))
+                {
+                    layers.Remove(layers[i]);
+                }
+            }
         }
 
         public State AddState(string iD, StateTransitionType stateTransitionType)
