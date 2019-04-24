@@ -24,7 +24,16 @@ namespace StateMachinePack
             else
                 this.states = new List<State>(states);
 
-            this.startUpState = states.Length <= 0 ? new State(STARTSTATE) : states[0];
+            if (states.Length <= 0)
+            {
+                State state = new State(STARTSTATE);
+                this.states.Add(state);
+                this.startUpState = state;
+            }
+            else
+            {
+                this.startUpState = states[0];
+            }
         }
 
         public Layer()
