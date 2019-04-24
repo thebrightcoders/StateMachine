@@ -64,7 +64,7 @@ namespace StateMachinePack.Tests
         public void AddLayer3paramIndexOutOfRangeLayerTest()
         {
             StateMachine stateMachine = new StateMachine();
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => stateMachine.AddLayer("Ali3", 15, null));
+            Assert.IsNotNull(stateMachine.AddLayer("Ali3", 15, null));
         }
         [TestMethod]
         public void AddLayer3paramInListLocationLayerTest()
@@ -138,6 +138,12 @@ namespace StateMachinePack.Tests
             StateMachine stateMachine = new StateMachine();
             Assert.ThrowsException<Exception>(() => stateMachine.GetLayer("!#$!#$"));
         }
-
+        [TestMethod]
+        public void GetLayerByIndexOutOfRange()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.ThrowsException<Exception>(() => stateMachine.GetLayer(324));
+        }
+        
     }
 }

@@ -7,6 +7,7 @@ namespace StateMachinePack.StateMachineInterfaces.StateMachineLayerControllerInt
     public interface IStateMachineLayerGetters
     {
         Layer GetLayer(string iD);
+        Layer GetLayer(int index);
         Layer GetLayer(InListLocation layerLocation);
         Layer GetFirstLayer();
         Layer GetLastLayer();

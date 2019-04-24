@@ -49,7 +49,7 @@ namespace StateMachinePack
                     return true;
                 }
 
-                return true;
+                return false;
             }
             throw new Exception("The passed List Object is empty");
         }
