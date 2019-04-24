@@ -1,9 +1,13 @@
-﻿namespace StateMachinePack
+﻿using StateMachinePack.LayerInterfaces;
+using System.Collections.Generic;
+
+namespace StateMachinePack
 {
-    public class Layer
+    public class Layer : ILayerStateMethods
     {
+        private const string STARTSTATE = "StartState";
         internal string iD { get; set; }
-        internal State[] states { get; set; }
+        internal List<State> states { get; set; }
         private StateMachine machine { get; set; }
         internal Transition[] transitions { get; set; }
         internal State previousState { get; set; }
@@ -15,9 +19,41 @@
         public Layer(string iD, params State[] states)
         {
             this.iD = iD;
-            this.states = states;
+            if (states == null)
+                this.states = new List<State>();
+            else
+                this.states = new List<State>(states);
 
+            this.startUpState = states.Length <= 0 ? new State(STARTSTATE) : states[0];
         }
 
+        public Layer()
+        {
+            states = new List<State>(); ;
+            this.iD = "DEFAULT";
+            State startUpState = new State(STARTSTATE);
+            this.startUpState = startUpState;
+            this.states.Add(startUpState);
+        }
+
+        public State AddState(string iD, bool isLoop, StateTransitionType stateTransitionType)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public State GetState(string iD)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool HasState(string iD)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void RemoveState(State state)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

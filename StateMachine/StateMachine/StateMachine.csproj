@@ -51,6 +51,7 @@
     <Compile Include="StateMachinePack\Enums.cs" />
     <Compile Include="StateMachinePack\IState.cs" />
     <Compile Include="StateMachinePack\Layer.cs" />
+    <Compile Include="StateMachinePack\LayerInterfaces\ILayerStateMethods.cs" />
     <Compile Include="StateMachinePack\State.cs" />
     <Compile Include="StateMachinePack\StateInfo.cs" />
     <Compile Include="StateMachinePack\StateMachine.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineStateControllerInterfaces\IStateMachineStateMethods.cs" />
     <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineStateControllerInterfaces\IStateMachineStateRemovers.cs" />
     <Compile Include="StateMachinePack\Transition.cs" />
+    <Compile Include="StateMachinePack\Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using StateMachinePack.StateMachineInterfaces;
 using StateMachinePack.StateMachineInterfaces.StateMachineLayerControllerInterfaces;
 using StateMachinePack.StateMachineInterfaces.StateMachineStateControllerInterfaces;
@@ -24,6 +25,7 @@ namespace StateMachinePack
         private bool isRunning { get; set; }
         private bool isPaused { get; set; }
 
+        private Validator validator;
         //function pointers
         protected event StateMachineEvent OnMachineStart;
         protected event StateMachineEvent OnMachineUpdate;
@@ -44,21 +46,23 @@ namespace StateMachinePack
         //Constructors
         public StateMachine()
         {
-            layers.Add(new Layer("DEFAULT"));
+            this.validator = new Validator();
+            layers.Add(new Layer());
         }
 
         public StateMachine(params IStateMachineEventMethods[] methods)
         {
+            this.validator = new Validator();
         }
 
         public StateMachine(MachineMethodType methodType, params StateMachineEvent[] methods)
         {
-
+            this.validator = new Validator();
         }
 
         public StateMachine(MachineMethodType[] methodType, params StateMachineEvent[] methods)
         {
-
+            this.validator = new Validator();
         }
         //functions
         public void AddMachineEventMethod(IStateMachineEventMethods methods)
@@ -119,12 +123,12 @@ namespace StateMachinePack
         public Layer AddLayer(string iD, params State[] states)
         {
             string TrimediD = iD.Trim();
-            if (TrimediD == "")
-                throw new Exception("The ID is not valid!");
+            if (validator.isStringEmpty(TrimediD))
+                throw new Exception("The ID can't be empty!");
+            if (!validator.isValidString(TrimediD))
+                throw new Exception("The Id is not valid!");
             if (layers.Find(layerTofind => layerTofind.iD == TrimediD) != null)
                 throw new Exception(string.Format("The Layer With ID = {0} Already Exists.", TrimediD));
-            if (states == null)
-                throw new Exception(string.Format("The Layer's States Can't Be null", TrimediD));
 
             Layer layer = new Layer(TrimediD.ToString(), states);
             layers.Add(layer);
@@ -401,6 +405,7 @@ namespace StateMachinePack
         {
             throw new NotImplementedException();
         }
+
 
 
     }
