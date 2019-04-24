@@ -30,6 +30,12 @@ namespace StateMachinePack.Tests
             Assert.ThrowsException<Exception>(() => stateMachine.AddLayer("          DEFAULT           "));
         }
         [TestMethod]
+        public void AddLayer2paramsWithInvalidIDLayerTest()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.ThrowsException<Exception>(() => stateMachine.AddLayer("ALidaf@!$!$#"));
+        }
+        [TestMethod]
         public void AddLayer3paramsDefaultWithSpacesLayerTest()
         {
             StateMachine stateMachine = new StateMachine();
@@ -49,10 +55,40 @@ namespace StateMachinePack.Tests
             Assert.IsNotNull(stateMachine.AddLayer("Ali2", 1, null));
         }
         [TestMethod]
+        public void AddLayer3paramsWithInvalidIDLayerTest()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.ThrowsException<Exception>(() => stateMachine.AddLayer("ALidaf@!$!$#"));
+        }
+        [TestMethod]
         public void AddLayer3paramIndexOutOfRangeLayerTest()
         {
             StateMachine stateMachine = new StateMachine();
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => stateMachine.AddLayer("Ali3", 15, null));
+        }
+        [TestMethod]
+        public void AddLayer3paramInListLocationLayerTest()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.IsNotNull(stateMachine.AddLayer("Ali2", InListLocation.Last, null));
+        }
+        [TestMethod]
+        public void AddLayer3paramInListLocationWithNullIdLayerTest()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.ThrowsException<Exception>(() => stateMachine.AddLayer(null, InListLocation.Last, null));
+        }
+        [TestMethod]
+        public void AddLayer3paramInListLocationWithDefaultIdIdLayerTest()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.ThrowsException<Exception>(() => stateMachine.AddLayer("DEFAULT", InListLocation.Last, null));
+        }
+        [TestMethod]
+        public void AddLayer3paramInListLocationWithInvalidIDLayerTest()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.ThrowsException<Exception>(() => stateMachine.AddLayer("ALidaf?>?\\@!$!$#"));
         }
     }
 }
