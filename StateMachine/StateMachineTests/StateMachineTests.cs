@@ -17,7 +17,12 @@ namespace StateMachinePack.Tests
             StateMachine stateMachine = new StateMachine();
             Assert.ThrowsException<Exception>(() => stateMachine.AddLayer("DEFAULT"));
         }
-
+        [TestMethod()]
+        public void AddLayer2paramsNullIDLayerTest()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.ThrowsException<Exception>(() => stateMachine.AddLayer(null));
+        }
         [TestMethod]
         public void AddLayer2paramsDefaultWithSpacesLayerTest()
         {

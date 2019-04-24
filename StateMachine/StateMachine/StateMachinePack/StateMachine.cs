@@ -122,6 +122,8 @@ namespace StateMachinePack
 
         public Layer AddLayer(string iD, params State[] states)
         {
+            if (validator.isNullString(iD))
+                throw new Exception("The iD is 'NULL'!!");
             string TrimediD = iD.Trim();
             if (validator.isStringEmpty(TrimediD))
                 throw new Exception("The ID can't be empty!");
@@ -130,14 +132,29 @@ namespace StateMachinePack
             if (layers.Find(layerTofind => layerTofind.iD == TrimediD) != null)
                 throw new Exception(string.Format("The Layer With ID = {0} Already Exists.", TrimediD));
 
-            Layer layer = new Layer(TrimediD.ToString(), states);
+            Layer layer = new Layer(TrimediD, states);
             layers.Add(layer);
             return layer;
         }
 
         public Layer AddLayer(string iD, int index, params State[] states)
         {
-            throw new NotImplementedException();
+
+            if (validator.isNullString(iD))
+                throw new Exception("The iD is 'NULL'!!");
+            string TrimediD = iD.Trim();
+            if (validator.isStringEmpty(TrimediD))
+                throw new Exception("The ID can't be empty!");
+            if (!validator.isValidString(TrimediD))
+                throw new Exception("The Id is not valid!");
+            if (layers.Find(layerTofind => layerTofind.iD == TrimediD) != null)
+                throw new Exception(string.Format("The Layer With ID = {0} Already Exists.", TrimediD));
+            if (!validator.isValidIndexInLayersList(index, layers))
+                throw new Exception(string.Format("The index = {0} is not valid!", index));
+
+            Layer layer = new Layer(TrimediD, states);
+            layers.Insert(index, layer);
+            return layer;
         }
 
         public Layer AddLayer(string iD, InListLocation LocationToAdd, params State[] states)//DONE

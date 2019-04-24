@@ -15,7 +15,7 @@ namespace StateMachinePack
         {
             ValidCharsList = new List<char>(rawString.ToCharArray());
         }
-     
+
         public bool isStringEmpty(string rawString)
         {
             return rawString.Trim() == "";
@@ -39,5 +39,25 @@ namespace StateMachinePack
             }
             return true;
         }
+
+        public bool isValidIndexInLayersList(int index, List<Layer> list)
+        {
+            if (list != null) 
+            {
+                if (index >= 0 && index < list.Count)
+                {
+                    return true;
+                }
+
+                return true;
+            }
+            throw new Exception("The passed List Object is empty");
+        }
+
+        public bool isNullString(string rawString)
+        {
+            return rawString == null;
+        }
+
     }
 }
