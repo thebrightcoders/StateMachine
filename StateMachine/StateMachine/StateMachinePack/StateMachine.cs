@@ -121,10 +121,10 @@ namespace StateMachinePack
             string TrimediD = iD.Trim();
             if (TrimediD == "")
                 throw new Exception("The ID is not valid!");
-            if (layers.Find(layerTofind => layerTofind.iD == iD) != null)
-                throw new Exception(string.Format("The layer with this ID = {0} Exists.", iD));
+            if (layers.Find(layerTofind => layerTofind.iD == TrimediD) != null)
+                throw new Exception(string.Format("The Layer With ID = {0} Already Exists.", TrimediD));
             if (states == null)
-                throw new Exception(string.Format("The layer's states can't be null", iD));
+                throw new Exception(string.Format("The Layer's States Can't Be null", TrimediD));
 
             Layer layer = new Layer(TrimediD.ToString(), states);
             layers.Add(layer);
