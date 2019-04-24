@@ -29,7 +29,30 @@ namespace StateMachinePack.Tests
             StateMachine stateMachine = new StateMachine();
             Assert.ThrowsException<Exception>(() => stateMachine.AddLayer("          DEFAULT           "));
         }
-
-      
+        [TestMethod]
+        public void AddLayer3paramsDefaultWithSpacesLayerTest()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.ThrowsException<Exception>(() => stateMachine.AddLayer("          DEFAULT           ",1,null));
+        }
+        [TestMethod]
+        public void AddLayer3paramsDefaultLayerTest()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.ThrowsException<Exception>(() => stateMachine.AddLayer("DEFAULT", 1, null));
+        }
+     
+        [TestMethod]
+        public void AddLayer3paramLayerTest()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.IsNotNull(stateMachine.AddLayer("Ali2", 1, null));
+        }
+        [TestMethod]
+        public void AddLayer3paramIndexOutOfRangeLayerTest()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => stateMachine.AddLayer("Ali3", 15, null));
+        }
     }
 }

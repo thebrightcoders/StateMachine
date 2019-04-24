@@ -24,7 +24,7 @@ namespace StateMachinePack
             else
                 this.states = new List<State>(states);
 
-            if (states.Length <= 0)
+            if (this.states.Count <= 0)
             {
                 State state = new State(STARTSTATE);
                 this.states.Add(state);

@@ -159,7 +159,23 @@ namespace StateMachinePack
 
         public Layer AddLayer(string iD, InListLocation LocationToAdd, params State[] states)//DONE
         {
-            throw new NotImplementedException();
+            if (validator.isNullString(iD))
+                throw new Exception("The iD is 'NULL'!!");
+            string TrimediD = iD.Trim();
+            if (validator.isStringEmpty(TrimediD))
+                throw new Exception("The ID can't be empty!");
+            if (!validator.isValidString(TrimediD))
+                throw new Exception("The Id is not valid!");
+            if (layers.Find(layerTofind => layerTofind.iD == TrimediD) != null)
+                throw new Exception(string.Format("The Layer With ID = {0} Already Exists.", TrimediD));
+            Layer layer = new Layer(TrimediD, states);
+
+            if (LocationToAdd == InListLocation.First)
+                layers.Insert(0, layer);
+            else if (LocationToAdd == InListLocation.Last)
+                layers.Add(layer);
+
+            return layer;
         }
 
         public bool HasLayer(string iD)
