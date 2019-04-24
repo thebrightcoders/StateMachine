@@ -306,58 +306,62 @@ namespace StateMachinePack
 
         public void MoveLayer(string iD, InListLocation layerTargetLocation)
         {
-            throw new NotImplementedException();
+            MoveLayer(GetLayer(iD), layerTargetLocation == InListLocation.First ? 0 : layers.Count - 1);
         }
 
         public void MoveLayer(int sourceIndex, int targetIndex)
         {
-            throw new NotImplementedException();
+            MoveLayer(GetLayer(sourceIndex), targetIndex);
         }
 
         public void MoveLayer(int sourceIndex, InListLocation layerTargetLocation)
         {
-            throw new NotImplementedException();
+            MoveLayer(GetLayer(sourceIndex), layerTargetLocation == InListLocation.First ? 0 : layers.Count - 1);
         }
         //ASK OMID
         public void MoveLayer(InListLocation layerSourceLocation, int targetIndex)
         {
-            throw new NotImplementedException();
+
+            MoveLayer(layerSourceLocation == InListLocation.First ? 0 : layers.Count - 1, targetIndex);
         }
 
 
         public void MoveLayer(InListLocation layerSourceLocation, InListLocation layerTargetLocation)
         {
-            throw new NotImplementedException();
+            MoveLayer(
+                layerSourceLocation == InListLocation.First ? 0 : layers.Count - 1,
+                layerTargetLocation == InListLocation.First ? 0 : layers.Count - 1
+                );
         }
 
         public void MoveLayerToFirst(Layer layerToMove)
         {
-            throw new NotImplementedException();
+            MoveLayer(layerToMove, 0);
         }
 
         public void MoveLayerToFirst(string iD)
         {
-            throw new NotImplementedException();
+            MoveLayer(iD, 0);
         }
 
         public void MoveLayerToFirst(int sourceIndex)
         {
-            throw new NotImplementedException();
+            MoveLayer(0, 0);
         }
 
         public void MoveLayerToLast(Layer layerToMove)
         {
-            throw new NotImplementedException();
+            MoveLayer(layerToMove, InListLocation.Last);
         }
 
         public void MoveLayerToLast(string iD)
         {
-            throw new NotImplementedException();
+            MoveLayer(iD, InListLocation.Last);
         }
 
         public void MoveLayerToLast(int sourceIndex)
         {
-            throw new NotImplementedException();
+            MoveLayer(sourceIndex, InListLocation.Last);
         }
 
         public void RemoveLayer(Layer layerToRemove)
