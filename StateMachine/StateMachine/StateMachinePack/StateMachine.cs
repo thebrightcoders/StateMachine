@@ -178,24 +178,42 @@ namespace StateMachinePack
             return layer;
         }
 
-        public bool HasLayer(string iD)
+        public bool HasLayerById(string iD)
         {
-            throw new NotImplementedException();
+            if (validator.isNullString(iD))
+                throw new Exception("The iD is 'NULL'!!");
+            string TrimediD = iD.Trim();
+            if (validator.isStringEmpty(TrimediD))
+                throw new Exception("The ID can't be empty!");
+            if (!validator.isValidString(TrimediD))
+                throw new Exception("The Id is not valid!");
+            return layers.Find(layerTofind => layerTofind.iD == TrimediD) != null;
         }
 
-        public bool HasLayer(Layer layerToCheck)//ERROR --> Ambiguity 
+        public bool HasLayerByLayer(Layer layerToCheck)
         {
-            throw new NotImplementedException();
+            if (layerToCheck == null)
+                throw new Exception("The layerTocheck is null");
+            return layers.Find(layerTofind => layerTofind == layerToCheck) != null;
         }
 
         public Layer GetLayer(string iD)
         {
-            throw new NotImplementedException();
+            if (validator.isNullString(iD))
+                throw new Exception("The iD is 'NULL'!!");
+            string TrimediD = iD.Trim();
+            if (validator.isStringEmpty(TrimediD))
+                throw new Exception("The ID can't be empty!");
+            if (!validator.isValidString(TrimediD))
+                throw new Exception("The Id is not valid!");
+            return layers.Find(layerTofind => layerTofind.iD == TrimediD);
         }
 
         public Layer GetLayer(InListLocation layerLocation)
         {
-            throw new NotImplementedException();
+            return layerLocation == InListLocation.First ?
+                layers[0] :
+                layers[layers.Count - 1];
         }
 
         public Layer GetFirstLayer()
@@ -210,7 +228,7 @@ namespace StateMachinePack
 
         public int GetLayersListCount()
         {
-            return layers.Count;
+            return layers == null ? 0 : layers.Count;
         }//DONE
 
         Layer[] IStateMachineLayerGetters.GetLayers(Predicate<Layer> layerCheckerMethod)

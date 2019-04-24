@@ -39,7 +39,7 @@ namespace StateMachinePack.Tests
         public void AddLayer3paramsDefaultWithSpacesLayerTest()
         {
             StateMachine stateMachine = new StateMachine();
-            Assert.ThrowsException<Exception>(() => stateMachine.AddLayer("          DEFAULT           ",1,null));
+            Assert.ThrowsException<Exception>(() => stateMachine.AddLayer("          DEFAULT           ", 1, null));
         }
         [TestMethod]
         public void AddLayer3paramsDefaultLayerTest()
@@ -47,7 +47,7 @@ namespace StateMachinePack.Tests
             StateMachine stateMachine = new StateMachine();
             Assert.ThrowsException<Exception>(() => stateMachine.AddLayer("DEFAULT", 1, null));
         }
-     
+
         [TestMethod]
         public void AddLayer3paramLayerTest()
         {
@@ -90,5 +90,54 @@ namespace StateMachinePack.Tests
             StateMachine stateMachine = new StateMachine();
             Assert.ThrowsException<Exception>(() => stateMachine.AddLayer("ALidaf?>?\\@!$!$#"));
         }
+        [TestMethod]
+        public void HasLayerById()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.IsTrue(stateMachine.HasLayerById("DEFAULT"));
+        }
+        [TestMethod]
+        public void HasLayerByIdWithInvalidId()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.ThrowsException<Exception>(() => stateMachine.HasLayerById("ALidaf?>?\\@!$!$#"));
+        }
+        [TestMethod]
+        public void HasLayerByIdWithNullId()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.ThrowsException<Exception>(() => stateMachine.HasLayerById(null));
+        }
+        [TestMethod]
+        public void HasLayerByLayer()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.IsNotNull(stateMachine.HasLayerByLayer(new Layer("DEFAULT")));
+        }
+        [TestMethod]
+        public void HasLayerByLayerWithNullLayer()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.ThrowsException<Exception>(() => stateMachine.HasLayerByLayer(null));
+        }
+        [TestMethod]
+        public void GetLayer()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.IsNotNull(stateMachine.GetLayer("DEFAULT"));
+        }
+        [TestMethod]
+        public void GetLayerWithNullId()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.ThrowsException<Exception>(() => stateMachine.GetLayer(null));
+        }
+        [TestMethod]
+        public void GetLayerWithInvalidId()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.ThrowsException<Exception>(() => stateMachine.GetLayer("!#$!#$"));
+        }
+
     }
 }

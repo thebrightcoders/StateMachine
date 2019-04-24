@@ -2,8 +2,8 @@
 {
     public interface IStateMachineLayerCheckers
     {
-        bool HasLayer(string iD);
-        bool HasLayer(Layer layerToCheck);
+        bool HasLayerById(string iD);
+        bool HasLayerByLayer(Layer layerToCheck);
 
     }
 }
