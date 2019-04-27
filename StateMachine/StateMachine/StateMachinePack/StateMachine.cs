@@ -25,7 +25,6 @@ namespace StateMachinePack
         private bool isRunning { get; set; }
         private bool isPaused { get; set; }
 
-        private Validator validator;
         //function pointers
         protected event StateMachineEvent OnMachineStart;
         protected event StateMachineEvent OnMachineUpdate;
@@ -46,24 +45,24 @@ namespace StateMachinePack
         //Constructors
         public StateMachine()
         {
-            this.validator = new Validator();
             layers.Add(new Layer());
         }
 
         public StateMachine(params IStateMachineEventMethods[] methods)
         {
-            this.validator = new Validator();
+
         }
 
         public StateMachine(MachineMethodType methodType, params StateMachineEvent[] methods)
         {
-            this.validator = new Validator();
+            
         }
 
         public StateMachine(MachineMethodType[] methodType, params StateMachineEvent[] methods)
         {
-            this.validator = new Validator();
+            
         }
+        
         //functions
         public void AddMachineEventMethod(IStateMachineEventMethods methods)
         {
@@ -122,12 +121,12 @@ namespace StateMachinePack
 
         public Layer AddLayer(string iD, params State[] states)
         {
-            if (validator.isNullString(iD))
+            if (Validator.IsNullString(iD))
                 throw new Exception("The iD is 'NULL'!!");
             string TrimediD = iD.Trim();
-            if (validator.isStringEmpty(TrimediD))
+            if (Validator.IsStringEmpty(TrimediD))
                 throw new Exception("The ID can't be empty!");
-            if (!validator.isValidString(TrimediD))
+            if (!Validator.IsValidString(TrimediD))
                 throw new Exception("The Id is not valid!");
             if (layers.Find(layerTofind => layerTofind.iD == TrimediD) != null)
                 throw new Exception(string.Format("The Layer With ID = {0} Already Exists.", TrimediD));
@@ -140,16 +139,16 @@ namespace StateMachinePack
         public Layer AddLayer(string iD, int index, params State[] states)
         {
 
-            if (validator.isNullString(iD))
+            if (Validator.IsNullString(iD))
                 throw new Exception("The iD is 'NULL'!!");
             string TrimediD = iD.Trim();
-            if (validator.isStringEmpty(TrimediD))
+            if (Validator.IsStringEmpty(TrimediD))
                 throw new Exception("The ID can't be empty!");
-            if (!validator.isValidString(TrimediD))
+            if (!Validator.IsValidString(TrimediD))
                 throw new Exception("The Id is not valid!");
             if (layers.Find(layerTofind => layerTofind.iD == TrimediD) != null)
                 throw new Exception(string.Format("The Layer With ID = {0} Already Exists.", TrimediD));
-            if (!validator.isValidIndexInLayersList(index, layers))
+            if (!Validator.IsValidIndexInLayersList(index, layers))
             {
                 Layer layer = new Layer(TrimediD, states);
                 //                if (states!=null)
@@ -181,12 +180,12 @@ namespace StateMachinePack
 
         public Layer AddLayer(string iD, InListLocation LocationToAdd, params State[] states)//DONE
         {
-            if (validator.isNullString(iD))
+            if (Validator.IsNullString(iD))
                 throw new Exception("The iD is 'NULL'!!");
             string TrimediD = iD.Trim();
-            if (validator.isStringEmpty(TrimediD))
+            if (Validator.IsStringEmpty(TrimediD))
                 throw new Exception("The ID can't be empty!");
-            if (!validator.isValidString(TrimediD))
+            if (!Validator.IsValidString(TrimediD))
                 throw new Exception("The Id is not valid!");
             if (layers.Find(layerTofind => layerTofind.iD == TrimediD) != null)
                 throw new Exception(string.Format("The Layer With ID = {0} Already Exists.", TrimediD));
@@ -203,12 +202,12 @@ namespace StateMachinePack
 
         public bool HasLayerById(string iD)
         {
-            if (validator.isNullString(iD))
+            if (Validator.IsNullString(iD))
                 throw new Exception("The iD is 'NULL'!!");
             string TrimediD = iD.Trim();
-            if (validator.isStringEmpty(TrimediD))
+            if (Validator.IsStringEmpty(TrimediD))
                 throw new Exception("The ID can't be empty!");
-            if (!validator.isValidString(TrimediD))
+            if (!Validator.IsValidString(TrimediD))
                 throw new Exception("The Id is not valid!");
             return layers.Find(layerTofind => layerTofind.iD == TrimediD) != null;
         }
@@ -222,12 +221,12 @@ namespace StateMachinePack
 
         public Layer GetLayer(string iD)
         {
-            if (validator.isNullString(iD))
+            if (Validator.IsNullString(iD))
                 throw new Exception("The iD is 'NULL'!!");
             string TrimediD = iD.Trim();
-            if (validator.isStringEmpty(TrimediD))
+            if (Validator.IsStringEmpty(TrimediD))
                 throw new Exception("The ID can't be empty!");
-            if (!validator.isValidString(TrimediD))
+            if (!Validator.IsValidString(TrimediD))
                 throw new Exception("The Id is not valid!");
             Layer layer = layers.Find(layerTofind => layerTofind.iD == TrimediD);
             if (layer != null)
@@ -244,7 +243,7 @@ namespace StateMachinePack
 
         public Layer GetLayer(int index)
         {
-            if (validator.isValidIndexInLayersList(index, layers))
+            if (Validator.IsValidIndexInLayersList(index, layers))
             {
                 return layers[index];
             }
@@ -282,7 +281,7 @@ namespace StateMachinePack
         {
             if (layerToMove == null)
                 throw new Exception("The layer to move is null!");
-            if (!validator.isValidIndexInLayersList(targetIndex, layers))
+            if (!Validator.IsValidIndexInLayersList(targetIndex, layers))
                 throw new Exception(string.Format("The targetIndex {0} is OutOfRange", targetIndex));
 
             int sourceIndex = layers.FindIndex(layerTofind => layerTofind == layerToMove);
@@ -318,7 +317,7 @@ namespace StateMachinePack
         {
             MoveLayer(GetLayer(sourceIndex), layerTargetLocation == InListLocation.First ? 0 : layers.Count - 1);
         }
-        //ASK OMID
+
         public void MoveLayer(InListLocation layerSourceLocation, int targetIndex)
         {
 

@@ -3,25 +3,27 @@ using System.Collections.Generic;
 
 namespace StateMachinePack
 {
-    public class Validator
+    public static class Validator
     {
         private const string VALID_CHARS = "1234567890_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
         private static List<char> ValidCharsList;
-        public Validator()
+
+        static Validator()
         {
-            stringToChar(VALID_CHARS);
+            StringToChar(VALID_CHARS);
         }
-        private void stringToChar(string rawString)
+
+        private static void StringToChar(string rawString)
         {
             ValidCharsList = new List<char>(rawString.ToCharArray());
         }
 
-        public bool isStringEmpty(string rawString)
+        public static bool IsStringEmpty(string rawString)
         {
             return rawString.Trim() == "";
         }
 
-        public bool isValidString(string rawString)
+        public static bool IsValidString(string rawString)
         {
             char[] rawStringChars = new char[rawString.Length];
             if (rawString != null)
@@ -31,7 +33,6 @@ namespace StateMachinePack
                 for (int i = 0; i < rawString.Length; i++)
                 {
                     if (!ValidCharsList.Contains(rawStringChars[i]))
-
                     {
                         return false;
                     }
@@ -40,7 +41,7 @@ namespace StateMachinePack
             return true;
         }
 
-        public bool isValidIndexInLayersList(int index, List<Layer> list)
+        public static bool IsValidIndexInLayersList(int index, List<Layer> list)
         {
             if (list != null) 
             {
@@ -54,7 +55,7 @@ namespace StateMachinePack
             throw new Exception("The passed List Object is empty");
         }
 
-        public bool isNullString(string rawString)
+        public static bool IsNullString(string rawString)
         {
             return rawString == null;
         }
