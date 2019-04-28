@@ -51,7 +51,26 @@
     <Compile Include="StateMachinePack\Enums.cs" />
     <Compile Include="StateMachinePack\IState.cs" />
     <Compile Include="StateMachinePack\Layer.cs" />
+    <Compile Include="StateMachinePack\LayerInterfaces\ILayerConditionMethods.cs" />
+    <Compile Include="StateMachinePack\LayerInterfaces\ILayerSubStateMachineMethods.cs" />
+    <Compile Include="StateMachinePack\LayerInterfaces\ILayerTransitionMethods.cs" />
     <Compile Include="StateMachinePack\LayerInterfaces\ILayerStateMethods.cs" />
+    <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineConditionInterfaces\IStateMachineSubStateMachineAdders.cs" />
+    <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineConditionInterfaces\IStateMachineSubStateMachineCheckers.cs" />
+    <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineConditionInterfaces\IStateMachineSubStateMachineGetters.cs" />
+    <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineConditionInterfaces\IStateMachineSubStateMachineMethods.cs" />
+    <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineConditionInterfaces\IStateMachineSubStateMachineRemovers.cs" />
+    <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineSubStateMachineControllerInterfaces\IStateMachineSubStateMachineAdders.cs" />
+    <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineSubStateMachineControllerInterfaces\IStateMachineSubStateMachineCheckers.cs" />
+    <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineSubStateMachineControllerInterfaces\IStateMachineSubStateMachineGetters.cs" />
+    <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineSubStateMachineControllerInterfaces\IStateMachineSubStateMachineMethods.cs" />
+    <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineSubStateMachineControllerInterfaces\IStateMachineSubStateMachineRemovers.cs" />
+    <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineTransitionControllerInterfaces\IStateMachineTransitionAdders.cs" />
+    <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineTransitionControllerInterfaces\IStateMachineTransitionCheckers.cs" />
+    <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineTransitionControllerInterfaces\IStateMachineTransitionGetters.cs" />
+    <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineTransitionControllerInterfaces\IStateMachineTransitionMethods.cs" />
+    <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineTransitionControllerInterfaces\IStateMachineTransitionRemovers.cs" />
+    <Compile Include="StateMachinePack\SubStateMachine.cs" />
     <Compile Include="StateMachinePack\State.cs" />
     <Compile Include="StateMachinePack\StateInfo.cs" />
     <Compile Include="StateMachinePack\StateMachine.cs" />
@@ -75,5 +94,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

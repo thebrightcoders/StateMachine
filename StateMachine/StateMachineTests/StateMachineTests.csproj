@@ -56,6 +56,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="StateMachineAddSubStateMachineTests.cs" />
     <Compile Include="StateMachineGetLayerTests.cs" />
     <Compile Include="StateMachineHasLayerTests.cs" />
     <Compile Include="StateMachineAddLayerTests.cs" />
