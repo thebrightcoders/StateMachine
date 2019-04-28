@@ -55,14 +55,14 @@ namespace StateMachinePack
 
         public StateMachine(MachineMethodType methodType, params StateMachineEvent[] methods)
         {
-            
+
         }
 
         public StateMachine(MachineMethodType[] methodType, params StateMachineEvent[] methods)
         {
-            
+
         }
-        
+
         //functions
         public void AddMachineEventMethod(IStateMachineEventMethods methods)
         {
@@ -296,6 +296,7 @@ namespace StateMachinePack
         public void MoveLayer(Layer layerToMove, InListLocation layerTargetLocation)
         {
             MoveLayer(layerToMove, layerTargetLocation == InListLocation.First ? 0 : layers.Count - 1);
+
         }
 
         public void MoveLayer(string iD, int targetIndex)
@@ -367,7 +368,7 @@ namespace StateMachinePack
         {
             if (layerToRemove == null)
                 throw new Exception("LayerToRemove is null");
-            if(layers.Find(layer=>layer == layerToRemove) == null)
+            if (layers.Find(layer => layer == layerToRemove) == null)
                 throw new Exception("LayerToRemove is not found! 404 ;)");
             layers.Remove(layerToRemove);
         }

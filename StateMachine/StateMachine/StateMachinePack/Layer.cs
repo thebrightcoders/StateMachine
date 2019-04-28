@@ -1,5 +1,7 @@
 ﻿using StateMachinePack.LayerInterfaces;
+using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace StateMachinePack
 {
@@ -7,7 +9,7 @@ namespace StateMachinePack
     {
         private const string STARTSTATE = "StartState";
         internal string iD { get; set; }
-        internal List<State> states { get; set; }
+        internal Dictionary<string, State> states { get; set; }
         private StateMachine machine { get; set; }
         internal Transition[] transitions { get; set; }
         internal State previousState { get; set; }
@@ -20,14 +22,20 @@ namespace StateMachinePack
         {
             this.iD = iD;
             if (states == null)
-                this.states = new List<State>();
+                this.states = new Dictionary<string, State>();
             else
-                this.states = new List<State>(states);
+            {
+                this.states = new Dictionary<string, State>();
+                for (int i = 0; i < states.Length; i++)
+                {
+                    this.states.Add(states[i].GetStateInfo().iD, states[i]);
+                }
+            }
 
             if (this.states.Count <= 0)
             {
                 State state = new State(STARTSTATE);
-                this.states.Add(state);
+                this.states.Add(state.GetStateInfo().iD, state);
                 this.startUpState = state;
             }
             else
@@ -38,21 +46,44 @@ namespace StateMachinePack
 
         public Layer()
         {
-            states = new List<State>(); ;
+            states = new Dictionary<string, State>();
             this.iD = "DEFAULT";
             State startUpState = new State(STARTSTATE);
             this.startUpState = startUpState;
-            this.states.Add(startUpState);
+            this.states.Add(startUpState.GetStateInfo().iD, startUpState);
         }
 
         public State AddState(string iD, bool isLoop, StateTransitionType stateTransitionType)
         {
-            throw new System.NotImplementedException();
+            if (Validator.IsNullString(iD))
+                throw new Exception("The iD is 'NULL'!!");
+            string TrimediD = iD.Trim();
+            if (Validator.IsStringEmpty(TrimediD))
+                throw new Exception("The ID can't be empty!");
+            if (!Validator.IsValidString(TrimediD))
+                throw new Exception("The Id is not valid!");
+            if (states.ContainsKey(TrimediD))
+                throw new Exception(string.Format("The Layer With ID = {0} Already Exists.", TrimediD));
+            State state = new State(TrimediD, isLoop);
+            this.states.Add(state.GetStateInfo().iD, state);
+            //TODO ::: Checking the StateTransitionType is not implemented!
+            return state;
         }
 
         public State GetState(string iD)
         {
-            throw new System.NotImplementedException();
+            if (Validator.IsNullString(iD))
+                throw new Exception("The iD is 'NULL'!!");
+            string TrimediD = iD.Trim();
+            if (Validator.IsStringEmpty(TrimediD))
+                throw new Exception("The ID can't be empty!");
+            if (!Validator.IsValidString(TrimediD))
+                throw new Exception("The Id is not valid!");
+
+            State tempState;
+            this.states.TryGetValue(TrimediD, out tempState);
+
+            return tempState;
         }
 
         public bool HasState(string iD)
