@@ -11,7 +11,7 @@ namespace StateMachinePack.StateMachineInterfaces.StateMachineStateControllerInt
         void RemoveState(string iD, int layerIndex);
         void RemoveState(string iD, Layer layerToRemoveState);
         void RemoveStates(Predicate<State> stateCheckerMethod);
-        void RemoveStates(Predicate<State> stateCheckerMethod, Predicate<State> layerCheckerMethod);
+        void RemoveStates(Predicate<State> stateCheckerMethod, Predicate<Layer> layerCheckerMethod);
 
     }
 }

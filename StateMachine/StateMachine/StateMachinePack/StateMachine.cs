@@ -12,7 +12,7 @@ namespace StateMachinePack
     public delegate void StateEvent(StateInfo stateInfo, StateMachine machine, Layer layer);
     public delegate void Condition();
 
-    public partial class StateMachine :
+    public class StateMachine :
         StateMachineProcessControllers,
         IStateMachineLayerMethods,
         IStateMachineStateMethods
@@ -588,7 +588,7 @@ namespace StateMachinePack
 
         public State[] GetStates(Predicate<State> stateCheckerMethod, Predicate<Layer> layerCheckerMethod)
         {
-            if(stateCheckerMethod == null)
+            if (stateCheckerMethod == null)
                 throw new Exception("The stateCheckerMethod is null");
             if (layerCheckerMethod == null)
                 throw new Exception("The layerCheckerMethod is null");
@@ -621,37 +621,116 @@ namespace StateMachinePack
 
         public void RemoveState(State state)
         {
-            
+            if (state == null)
+                throw new Exception("The state is 'null'");
+            Layer layer = state.GetLayer();
+            if (layer == null)
+                throw new Exception("The state's layer is 'null'");
+            layer.RemoveState(state);
         }
 
         public void RemoveState(string iD, InListLocation stateSelection = InListLocation.First)
         {
-            throw new NotImplementedException();
+            if (Validator.IsNullString(iD))
+                throw new Exception("The iD is 'NULL'!!");
+            string TrimediD = iD.Trim();
+            if (Validator.IsStringEmpty(TrimediD))
+                throw new Exception("The ID can't be empty!");
+            if (!Validator.IsValidString(TrimediD))
+                throw new Exception("The Id is not valid!");
+            List<State> gotStates = new List<State>();
+            for (int i = 0; i < layers.Count; i++)
+            {
+                gotStates.AddRange(
+                    layers[i].states.Values.ToList()
+                        .FindAll(state => state.GetStateInfo().iD == TrimediD));
+
+            }
+
+            State toDeleteState = gotStates[stateSelection == InListLocation.First ? 0 : gotStates.Count - 1];
+            Layer layer = toDeleteState.GetLayer();
+            if (layer == null)
+                throw new Exception("The state's layer is 'null'");
+            layer.RemoveState(toDeleteState);
+
         }
 
         public void RemoveState(string iD, string layerID)
         {
-            throw new NotImplementedException();
+            GetLayer(layerID).RemoveState(GetState(iD));
         }
 
         public void RemoveState(string iD, int layerIndex)
         {
-            throw new NotImplementedException();
+            GetLayer(layerIndex).RemoveState(GetState(iD));
         }
 
         public void RemoveState(string iD, Layer layerToRemoveState)
         {
-            throw new NotImplementedException();
+            layerToRemoveState.RemoveState(GetState(iD));
         }
 
         public void RemoveStates(Predicate<State> stateCheckerMethod)
         {
-            throw new NotImplementedException();
+            if (stateCheckerMethod == null)
+                throw new Exception("The stateCheckerMethod is null");
+            
+            for (int i = 0; i < layers.Count; i++)
+            {
+                List<State> tempStates = layers[i].states.Values.ToList();
+                for (int j = 0; j < tempStates.Count; j++)
+                {
+                    State state = tempStates[i];
+                    if (stateCheckerMethod(state))
+                    {
+                        Layer layer = state.GetLayer();
+                        if (layer == null)
+                            throw new Exception("The state's layer is 'null'");
+                        layer.RemoveState(state);
+                    }
+                }
+            }
         }
 
-        public void RemoveStates(Predicate<State> stateCheckerMethod, Predicate<State> layerCheckerMethod)
+        public void RemoveStates(Predicate<State> stateCheckerMethod, Predicate<Layer> layerCheckerMethod)
         {
-            throw new NotImplementedException();
+            if (stateCheckerMethod == null)
+                throw new Exception("The stateCheckerMethod is null");
+            if (layerCheckerMethod == null)
+                throw new Exception("The layerCheckerMethod is null");
+            if (stateCheckerMethod == null)
+                throw new Exception("The stateCheckerMethod is null");
+            if (layerCheckerMethod == null)
+                throw new Exception("The layerCheckerMethod is null");
+            List<Layer> layers = new List<Layer>();
+            for (int i = 0; i < layers.Count; i++)
+            {
+                if (layerCheckerMethod(this.layers[i]))
+                {
+                    layers.Add(this.layers[i]);
+                }
+            }
+
+            if (layers.Count < 0)
+                return;
+
+            for (int i = 0; i < layers.Count; i++)
+            {
+                List<State> tempStates = layers[i].states.Values.ToList();
+                for (int j = 0; j < tempStates.Count; j++)
+                {
+                    State state = tempStates[i];
+                    if (stateCheckerMethod(tempStates[i]))
+                    {
+                        Layer layer = state.GetLayer();
+                        if (layer == null)
+                            throw new Exception("The state's layer is 'null'");
+                        layer.RemoveState(state);
+                    }
+                }
+            }
+
+
         }
 
 
