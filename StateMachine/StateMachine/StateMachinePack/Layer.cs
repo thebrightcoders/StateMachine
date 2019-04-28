@@ -4,9 +4,12 @@ using System.Collections.Generic;
 
 namespace StateMachinePack
 {
+
     public class Layer : ILayerStateMethods
     {
-        private const string DEFAULTSTARTSTATEID = "StartState";
+        public static readonly string DEFAULT = "DEFAULT";
+        private static readonly string DEFAULTSTARTSTATEID = "StartState";
+
         internal string iD { get; set; }
         internal Dictionary<string, State> states { get; set; }
         private StateMachine machine { get; set; }
@@ -42,16 +45,14 @@ namespace StateMachinePack
             }
         }
 
-        public Layer() : this("DEFAULT")
+        public Layer() : this(DEFAULT)
         {
             
         }
 
         public State AddState(string iD, bool isLoop, StateTransitionType stateTransitionType)
         {
-            Validator.ValidateID(ref iD);
-            if (states.ContainsKey(iD))
-                throw new Exception(string.Format("The State With ID = {0} Already Exists.", iD));
+            Validator.ValidateStateExistance(iD, states);
             State state = new State(iD, isLoop);
             this.states.Add(iD, state);
             //TODO ::: Checking the StateTransitionType is not implemented!
@@ -74,8 +75,8 @@ namespace StateMachinePack
 
         public void RemoveState(State state)
         {
-            if (!this.states.ContainsValue(state))
-                throw new Exception("The is no such state in this layer!");
+            //if (!this.states.ContainsValue(state))
+            //    throw new Exception("The is no such state in this layer!");
             this.states.Remove(state.stateInfo.iD);
         }
     }

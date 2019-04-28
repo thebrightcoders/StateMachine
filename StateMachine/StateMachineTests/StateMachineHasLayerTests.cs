@@ -31,14 +31,14 @@ namespace StateMachinePack.Tests
         public void HasLayerByLayer()
         {
             StateMachine stateMachine = new StateMachine();
-            Assert.IsNotNull(stateMachine.HasLayerByLayer(new Layer("DEFAULT")));
+            Assert.IsNotNull(stateMachine.HasLayer(new Layer("DEFAULT")));
         }
 
         [TestMethod]
         public void HasLayerByLayerWithNullLayer()
         {
             StateMachine stateMachine = new StateMachine();
-            Assert.ThrowsException<NullReferenceException>(() => stateMachine.HasLayerByLayer(null));
+            Assert.ThrowsException<ArgumentNullException>(() => stateMachine.HasLayer(null));
         }
     }
 }

@@ -40,7 +40,7 @@ namespace StateMachinePack
         //Constructors
         public StateMachine()
         {
-            layers.Add(new Layer());
+            AddLayer(Layer.DEFAULT);
         }
 
         public StateMachine(params IStateMachineEventMethods[] methods) : this()

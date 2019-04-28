@@ -7,7 +7,7 @@
 
         public State(string iD, bool isLoop = false)
         {
-            
+            Validator.ValidateID(ref iD);
         }
     }
 }

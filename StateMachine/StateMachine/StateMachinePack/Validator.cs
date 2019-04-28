@@ -60,6 +60,13 @@ namespace StateMachinePack
             return rawString == null;
         }
 
+        internal static void ValidateStateExistance(string iD, Dictionary<string, State> states)
+        {
+            iD = iD.Trim();
+            if (states.ContainsKey(iD))
+                throw new Exception(string.Format("The State With ID = {0} Already Exists.", iD));
+        }
+
         internal static void ValidateID(ref string iD)
         {
             iD = iD.Trim();

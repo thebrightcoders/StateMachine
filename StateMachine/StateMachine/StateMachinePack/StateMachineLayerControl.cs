@@ -1,6 +1,5 @@
 ﻿using StateMachinePack.StateMachineInterfaces.StateMachineLayerControllerInterfaces;
 using System;
-using System.Collections.Generic;
 
 namespace StateMachinePack
 {
@@ -23,7 +22,7 @@ namespace StateMachinePack
             return layer;
         }
 
-        public Layer AddLayer(string iD, InListLocation LocationToAdd, params State[] states) //DONE
+        public Layer AddLayer(string iD, InListLocation LocationToAdd, params State[] states)
         {
             Layer layer = CheckExistanceAndCreateLayer(iD, states);
             if (LocationToAdd == InListLocation.First)
@@ -43,86 +42,64 @@ namespace StateMachinePack
 
         public bool HasLayerById(string iD)
         {
-            Validator.ValidateID(ref iD);
-            return layers.Find(layerTofind => layerTofind.iD == iD) != null;
+            return HasLayer(GetLayer(iD));
         }
 
-        public bool HasLayerByLayer(Layer layerToCheck)
+        public bool HasLayer(Layer layerToCheck)
         {
             if (layerToCheck == null)
-                throw new NullReferenceException();
-            return layers.Find(layerTofind => layerTofind == layerToCheck) != null;
+                throw new ArgumentNullException();
+            return layers.Contains(layerToCheck);
         }
 
         public Layer GetLayer(string iD)
         {
             Validator.ValidateID(ref iD);
-            Layer layer = layers.Find(layerTofind => layerTofind.iD == iD);
-            //if (layer != null)
-            return layer;
-
-            //throw new Exception(string.Format("The layer is not found with this {0} iD", iD));
+            return layers.Find(layerTofind => layerTofind.iD == iD);
         }
 
         public Layer GetLayer(InListLocation layerLocation)
         {
-            return GetLayer(layerLocation == InListLocation.First ? 0 : layers.Count - 1);
+            return layerLocation == InListLocation.First ? GetFirstLayer() : GetLastLayer();
         }
 
         public Layer GetLayer(int index)
         {
-            if (!Validator.IsValidIndexInLayersList(index, layers))
-                throw new Exception(string.Format("The index {0} is  OUTOFRANGE!", index));
-
             return layers[index];
         }
 
         public Layer GetFirstLayer()
         {
-            return layers[0];
+            return GetLayer(0);
         }
 
         public Layer GetLastLayer()
         {
-            return layers[layers.Count - 1];
+            return GetLayer(layers.Count - 1);
         }
 
         public int GetLayersListCount()
         {
-            return layers == null ? 0 : layers.Count;
+            return layers.Count;
         }
 
         public Layer[] GetLayers(Predicate<Layer> layerCheckerMethod)
         {
-            List<Layer> matchedLayersList = new List<Layer>();
-            foreach (Layer layer in layers)
-            {
-                if (layerCheckerMethod(layer))
-                {
-                    matchedLayersList.Add(layer);
-                }
-            }
-
-            return matchedLayersList.ToArray();
+            return layers.FindAll(layer => layerCheckerMethod(layer)).ToArray();
         }
 
         public void MoveLayer(Layer layerToMove, int targetIndex)
         {
-            if (!Validator.IsValidIndexInLayersList(targetIndex, layers))
-                throw new Exception(string.Format("The targetIndex {0} is OutOfRange", targetIndex));
+            //if (!Validator.IsValidIndexInLayersList(targetIndex, layers))
+            //    throw new Exception(string.Format("The targetIndex {0} is OUT OF RANGE.", targetIndex));
 
-            int sourceIndex = layers.FindIndex(layerTofind => layerTofind == layerToMove);
-            if (sourceIndex < 0)
-                throw new Exception("Layer is not Found! 404 ;)");
-            if (targetIndex == sourceIndex)
-                return;
             layers.Insert(targetIndex, layerToMove);
-            layers.RemoveAt(sourceIndex);
+            layers.Remove(layerToMove);
         }
 
         public void MoveLayer(Layer layerToMove, InListLocation layerTargetLocation)
         {
-            MoveLayer(layerToMove, layerTargetLocation == InListLocation.First ? 0 : layers.Count - 1);
+            MoveLayer(layerToMove, GetListLocationIndex(layerTargetLocation));
         }
 
         public void MoveLayer(string iD, int targetIndex)
@@ -132,7 +109,7 @@ namespace StateMachinePack
 
         public void MoveLayer(string iD, InListLocation layerTargetLocation)
         {
-            MoveLayer(GetLayer(iD), layerTargetLocation == InListLocation.First ? 0 : layers.Count - 1);
+            MoveLayer(GetLayer(iD), layerTargetLocation);
         }
 
         public void MoveLayer(int sourceIndex, int targetIndex)
@@ -142,35 +119,37 @@ namespace StateMachinePack
 
         public void MoveLayer(int sourceIndex, InListLocation layerTargetLocation)
         {
-            MoveLayer(GetLayer(sourceIndex), layerTargetLocation == InListLocation.First ? 0 : layers.Count - 1);
+            MoveLayer(GetLayer(sourceIndex), layerTargetLocation);
         }
 
         public void MoveLayer(InListLocation layerSourceLocation, int targetIndex)
         {
-            MoveLayer(layerSourceLocation == InListLocation.First ? 0 : layers.Count - 1, targetIndex);
+            MoveLayer(GetListLocationIndex(layerSourceLocation), targetIndex);
         }
 
         public void MoveLayer(InListLocation layerSourceLocation, InListLocation layerTargetLocation)
         {
-            MoveLayer(
-                layerSourceLocation == InListLocation.First ? 0 : layers.Count - 1,
-                layerTargetLocation == InListLocation.First ? 0 : layers.Count - 1
-            );
+            MoveLayer(GetListLocationIndex(layerSourceLocation), layerTargetLocation);
+        }
+
+        private int GetListLocationIndex(InListLocation location)
+        {
+            return location == InListLocation.First ? 0 : layers.Count - 1;
         }
 
         public void MoveLayerToFirst(Layer layerToMove)
         {
-            MoveLayer(layerToMove, 0);
+            MoveLayer(layerToMove, InListLocation.First);
         }
 
         public void MoveLayerToFirst(string iD)
         {
-            MoveLayer(iD, 0);
+            MoveLayer(iD, InListLocation.First);
         }
 
         public void MoveLayerToFirst(int sourceIndex)
         {
-            MoveLayer(0, 0);
+            MoveLayer(sourceIndex, InListLocation.First);
         }
 
         public void MoveLayerToLast(Layer layerToMove)
@@ -190,11 +169,7 @@ namespace StateMachinePack
 
         public void RemoveLayer(Layer layerToRemove)
         {
-            if (layerToRemove == null)
-                throw new Exception("LayerToRemove is null");
-            if (layers.Find(layer => layer == layerToRemove) == null)
-                throw new Exception("LayerToRemove is not found! 404 ;)");
-            layers.Remove(layerToRemove);
+            layers.Remove(GetLayer(layerToRemove.iD));
         }
 
         public void RemoveLayer(int index)
@@ -204,18 +179,12 @@ namespace StateMachinePack
 
         public void RemoveLayer(InListLocation layerTargetLocation)
         {
-            RemoveLayer(layerTargetLocation == InListLocation.First ? 0 : layers.Count - 1);
+            RemoveLayer(GetListLocationIndex(layerTargetLocation));
         }
 
         public void RemoveLayers(Predicate<Layer> layerCheckerMethod)
         {
-            for (int i = 0; i < layers.Count; i++)
-            {
-                if (layerCheckerMethod(layers[i]))
-                {
-                    layers.Remove(layers[i]);
-                }
-            }
+            layers.RemoveAll(layer => layerCheckerMethod(layer));
         }
     }
 }

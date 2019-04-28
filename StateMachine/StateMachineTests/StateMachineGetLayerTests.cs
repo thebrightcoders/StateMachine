@@ -31,7 +31,7 @@ namespace StateMachinePack.Tests
         public void GetLayerByIndexOutOfRange()
         {
             StateMachine stateMachine = new StateMachine();
-            Assert.ThrowsException<Exception>(() => stateMachine.GetLayer(324));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => stateMachine.GetLayer(324));
         }
     }
 }
