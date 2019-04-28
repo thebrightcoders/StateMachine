@@ -12,7 +12,7 @@ namespace StateMachinePack
     public delegate void StateEvent(StateInfo stateInfo, StateMachine machine, Layer layer);
     public delegate void Condition();
 
-    public class StateMachine :
+    public partial class StateMachine :
         StateMachineProcessControllers,
         IStateMachineLayerMethods,
         IStateMachineStateMethods
@@ -729,11 +729,6 @@ namespace StateMachinePack
                     }
                 }
             }
-
-
         }
-
-
-
     }
 }
