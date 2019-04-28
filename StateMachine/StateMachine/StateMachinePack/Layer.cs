@@ -88,12 +88,24 @@ namespace StateMachinePack
 
         public bool HasState(string iD)
         {
-            throw new System.NotImplementedException();
+            if (Validator.IsNullString(iD))
+                throw new Exception("The iD is 'NULL'!!");
+            string TrimediD = iD.Trim();
+            if (Validator.IsStringEmpty(TrimediD))
+                throw new Exception("The ID can't be empty!");
+            if (!Validator.IsValidString(TrimediD))
+                throw new Exception("The Id is not valid!");
+
+            return this.states.ContainsKey(TrimediD);
         }
 
         public void RemoveState(State state)
         {
-            throw new System.NotImplementedException();
+            if (state == null)
+                throw new Exception("The State is 'NULL'!!");
+            if (!this.states.ContainsValue(state))
+                throw new Exception("The is no such state in this layer!");
+            this.states.Remove(state.GetStateInfo().iD);
         }
     }
 }

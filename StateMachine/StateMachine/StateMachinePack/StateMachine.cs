@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using StateMachinePack.StateMachineInterfaces;
 using StateMachinePack.StateMachineInterfaces.StateMachineLayerControllerInterfaces;
@@ -24,6 +25,7 @@ namespace StateMachinePack
         private TimeSpan executionTimeSpan { get; set; }
         private bool isRunning { get; set; }
         private bool isPaused { get; set; }
+        private Layer lastLayerAdded;
 
         //function pointers
         protected event StateMachineEvent OnMachineStart;
@@ -132,6 +134,7 @@ namespace StateMachinePack
                 throw new Exception(string.Format("The Layer With ID = {0} Already Exists.", TrimediD));
 
             Layer layer = new Layer(TrimediD, states);
+            this.lastLayerAdded = layer;
             layers.Add(layer);
             return layer;
         }
@@ -164,6 +167,7 @@ namespace StateMachinePack
 
 
                 layers.Add(layer);
+                this.lastLayerAdded = layer;
                 return layer;
             }
             else
@@ -171,6 +175,7 @@ namespace StateMachinePack
                 Layer layer = new Layer(TrimediD, states);
                 //                layer.AddState();
                 layers.Insert(index, layer);
+                this.lastLayerAdded = layer;
                 return layer;
             }
 
@@ -195,7 +200,7 @@ namespace StateMachinePack
                 layers.Insert(0, layer);
             else if (LocationToAdd == InListLocation.Last)
                 layers.Add(layer);
-
+            this.lastLayerAdded = layer;
             return layer;
         }
 
@@ -396,72 +401,140 @@ namespace StateMachinePack
 
         public State AddState(string iD, StateTransitionType stateTransitionType)
         {
-            throw new NotImplementedException();
+            return AddState(iD, false, stateTransitionType);
         }
 
         public State AddState(string iD, bool isLoop = false, StateTransitionType stateTransitionType = StateTransitionType.Default)
         {
-            throw new NotImplementedException();
+            if (this.lastLayerAdded == null)
+                throw new Exception("The last added Layer is removed!");
+            return this.lastLayerAdded.AddState(iD, isLoop, stateTransitionType);
         }
 
         public State AddState(string iD, Layer layerToAddState, StateTransitionType stateTransitionType)
         {
-            throw new NotImplementedException();
+            return AddState(iD, layerToAddState, false, stateTransitionType);
         }
 
         public State AddState(string iD, Layer layerToAddState, bool isLoop = false, StateTransitionType stateTransitionType = StateTransitionType.Default)
         {
-            throw new NotImplementedException();
+            if (layerToAddState == null)
+                throw new Exception("The layerToAddState is 'null'");
+            return layerToAddState.AddState(iD, isLoop, stateTransitionType);
         }
 
         public State AddState(string iD, string layerID, StateTransitionType stateTransitionType)
         {
-            throw new NotImplementedException();
+            return AddState(iD, GetLayer(iD), stateTransitionType);
         }
 
         public State AddState(string iD, string layerID, bool isLoop = false, StateTransitionType stateTransitionType = StateTransitionType.Default)
         {
-            throw new NotImplementedException();
+            return AddState(iD, GetLayer(iD), isLoop, stateTransitionType);
         }
 
         public State AddState(string iD, int layerIndex, StateTransitionType stateTransitionType)
         {
-            throw new NotImplementedException();
+            return AddState(iD, GetLayer(layerIndex), stateTransitionType);
         }
 
         public State AddState(string iD, int layerIndex, bool isLoop = false, StateTransitionType stateTransitionType = StateTransitionType.Default)
         {
-            throw new NotImplementedException();
+            return AddState(iD, GetLayer(layerIndex), isLoop, stateTransitionType);
         }
 
         public bool HasState(string iD)
         {
-            throw new NotImplementedException();
+            if (this.lastLayerAdded == null)
+                throw new Exception("The last added Layer is removed!");
+            if (Validator.IsNullString(iD))
+                throw new Exception("The iD is 'NULL'!!");
+            string TrimediD = iD.Trim();
+            if (Validator.IsStringEmpty(TrimediD))
+                throw new Exception("The ID can't be empty!");
+            if (!Validator.IsValidString(TrimediD))
+                throw new Exception("The Id is not valid!");
+
+            return this.lastLayerAdded.states.ContainsKey(TrimediD);
         }
 
         public bool HasState(string iD, string layerID)
         {
-            throw new NotImplementedException();
+            if (Validator.IsNullString(iD))
+                throw new Exception("The iD is 'NULL'!!");
+            string TrimediD = iD.Trim();
+            if (Validator.IsStringEmpty(TrimediD))
+                throw new Exception("The ID can't be empty!");
+            if (!Validator.IsValidString(TrimediD))
+                throw new Exception("The Id is not valid!");
+
+            return GetLayer(layerID).states.ContainsKey(TrimediD);
         }
 
         public bool HasState(string iD, int layerIndex)
         {
-            throw new NotImplementedException();
+            if (Validator.IsNullString(iD))
+                throw new Exception("The iD is 'NULL'!!");
+            string TrimediD = iD.Trim();
+            if (Validator.IsStringEmpty(TrimediD))
+                throw new Exception("The ID can't be empty!");
+            if (!Validator.IsValidString(TrimediD))
+                throw new Exception("The Id is not valid!");
+
+            return GetLayer(layerIndex).states.ContainsKey(TrimediD);
         }
 
         public bool HasState(string iD, InListLocation layerLocation = InListLocation.First)
         {
-            throw new NotImplementedException();
+            return HasState(iD, layerLocation == InListLocation.First ? 0 : InListLocation.Last);
         }
 
         public bool HasState(Predicate<State> stateCheckerMethod, Predicate<Layer> layerCheckerMethod)
         {
-            throw new NotImplementedException();
+            List<Layer> layers = new List<Layer>();
+            for (int i = 0; i < layers.Count; i++)
+            {
+                if (layerCheckerMethod(this.layers[i]))
+                {
+                    layers.Add(this.layers[i]);
+                }
+            }
+            if (layers.Count < 0)
+                return false;
+
+            for (int i = 0; i < layers.Count; i++)
+            {
+                List<State> tempStates = layers[i].states.Values.ToList();
+                for (int j = 0; j < tempStates.Count; j++)
+                {
+                    if (stateCheckerMethod(tempStates[i]))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         public State GetState(string iD, InListLocation stateSelection = InListLocation.First)
         {
-            throw new NotImplementedException();
+            if (Validator.IsNullString(iD))
+                throw new Exception("The iD is 'NULL'!!");
+            string TrimediD = iD.Trim();
+            if (Validator.IsStringEmpty(TrimediD))
+                throw new Exception("The ID can't be empty!");
+            if (!Validator.IsValidString(TrimediD))
+                throw new Exception("The Id is not valid!");
+            List<State> gotStates = new List<State>();
+            for (int i = 0; i < layers.Count; i++)
+            {
+                gotStates.AddRange(
+                    layers[i].states.Values.ToList()
+                        .FindAll(state => state.GetStateInfo().iD == TrimediD));
+                
+            }
+            return stateSelection == InListLocation.First ? gotStates[0] : gotStates[gotStates.Count - 1];
         }
 
         public State GetState(string iD, Layer layerToGetState)
