@@ -59,41 +59,23 @@ namespace StateMachinePack
         {
             if (this.lastLayerAdded == null)
                 throw new Exception("The last added Layer is removed!");
-            if (Validator.IsNullString(iD))
-                throw new Exception("The iD is 'NULL'!!");
-            string TrimediD = iD.Trim();
-            if (Validator.IsStringEmpty(TrimediD))
-                throw new Exception("The ID can't be empty!");
-            if (!Validator.IsValidString(TrimediD))
-                throw new Exception("The Id is not valid!");
+            Validator.ValidateID(ref iD);
 
-            return this.lastLayerAdded.states.ContainsKey(TrimediD);
+            return this.lastLayerAdded.states.ContainsKey(iD);
         }
 
         public bool HasState(string iD, string layerID)
         {
-            if (Validator.IsNullString(iD))
-                throw new Exception("The iD is 'NULL'!!");
-            string TrimediD = iD.Trim();
-            if (Validator.IsStringEmpty(TrimediD))
-                throw new Exception("The ID can't be empty!");
-            if (!Validator.IsValidString(TrimediD))
-                throw new Exception("The Id is not valid!");
+            Validator.ValidateID(ref iD);
 
-            return GetLayer(layerID).states.ContainsKey(TrimediD);
+            return GetLayer(layerID).states.ContainsKey(iD);
         }
 
         public bool HasState(string iD, int layerIndex)
         {
-            if (Validator.IsNullString(iD))
-                throw new Exception("The iD is 'NULL'!!");
-            string TrimediD = iD.Trim();
-            if (Validator.IsStringEmpty(TrimediD))
-                throw new Exception("The ID can't be empty!");
-            if (!Validator.IsValidString(TrimediD))
-                throw new Exception("The Id is not valid!");
+            Validator.ValidateID(ref iD);
 
-            return GetLayer(layerIndex).states.ContainsKey(TrimediD);
+            return GetLayer(layerIndex).states.ContainsKey(iD);
         }
 
         public bool HasState(string iD, InListLocation layerLocation = InListLocation.First)
@@ -132,19 +114,13 @@ namespace StateMachinePack
 
         public State GetState(string iD, InListLocation stateSelection = InListLocation.First)
         {
-            if (Validator.IsNullString(iD))
-                throw new Exception("The iD is 'NULL'!!");
-            string TrimediD = iD.Trim();
-            if (Validator.IsStringEmpty(TrimediD))
-                throw new Exception("The ID can't be empty!");
-            if (!Validator.IsValidString(TrimediD))
-                throw new Exception("The Id is not valid!");
+            Validator.ValidateID(ref iD);
             List<State> gotStates = new List<State>();
             for (int i = 0; i < layers.Count; i++)
             {
                 gotStates.AddRange(
                     layers[i].states.Values.ToList()
-                        .FindAll(state => state.GetStateInfo().iD == TrimediD));
+                        .FindAll(state => state.GetStateInfo().iD == iD));
             }
 
             return stateSelection == InListLocation.First ? gotStates[0] : gotStates[gotStates.Count - 1];
@@ -152,15 +128,9 @@ namespace StateMachinePack
 
         public State GetState(string iD, Layer layerToGetState)
         {
-            if (Validator.IsNullString(iD))
-                throw new Exception("The iD is 'NULL'!!");
-            string TrimediD = iD.Trim();
-            if (Validator.IsStringEmpty(TrimediD))
-                throw new Exception("The ID can't be empty!");
-            if (!Validator.IsValidString(TrimediD))
-                throw new Exception("The Id is not valid!");
+            Validator.ValidateID(ref iD);
             State state;
-            layerToGetState.states.TryGetValue(TrimediD, out state);
+            layerToGetState.states.TryGetValue(iD, out state);
             return state;
         }
 
@@ -234,19 +204,13 @@ namespace StateMachinePack
 
         public void RemoveState(string iD, InListLocation stateSelection = InListLocation.First)
         {
-            if (Validator.IsNullString(iD))
-                throw new Exception("The iD is 'NULL'!!");
-            string TrimediD = iD.Trim();
-            if (Validator.IsStringEmpty(TrimediD))
-                throw new Exception("The ID can't be empty!");
-            if (!Validator.IsValidString(TrimediD))
-                throw new Exception("The Id is not valid!");
+            Validator.ValidateID(ref iD);
             List<State> gotStates = new List<State>();
             for (int i = 0; i < layers.Count; i++)
             {
                 gotStates.AddRange(
                     layers[i].states.Values.ToList()
-                        .FindAll(state => state.GetStateInfo().iD == TrimediD));
+                        .FindAll(state => state.GetStateInfo().iD == iD));
             }
 
             State toDeleteState = gotStates[stateSelection == InListLocation.First ? 0 : gotStates.Count - 1];

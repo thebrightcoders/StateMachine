@@ -60,9 +60,15 @@ namespace StateMachinePack
             return rawString == null;
         }
 
-        public static void ValidateID(string iD)
+        internal static void ValidateID(ref string iD)
         {
-
+            if (IsNullString(iD))
+                throw new Exception("The iD is 'NULL'!!");
+            iD = iD.Trim();
+            if (IsStringEmpty(iD))
+                throw new Exception("The ID can't be empty!");
+            if (!IsValidString(iD))
+                throw new Exception("The Id is not valid!");
         }
     }
 }

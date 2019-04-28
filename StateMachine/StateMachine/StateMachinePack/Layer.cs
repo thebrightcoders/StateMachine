@@ -1,7 +1,6 @@
 ﻿using StateMachinePack.LayerInterfaces;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace StateMachinePack
 {
@@ -55,16 +54,10 @@ namespace StateMachinePack
 
         public State AddState(string iD, bool isLoop, StateTransitionType stateTransitionType)
         {
-            if (Validator.IsNullString(iD))
-                throw new Exception("The iD is 'NULL'!!");
-            string TrimediD = iD.Trim();
-            if (Validator.IsStringEmpty(TrimediD))
-                throw new Exception("The ID can't be empty!");
-            if (!Validator.IsValidString(TrimediD))
-                throw new Exception("The Id is not valid!");
-            if (states.ContainsKey(TrimediD))
-                throw new Exception(string.Format("The Layer With ID = {0} Already Exists.", TrimediD));
-            State state = new State(TrimediD, isLoop);
+            Validator.ValidateID(ref iD);
+            if (states.ContainsKey(iD))
+                throw new Exception(string.Format("The State With ID = {0} Already Exists.", iD));
+            State state = new State(iD, isLoop);
             this.states.Add(state.GetStateInfo().iD, state);
             //TODO ::: Checking the StateTransitionType is not implemented!
             return state;
@@ -72,31 +65,19 @@ namespace StateMachinePack
 
         public State GetState(string iD)
         {
-            if (Validator.IsNullString(iD))
-                throw new Exception("The iD is 'NULL'!!");
-            string TrimediD = iD.Trim();
-            if (Validator.IsStringEmpty(TrimediD))
-                throw new Exception("The ID can't be empty!");
-            if (!Validator.IsValidString(TrimediD))
-                throw new Exception("The Id is not valid!");
+            Validator.ValidateID(ref iD);
 
             State tempState;
-            this.states.TryGetValue(TrimediD, out tempState);
+            this.states.TryGetValue(iD, out tempState);
 
             return tempState;
         }
 
         public bool HasState(string iD)
         {
-            if (Validator.IsNullString(iD))
-                throw new Exception("The iD is 'NULL'!!");
-            string TrimediD = iD.Trim();
-            if (Validator.IsStringEmpty(TrimediD))
-                throw new Exception("The ID can't be empty!");
-            if (!Validator.IsValidString(TrimediD))
-                throw new Exception("The Id is not valid!");
+            Validator.ValidateID(ref iD);
 
-            return this.states.ContainsKey(TrimediD);
+            return this.states.ContainsKey(iD);
         }
 
         public void RemoveState(State state)
