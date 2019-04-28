@@ -1,9 +1,4 @@
-﻿// StateMachine -> StateMachineTests -> StateMachineHasLayerTests.cs
-// Author:  Dell
-// Created In: // 
-// Company: The Bright Coders
-
-using System;
+﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace StateMachinePack.Tests

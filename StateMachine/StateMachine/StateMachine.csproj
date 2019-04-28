@@ -55,6 +55,9 @@
     <Compile Include="StateMachinePack\LayerInterfaces\ILayerSubStateMachineMethods.cs" />
     <Compile Include="StateMachinePack\LayerInterfaces\ILayerTransitionMethods.cs" />
     <Compile Include="StateMachinePack\LayerInterfaces\ILayerStateMethods.cs" />
+    <Compile Include="StateMachinePack\StateMachineConditionControl.cs" />
+    <Compile Include="StateMachinePack\StateMachineLayerControl.cs" />
+    <Compile Include="StateMachinePack\StateMachineStateControl.cs" />
     <Compile Include="StateMachinePack\StateMachineSubStateMachineControl.cs" />
     <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineConditionInterfaces\IStateMachineSubStateMachineAdders.cs" />
     <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineConditionInterfaces\IStateMachineSubStateMachineCheckers.cs" />
@@ -71,6 +74,7 @@
     <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineTransitionControllerInterfaces\IStateMachineTransitionGetters.cs" />
     <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineTransitionControllerInterfaces\IStateMachineTransitionMethods.cs" />
     <Compile Include="StateMachinePack\StateMachineInterfaces\StateMachineTransitionControllerInterfaces\IStateMachineTransitionRemovers.cs" />
+    <Compile Include="StateMachinePack\StateMachineTransitionControl.cs" />
     <Compile Include="StateMachinePack\SubStateMachine.cs" />
     <Compile Include="StateMachinePack\State.cs" />
     <Compile Include="StateMachinePack\StateInfo.cs" />

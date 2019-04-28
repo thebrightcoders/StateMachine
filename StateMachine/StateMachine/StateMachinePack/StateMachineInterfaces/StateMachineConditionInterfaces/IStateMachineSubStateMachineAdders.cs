@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using StateMachinePack;
-
-namespace StateMachine.StateMachinePack.StateMachineInterfaces.StateMachineConditionControllerInterfaces
+﻿namespace StateMachinePack.StateMachineInterfaces.StateMachineConditionControllerInterfaces
 {
     interface IStateMachineConditionAdders
     {

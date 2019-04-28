@@ -1,6 +1,4 @@
-﻿using StateMachinePack;
-
-namespace StateMachine.StateMachinePack.StateMachineInterfaces.StateMachineConditionControllerInterfaces
+﻿namespace StateMachinePack.StateMachineInterfaces.StateMachineConditionControllerInterfaces
 {
     interface IStateMachineConditionRemovers
     {

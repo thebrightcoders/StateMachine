@@ -1,6 +1,4 @@
-﻿using StateMachinePack;
-
-namespace StateMachine.StateMachinePack.StateMachineInterfaces.StateMachineSubStateMachineControllerInterfaces
+﻿namespace StateMachinePack.StateMachineInterfaces.StateMachineSubStateMachineControllerInterfaces
 {
     interface IStateMachineSubStateMachineAdders
     {

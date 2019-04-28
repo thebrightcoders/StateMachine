@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using StateMachinePack;
 
-namespace StateMachine.StateMachinePack.StateMachineInterfaces.StateMachineSubStateMachineControllerInterfaces
+namespace StateMachinePack.StateMachineInterfaces.StateMachineSubStateMachineControllerInterfaces
 {
     interface IStateMachineSubStateMachineGetters
     {
