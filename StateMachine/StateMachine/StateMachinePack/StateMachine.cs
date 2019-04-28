@@ -12,7 +12,7 @@ namespace StateMachinePack
     public delegate void StateEvent(StateInfo stateInfo, StateMachine machine, Layer layer);
     public delegate void Condition();
 
-    public class StateMachine :
+    public partial class StateMachine :
         StateMachineProcessControllers,
         IStateMachineLayerMethods,
         IStateMachineStateMethods
@@ -183,7 +183,7 @@ namespace StateMachinePack
 
         }
 
-        public Layer AddLayer(string iD, InListLocation LocationToAdd, params State[] states)//DONE
+        public Layer AddLayer(string iD, InListLocation LocationToAdd, params State[] states) //DONE
         {
             if (Validator.IsNullString(iD))
                 throw new Exception("The iD is 'NULL'!!");
@@ -238,6 +238,7 @@ namespace StateMachinePack
             {
                 return layer;
             }
+
             throw new Exception(string.Format("The layer is not found with this {0} iD", iD));
         }
 
@@ -252,22 +253,24 @@ namespace StateMachinePack
             {
                 return layers[index];
             }
+
             throw new Exception(string.Format("The index {0} is  OUTOFRANGE!", index));
         }
+
         public Layer GetFirstLayer()
         {
             return layers[0];
-        }//DONE
+        } //DONE
 
         public Layer GetLastLayer()
         {
             return layers[layers.Count - 1];
-        }//DONE
+        } //DONE
 
         public int GetLayersListCount()
         {
             return layers == null ? 0 : layers.Count;
-        }//DONE
+        } //DONE
 
         Layer[] IStateMachineLayerGetters.GetLayers(Predicate<Layer> layerCheckerMethod)
         {
@@ -279,8 +282,9 @@ namespace StateMachinePack
                     matchedLayersList.Add(layers[i]);
                 }
             }
+
             return matchedLayersList.ToArray();
-        }//DONE
+        } //DONE
 
         public void MoveLayer(Layer layerToMove, int targetIndex)
         {
@@ -336,7 +340,7 @@ namespace StateMachinePack
             MoveLayer(
                 layerSourceLocation == InListLocation.First ? 0 : layers.Count - 1,
                 layerTargetLocation == InListLocation.First ? 0 : layers.Count - 1
-                );
+            );
         }
 
         public void MoveLayerToFirst(Layer layerToMove)
@@ -404,7 +408,8 @@ namespace StateMachinePack
             return AddState(iD, false, stateTransitionType);
         }
 
-        public State AddState(string iD, bool isLoop = false, StateTransitionType stateTransitionType = StateTransitionType.Default)
+        public State AddState(string iD, bool isLoop = false,
+            StateTransitionType stateTransitionType = StateTransitionType.Default)
         {
             if (this.lastLayerAdded == null)
                 throw new Exception("The last added Layer is removed!");
@@ -416,7 +421,8 @@ namespace StateMachinePack
             return AddState(iD, layerToAddState, false, stateTransitionType);
         }
 
-        public State AddState(string iD, Layer layerToAddState, bool isLoop = false, StateTransitionType stateTransitionType = StateTransitionType.Default)
+        public State AddState(string iD, Layer layerToAddState, bool isLoop = false,
+            StateTransitionType stateTransitionType = StateTransitionType.Default)
         {
             if (layerToAddState == null)
                 throw new Exception("The layerToAddState is 'null'");
@@ -428,7 +434,8 @@ namespace StateMachinePack
             return AddState(iD, GetLayer(iD), stateTransitionType);
         }
 
-        public State AddState(string iD, string layerID, bool isLoop = false, StateTransitionType stateTransitionType = StateTransitionType.Default)
+        public State AddState(string iD, string layerID, bool isLoop = false,
+            StateTransitionType stateTransitionType = StateTransitionType.Default)
         {
             return AddState(iD, GetLayer(iD), isLoop, stateTransitionType);
         }
@@ -438,7 +445,8 @@ namespace StateMachinePack
             return AddState(iD, GetLayer(layerIndex), stateTransitionType);
         }
 
-        public State AddState(string iD, int layerIndex, bool isLoop = false, StateTransitionType stateTransitionType = StateTransitionType.Default)
+        public State AddState(string iD, int layerIndex, bool isLoop = false,
+            StateTransitionType stateTransitionType = StateTransitionType.Default)
         {
             return AddState(iD, GetLayer(layerIndex), isLoop, stateTransitionType);
         }
@@ -499,6 +507,7 @@ namespace StateMachinePack
                     layers.Add(this.layers[i]);
                 }
             }
+
             if (layers.Count < 0)
                 return false;
 
@@ -532,39 +541,87 @@ namespace StateMachinePack
                 gotStates.AddRange(
                     layers[i].states.Values.ToList()
                         .FindAll(state => state.GetStateInfo().iD == TrimediD));
-                
+
             }
+
             return stateSelection == InListLocation.First ? gotStates[0] : gotStates[gotStates.Count - 1];
         }
 
         public State GetState(string iD, Layer layerToGetState)
         {
-            throw new NotImplementedException();
+            if (Validator.IsNullString(iD))
+                throw new Exception("The iD is 'NULL'!!");
+            string TrimediD = iD.Trim();
+            if (Validator.IsStringEmpty(TrimediD))
+                throw new Exception("The ID can't be empty!");
+            if (!Validator.IsValidString(TrimediD))
+                throw new Exception("The Id is not valid!");
+            State state;
+            layerToGetState.states.TryGetValue(TrimediD, out state);
+            return state;
         }
 
         public State GetState(string iD, string layerIDToGetState)
         {
-            throw new NotImplementedException();
+            return GetState(iD, GetLayer(layerIDToGetState));
         }
 
         public State GetState(string iD, int layerIndexToGetState)
         {
-            throw new NotImplementedException();
+            return GetState(iD, GetLayer(layerIndexToGetState));
         }
 
         public State[] GetStates(Predicate<State> stateCheckerMethod)
         {
-            throw new NotImplementedException();
+            if (stateCheckerMethod == null)
+                throw new Exception("The stateCheckerMethod is 'null'");
+            List<State> gotStates = new List<State>();
+            for (int i = 0; i < layers.Count; i++)
+            {
+                gotStates.AddRange(
+                    layers[i].states.Values.ToList()
+                        .FindAll(stateCheckerMethod));
+            }
+
+            return gotStates.ToArray();
         }
 
         public State[] GetStates(Predicate<State> stateCheckerMethod, Predicate<Layer> layerCheckerMethod)
         {
-            throw new NotImplementedException();
+            if(stateCheckerMethod == null)
+                throw new Exception("The stateCheckerMethod is null");
+            if (layerCheckerMethod == null)
+                throw new Exception("The layerCheckerMethod is null");
+            List<Layer> layers = new List<Layer>();
+            List<State> states = new List<State>();
+            for (int i = 0; i < layers.Count; i++)
+            {
+                if (layerCheckerMethod(this.layers[i]))
+                {
+                    layers.Add(this.layers[i]);
+                }
+            }
+
+            if (layers.Count < 0)
+                return null;
+            for (int i = 0; i < layers.Count; i++)
+            {
+                List<State> tempStates = layers[i].states.Values.ToList();
+                for (int j = 0; j < tempStates.Count; j++)
+                {
+                    if (stateCheckerMethod(tempStates[i]))
+                    {
+                        states.Add(tempStates[i]);
+                    }
+                }
+            }
+            return states.ToArray();
         }
+
 
         public void RemoveState(State state)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void RemoveState(string iD, InListLocation stateSelection = InListLocation.First)
