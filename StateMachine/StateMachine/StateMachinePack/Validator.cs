@@ -13,6 +13,13 @@ namespace StateMachinePack
             StringToChar(VALID_CHARS);
         }
 
+        internal static void ValidateLayerExistance(string iD, List<Layer> layers)
+        {
+            iD = iD.Trim();
+            if (layers.Find(layerTofind => layerTofind.iD == iD) != null)
+                throw new Exception(string.Format("The Layer With ID = {0} Already Exists.", iD));
+        }
+
         private static void StringToChar(string rawString)
         {
             ValidCharsList = new List<char>(rawString.ToCharArray());
@@ -43,16 +50,9 @@ namespace StateMachinePack
 
         public static bool IsValidIndexInLayersList(int index, List<Layer> list)
         {
-            if (list != null) 
-            {
-                if (index >= 0 && index < list.Count)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-            throw new Exception("The passed List Object is empty");
+            if (index >= 0 && index < list.Count)
+                return true;
+            return false;
         }
 
         public static bool IsNullString(string rawString)
@@ -62,8 +62,6 @@ namespace StateMachinePack
 
         internal static void ValidateID(ref string iD)
         {
-            if (IsNullString(iD))
-                throw new Exception("The iD is 'NULL'!!");
             iD = iD.Trim();
             if (IsStringEmpty(iD))
                 throw new Exception("The ID can't be empty!");

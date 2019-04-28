@@ -120,7 +120,7 @@ namespace StateMachinePack
             {
                 gotStates.AddRange(
                     layers[i].states.Values.ToList()
-                        .FindAll(state => state.GetStateInfo().iD == iD));
+                        .FindAll(state => state.stateInfo.iD == iD));
             }
 
             return stateSelection == InListLocation.First ? gotStates[0] : gotStates[gotStates.Count - 1];
@@ -196,7 +196,7 @@ namespace StateMachinePack
         {
             if (state == null)
                 throw new Exception("The state is 'null'");
-            Layer layer = state.GetLayer();
+            Layer layer = state.layer;
             if (layer == null)
                 throw new Exception("The state's layer is 'null'");
             layer.RemoveState(state);
@@ -210,11 +210,11 @@ namespace StateMachinePack
             {
                 gotStates.AddRange(
                     layers[i].states.Values.ToList()
-                        .FindAll(state => state.GetStateInfo().iD == iD));
+                        .FindAll(state => state.stateInfo.iD == iD));
             }
 
             State toDeleteState = gotStates[stateSelection == InListLocation.First ? 0 : gotStates.Count - 1];
-            Layer layer = toDeleteState.GetLayer();
+            Layer layer = toDeleteState.layer;
             if (layer == null)
                 throw new Exception("The state's layer is 'null'");
             layer.RemoveState(toDeleteState);
@@ -248,7 +248,7 @@ namespace StateMachinePack
                     State state = tempStates[i];
                     if (stateCheckerMethod(state))
                     {
-                        Layer layer = state.GetLayer();
+                        Layer layer = state.layer;
                         if (layer == null)
                             throw new Exception("The state's layer is 'null'");
                         layer.RemoveState(state);
@@ -287,7 +287,7 @@ namespace StateMachinePack
                     State state = tempStates[i];
                     if (stateCheckerMethod(tempStates[i]))
                     {
-                        Layer layer = state.GetLayer();
+                        Layer layer = state.layer;
                         if (layer == null)
                             throw new Exception("The state's layer is 'null'");
                         layer.RemoveState(state);

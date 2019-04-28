@@ -8,61 +8,35 @@ namespace StateMachinePack
     {
         public Layer AddLayer(string iD, params State[] states)
         {
-            Validator.ValidateID(ref iD);
-            if (layers.Find(layerTofind => layerTofind.iD == iD) != null)
-                throw new Exception(string.Format("The Layer With ID = {0} Already Exists.", iD));
-
-            Layer layer = new Layer(iD, states);
-            this.lastLayerAdded = layer;
+            Layer layer = CheckExistanceAndCreateLayer(iD, states);
             layers.Add(layer);
             return layer;
         }
 
         public Layer AddLayer(string iD, int index, params State[] states)
         {
-            Validator.ValidateID(ref iD);
-            if (layers.Find(layerTofind => layerTofind.iD == iD) != null)
-                throw new Exception(string.Format("The Layer With ID = {0} Already Exists.", iD));
-            if (!Validator.IsValidIndexInLayersList(index, layers))
-            {
-                Layer layer = new Layer(iD, states);
-                //                if (states!=null)
-                //                {
-                //                    foreach (State state in states)
-                //                    {
-                //                        if (state.GetLayer() == null)
-                //                        {
-                //                            layer.A(state);
-                //                        }
-                //                    }
-                //                }
-
-
-                layers.Add(layer);
-                this.lastLayerAdded = layer;
-                return layer;
-            }
-            else
-            {
-                Layer layer = new Layer(iD, states);
-                //                layer.AddState();
+            Layer layer = CheckExistanceAndCreateLayer(iD, states);
+            if (Validator.IsValidIndexInLayersList(index, layers))
                 layers.Insert(index, layer);
-                this.lastLayerAdded = layer;
-                return layer;
-            }
+            else
+                layers.Add(layer);
+            return layer;
         }
 
         public Layer AddLayer(string iD, InListLocation LocationToAdd, params State[] states) //DONE
         {
-            Validator.ValidateID(ref iD);
-            if (layers.Find(layerTofind => layerTofind.iD == iD) != null)
-                throw new Exception(string.Format("The Layer With ID = {0} Already Exists.", iD));
-            Layer layer = new Layer(iD, states);
-
+            Layer layer = CheckExistanceAndCreateLayer(iD, states);
             if (LocationToAdd == InListLocation.First)
                 layers.Insert(0, layer);
             else if (LocationToAdd == InListLocation.Last)
                 layers.Add(layer);
+            return layer;
+        }
+
+        private Layer CheckExistanceAndCreateLayer(string iD, State[] states)
+        {
+            Validator.ValidateLayerExistance(iD, layers);
+            Layer layer = new Layer(iD, states);
             this.lastLayerAdded = layer;
             return layer;
         }
@@ -76,7 +50,7 @@ namespace StateMachinePack
         public bool HasLayerByLayer(Layer layerToCheck)
         {
             if (layerToCheck == null)
-                throw new Exception("The layerTocheck is null");
+                throw new NullReferenceException();
             return layers.Find(layerTofind => layerTofind == layerToCheck) != null;
         }
 
@@ -84,12 +58,10 @@ namespace StateMachinePack
         {
             Validator.ValidateID(ref iD);
             Layer layer = layers.Find(layerTofind => layerTofind.iD == iD);
-            if (layer != null)
-            {
-                return layer;
-            }
+            //if (layer != null)
+            return layer;
 
-            throw new Exception(string.Format("The layer is not found with this {0} iD", iD));
+            //throw new Exception(string.Format("The layer is not found with this {0} iD", iD));
         }
 
         public Layer GetLayer(InListLocation layerLocation)
@@ -99,12 +71,10 @@ namespace StateMachinePack
 
         public Layer GetLayer(int index)
         {
-            if (Validator.IsValidIndexInLayersList(index, layers))
-            {
-                return layers[index];
-            }
+            if (!Validator.IsValidIndexInLayersList(index, layers))
+                throw new Exception(string.Format("The index {0} is  OUTOFRANGE!", index));
 
-            throw new Exception(string.Format("The index {0} is  OUTOFRANGE!", index));
+            return layers[index];
         }
 
         public Layer GetFirstLayer()
@@ -125,11 +95,11 @@ namespace StateMachinePack
         public Layer[] GetLayers(Predicate<Layer> layerCheckerMethod)
         {
             List<Layer> matchedLayersList = new List<Layer>();
-            for (int i = 0; i < layers.Count; i++)
+            foreach (Layer layer in layers)
             {
-                if (layerCheckerMethod(layers[i]))
+                if (layerCheckerMethod(layer))
                 {
-                    matchedLayersList.Add(layers[i]);
+                    matchedLayersList.Add(layer);
                 }
             }
 
@@ -138,8 +108,6 @@ namespace StateMachinePack
 
         public void MoveLayer(Layer layerToMove, int targetIndex)
         {
-            if (layerToMove == null)
-                throw new Exception("The layer to move is null!");
             if (!Validator.IsValidIndexInLayersList(targetIndex, layers))
                 throw new Exception(string.Format("The targetIndex {0} is OutOfRange", targetIndex));
 

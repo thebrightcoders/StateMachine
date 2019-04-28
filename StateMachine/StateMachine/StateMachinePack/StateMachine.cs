@@ -43,17 +43,17 @@ namespace StateMachinePack
             layers.Add(new Layer());
         }
 
-        public StateMachine(params IStateMachineEventMethods[] methods)
+        public StateMachine(params IStateMachineEventMethods[] methods) : this()
         {
 
         }
 
-        public StateMachine(MachineMethodType methodType, params StateMachineEvent[] methods)
+        public StateMachine(MachineMethodType methodType, params StateMachineEvent[] methods) : this()
         {
 
         }
 
-        public StateMachine(MachineMethodType[] methodType, params StateMachineEvent[] methods)
+        public StateMachine(MachineMethodType[] methodType, params StateMachineEvent[] methods) : this()
         {
 
         }

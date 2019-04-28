@@ -24,7 +24,7 @@ namespace StateMachinePack.Tests
         public void HasLayerByIdWithNullId()
         {
             StateMachine stateMachine = new StateMachine();
-            Assert.ThrowsException<Exception>(() => stateMachine.HasLayerById(null));
+            Assert.ThrowsException<NullReferenceException>(() => stateMachine.HasLayerById(null));
         }
 
         [TestMethod]
@@ -38,7 +38,7 @@ namespace StateMachinePack.Tests
         public void HasLayerByLayerWithNullLayer()
         {
             StateMachine stateMachine = new StateMachine();
-            Assert.ThrowsException<Exception>(() => stateMachine.HasLayerByLayer(null));
+            Assert.ThrowsException<NullReferenceException>(() => stateMachine.HasLayerByLayer(null));
         }
     }
 }

@@ -16,7 +16,7 @@ namespace StateMachinePack.Tests
         public void AddLayer2paramsNullIDLayerTest()
         {
             StateMachine stateMachine = new StateMachine();
-            Assert.ThrowsException<Exception>(() => stateMachine.AddLayer(null));
+            Assert.ThrowsException<NullReferenceException>(() => stateMachine.AddLayer(null));
         }
         [TestMethod]
         public void AddLayer2paramsDefaultWithSpacesLayerTest()
@@ -71,7 +71,7 @@ namespace StateMachinePack.Tests
         public void AddLayer3paramInListLocationWithNullIdLayerTest()
         {
             StateMachine stateMachine = new StateMachine();
-            Assert.ThrowsException<Exception>(() => stateMachine.AddLayer(null, InListLocation.Last, null));
+            Assert.ThrowsException<NullReferenceException>(() => stateMachine.AddLayer(null, InListLocation.Last, null));
         }
         [TestMethod]
         public void AddLayer3paramInListLocationWithDefaultIdIdLayerTest()

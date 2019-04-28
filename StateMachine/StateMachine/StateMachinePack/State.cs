@@ -2,21 +2,12 @@
 {
     public class State
     {
-        private Layer layer;
-        private StateInfo stateInfo;
+        internal Layer layer { get; set; }
+        internal StateInfo stateInfo { get; set; }
 
-        public Layer GetLayer()
-        {
-            return this.layer;
-        }
-
-        public StateInfo GetStateInfo()
-        {
-            return this.stateInfo;
-        }
         public State(string iD, bool isLoop = false)
         {
-            stateInfo = new StateInfo(iD, isLoop);
+            
         }
     }
 }

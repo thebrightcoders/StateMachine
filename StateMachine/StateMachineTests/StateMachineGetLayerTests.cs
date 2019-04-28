@@ -17,7 +17,7 @@ namespace StateMachinePack.Tests
         public void GetLayerWithNullId()
         {
             StateMachine stateMachine = new StateMachine();
-            Assert.ThrowsException<Exception>(() => stateMachine.GetLayer(null));
+            Assert.ThrowsException<NullReferenceException>(() => stateMachine.GetLayer(null));
         }
 
         [TestMethod]
