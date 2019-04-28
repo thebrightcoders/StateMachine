@@ -16,7 +16,7 @@
         }
         public State(string iD, bool isLoop = false)
         {
-
+            stateInfo = new StateInfo(iD, isLoop);
         }
     }
 }

@@ -6,9 +6,6 @@ namespace StateMachinePack.Tests
     [TestClass]
     public class StateMachineAddLayerTests
     {
-        private readonly StateMachineGetLayerTests stateMachineGetLayerTests = new StateMachineGetLayerTests();
-        private readonly StateMachineHasLayerTests stateMachineHasLayerTests = new StateMachineHasLayerTests();
-
         [TestMethod]
         public void AddLayer2paramsDefaultLayerTest()
         {

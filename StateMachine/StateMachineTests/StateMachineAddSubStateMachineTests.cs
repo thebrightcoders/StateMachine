@@ -1,13 +1,13 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace StateMachineTests
+namespace StateMachinePack.Tests
 {
     [TestClass]
     public class StateMachineAddSubStateMachineTests
     {
         [TestMethod]
-        public void AddOneHasDefault()
+        public void Test()
         {
 
         }

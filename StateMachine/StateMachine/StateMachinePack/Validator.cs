@@ -60,5 +60,9 @@ namespace StateMachinePack
             return rawString == null;
         }
 
+        public static void ValidateID(string iD)
+        {
+
+        }
     }
 }

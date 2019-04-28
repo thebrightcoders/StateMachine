@@ -25,7 +25,7 @@
         Default, StartUp, FromAny, Exit = 4
     }
 
-    enum SubStateMachineSelection
+    public enum SubStateMachineSelection
     {
         Name, ID
     }
