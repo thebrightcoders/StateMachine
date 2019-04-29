@@ -61,6 +61,7 @@
     <Compile Include="StateMachineHasLayerTests.cs" />
     <Compile Include="StateMachineAddLayerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StateMachineHasSubStateMachineTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

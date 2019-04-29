@@ -5,13 +5,14 @@ using System.Collections.Generic;
 namespace StateMachinePack
 {
 
-    public class Layer : ILayerStateMethods
+    public class Layer : ILayerStateMethods, ILayerSubStateMachineMethods, ILayerTransitionMethods, ILayerConditionMethods
     {
         public static readonly string DEFAULT = "DEFAULT";
         private static readonly string DEFAULTSTARTSTATEID = "StartState";
 
         internal string iD { get; set; }
         internal Dictionary<string, State> states { get; set; }
+        internal Dictionary<string, SubStateMachine> subMachines { get; set; }
         private StateMachine machine { get; set; }
         internal Transition[] transitions { get; set; }
         internal State previousState { get; set; }
@@ -26,31 +27,20 @@ namespace StateMachinePack
             Validator.ValidateID(ref iD);
             this.iD = iD;
             this.states = new Dictionary<string, State>();
+            this.subMachines = new Dictionary<string, SubStateMachine>();
             if (states != null)
-            {
-                for (int i = 0; i < states.Length; i++)
-                {
-                    this.states.Add(states[i].stateInfo.iD, states[i]);
-                }
-            }
+                foreach (State state in states)
+                    this.states.Add(state.stateInfo.iD, state);
 
-            if (this.states.Count <= 0)
-            {
-                this.startUpState = new State(DEFAULTSTARTSTATEID);
-                this.states.Add(DEFAULTSTARTSTATEID, this.startUpState);
-            }
-            else
-            {
-                this.startUpState = states[0];
-            }
+            this.startUpState = this.states.Count <= 0 ? AddState(DEFAULTSTARTSTATEID) : states[0];
         }
 
         public Layer() : this(DEFAULT)
         {
-            
+
         }
 
-        public State AddState(string iD, bool isLoop, StateTransitionType stateTransitionType)
+        public State AddState(string iD, bool isLoop = false, StateTransitionType stateTransitionType = StateTransitionType.Default)
         {
             Validator.ValidateStateExistance(iD, states);
             State state = new State(iD, isLoop);
@@ -78,6 +68,60 @@ namespace StateMachinePack
             //if (!this.states.ContainsValue(state))
             //    throw new Exception("The is no such state in this layer!");
             this.states.Remove(state.stateInfo.iD);
+        }
+
+        public SubStateMachine AddSubStateMachine(string iD, string machineName, bool isLoop = false,
+                                                  StateTransitionType stateTransitionType = StateTransitionType.Default)
+        {
+            SubStateMachine subStateMachine = new SubStateMachine(iD, machineName);
+            this.states.Add(iD, subStateMachine);
+            this.subMachines.Add(machineName, subStateMachine);
+            return subStateMachine;
+        }
+
+        public SubStateMachine GetSubStateMachine(SubStateMachineSelection nameOrID, string text)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool HasSubStateMachine(SubStateMachineSelection nameOrID, string text)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveSubStateMachine(SubStateMachine subMachine)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Transition AddTransition(string iD, State sourceState, State targetState, params Condition[] conditionMethods)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Transition GetTransition(string iD)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool HasTransition(string iD)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveTransition(Transition transition)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Condition AddCondition(Transition transition, Condition condition)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveCondition(Transition transition, Condition condition)
+        {
+            throw new NotImplementedException();
         }
     }
 }
