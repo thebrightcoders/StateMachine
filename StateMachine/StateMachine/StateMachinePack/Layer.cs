@@ -10,7 +10,7 @@ namespace StateMachinePack
         public static readonly string DEFAULT = "DEFAULT";
         private static readonly string DEFAULTSTARTSTATEID = "StartState";
 
-        internal string iD { get; set; }
+        public string iD { get; set; }
         internal Dictionary<string, State> states { get; set; }
         internal Dictionary<string, SubStateMachine> subMachines { get; set; }
         private StateMachine machine { get; set; }

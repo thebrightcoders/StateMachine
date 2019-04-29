@@ -26,20 +26,30 @@ namespace StateMachinePack.Tests
         }
         public StateMachineBuilder WithSubStateMachines()
         {
+            stateMachine.AddSubStateMachine("stateID", "subMachineName");
+            stateMachine.AddSubStateMachine("stateIDStateTransition", "subMachineNameStateTransition", StateTransitionType.StartUp);
+            stateMachine.AddSubStateMachine("stateIDIsLoop", "subMachineNameIsLoop", true);
+            stateMachine.AddSubStateMachine("stateIDBoth", "subMachineNameBoth", true, StateTransitionType.FromAny);
             for (int i = 0; i < stateMachine.GetLayersListCount(); i++)
             {
-                stateMachine.AddSubStateMachine("stateID", "subMachineName");
-                stateMachine.AddSubStateMachine("stateIDStateTransition", "subMachineNameStateTransition", StateTransitionType.StartUp);
-                stateMachine.AddSubStateMachine("stateIDIsLoop", "subMachineNameIsLoop", true);
-                stateMachine.AddSubStateMachine("stateIDBoth", "subMachineNameBoth", true, StateTransitionType.FromAny);
-                stateMachine.AddSubStateMachine("stateIDToLayer", "subMachineNameToLayer");
-                stateMachine.AddSubStateMachine("stateIDToLayerStateTransition", "subMachineNameToLayerStateTransition", StateTransitionType.StartUp);
-                stateMachine.AddSubStateMachine("stateIDToLayerIsLoop", "subMachineNameToLayerIsLoop", true);
-                stateMachine.AddSubStateMachine("stateIDToLayerBoth", "subMachineNameToLayerBoth", true, StateTransitionType.FromAny);
-                stateMachine.AddSubStateMachine("stateIDToLayer", "subMachineToLayerName");
-                stateMachine.AddSubStateMachine("stateIDToLayerStateTransition", "subMachineNameLayerStateTransition", StateTransitionType.StartUp);
-                stateMachine.AddSubStateMachine("stateIDToLayerIsLoop", "subMachineNameLayerIsLoop", true);
-                stateMachine.AddSubStateMachine("stateIDToLayerBoth", "subMachineNameLayerBoth", true, StateTransitionType.FromAny);
+
+                Layer layer = stateMachine.GetLayer(i);
+                string layerID = layer.iD;
+
+                stateMachine.AddSubStateMachine("stateIDToLayerByObject", "subMachineNameToLayerByObject", layer);
+                stateMachine.AddSubStateMachine("stateIDToLayerByObjectStateTransition", "subMachineNameToLayerByObjectStateTransition", layer, StateTransitionType.StartUp);
+                stateMachine.AddSubStateMachine("stateIDToLayerByObjectIsLoop", "subMachineNameToLayerByObjectIsLoop", layer, true);
+                stateMachine.AddSubStateMachine("stateIDToLayerByObjectBoth", "subMachineNameToLayerByObjectBoth", layer, true, StateTransitionType.FromAny);
+
+                stateMachine.AddSubStateMachine("stateIDToLayerByID", "subMachineToLayerByIDName", layerID);
+                stateMachine.AddSubStateMachine("stateIDToLayerByIDStateTransition", "subMachineNameLayerByIDStateTransition", layerID, StateTransitionType.StartUp);
+                stateMachine.AddSubStateMachine("stateIDToLayerByIDIsLoop", "subMachineNameLayerByIDIsLoop", layerID, true);
+                stateMachine.AddSubStateMachine("stateIDToLayerByIDBoth", "subMachineNameLayerByIDBoth", layerID, true, StateTransitionType.FromAny);
+
+                stateMachine.AddSubStateMachine("stateIDToLayerByIndex", "subMachineToLayerByIndexName", i);
+                stateMachine.AddSubStateMachine("stateIDToLayerByIndexStateTransition", "subMachineNameLayerByIndexStateTransition", i, StateTransitionType.StartUp);
+                stateMachine.AddSubStateMachine("stateIDToLayerByIndexIsLoop", "subMachineNameLayerByIndexIsLoop", i, true);
+                stateMachine.AddSubStateMachine("stateIDToLayerByIndexBoth", "subMachineNameLayerByIndexBoth", i, true, StateTransitionType.FromAny);
             }
             return this;
         }
@@ -56,9 +66,10 @@ namespace StateMachinePack.Tests
             return this;
         }
 
+
         public static implicit operator StateMachine(StateMachineBuilder smb)
         {
             return smb.stateMachine;
-        } 
+        }
     }
 }

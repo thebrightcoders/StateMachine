@@ -12,7 +12,7 @@ namespace StateMachinePack.Tests
         [TestInitialize]
         public void SetUp()
         {
-            stateMachine = StateMachineBuilder.Build();
+            stateMachine = StateMachineBuilder.Build().WithLayers();
         }
 
         [TestMethod]
