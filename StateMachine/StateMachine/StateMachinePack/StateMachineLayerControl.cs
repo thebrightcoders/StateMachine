@@ -60,7 +60,7 @@ namespace StateMachinePack
 
         public Layer GetLayer(InListLocation layerLocation)
         {
-            return layerLocation == InListLocation.First ? GetFirstLayer() : GetLastLayer();
+            return GetLayer(GetListLocationIndex(layerLocation));
         }
 
         public Layer GetLayer(int index)

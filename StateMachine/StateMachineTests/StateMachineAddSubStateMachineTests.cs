@@ -6,84 +6,82 @@ namespace StateMachinePack.Tests
     [TestClass]
     public class StateMachineAddSubStateMachineTests
     {
-        [TestMethod]
-        public void AddSubMachine_ReturnsSubMachine()
+        const string iD = "newState", subMachineName = "newSubMachine", layerName = "newLayer", invalidID = "!@#";
+
+        private StateMachine stateMachine;
+        [TestInitialize]
+        public void SetUp()
         {
-            StateMachine stateMachine = new StateMachine();
-            Assert.IsNotNull(stateMachine.AddSubStateMachine("newState", "newSubMachine"));
+            stateMachine = StateMachineBuilder.Build();
         }
 
         [TestMethod]
-        public void AddSubMachineWithNullParams_ThrowsException()
+        public void AddSubMachine_ReturnsSomething()
         {
-            StateMachine stateMachine = new StateMachine();
-            Assert.ThrowsException<NullReferenceException>(() => stateMachine.AddSubStateMachine(null, "newSubMachine"));
-            Assert.ThrowsException<NullReferenceException>(() => stateMachine.AddSubStateMachine("newState", null));
+            Assert.IsNotNull(stateMachine.AddSubStateMachine(iD, subMachineName));
+        }
+
+        [TestMethod]
+        public void AddSubMachineWithNullStringParams_ThrowsException()
+        {
+            Assert.ThrowsException<NullReferenceException>(() => stateMachine.AddSubStateMachine(null, subMachineName));
+            Assert.ThrowsException<NullReferenceException>(() => stateMachine.AddSubStateMachine(iD, null));
             Assert.ThrowsException<NullReferenceException>(() => stateMachine.AddSubStateMachine(null, null));
         }
 
         [TestMethod]
         public void AddSubMachineWithEmptyParams_ThrowsException()
         {
-            StateMachine stateMachine = new StateMachine();
-            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine("", "newSubMachine"));
-            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine("newState", ""));
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine("", subMachineName));
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine(iD, ""));
             Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine("", ""));
-
         }
 
         [TestMethod]
         public void AddSubMachineToLayer_ReturnsSubMachine()
         {
-            StateMachine stateMachine = new StateMachine();
-            Assert.IsNotNull(stateMachine.AddSubStateMachine("newState", "newSubMachine", Layer.DEFAULT));
+            Assert.IsNotNull(stateMachine.AddSubStateMachine(iD, subMachineName, Layer.DEFAULT));
         }
 
         [TestMethod]
         public void AddSubMachineWithStateTransitionType_ReturnsSubMachine()
         {
-            StateMachine stateMachine = new StateMachine();
-            Assert.IsNotNull(stateMachine.AddSubStateMachine("newState", "newSubMachine", StateTransitionType.Default));
+            Assert.IsNotNull(stateMachine.AddSubStateMachine(iD, subMachineName, StateTransitionType.Default));
         }
 
         [TestMethod]
         public void AddSubMachineWithEmptyParamsWithStateTransitionType_ThrowsException()
         {
-            StateMachine stateMachine = new StateMachine();
-            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine("", "newSubMachine", StateTransitionType.Default));
-            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine("newState", "", StateTransitionType.Default));
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine("", subMachineName, StateTransitionType.Default));
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine(iD, "", StateTransitionType.Default));
             Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine("", "", StateTransitionType.Default));
         }
 
         [TestMethod]
         public void AddSubMachineToLayerWithStateTransitionType_ReturnsSubMachine()
         {
-            StateMachine stateMachine = new StateMachine();
-            Assert.IsNotNull(stateMachine.AddSubStateMachine("newState", "newSubMachine", Layer.DEFAULT, StateTransitionType.Default));
+            Assert.IsNotNull(stateMachine.AddSubStateMachine(iD, subMachineName, Layer.DEFAULT, StateTransitionType.Default));
         }
 
         [TestMethod]
         public void AddSubMachineWithIsLoop_ReturnsSubMachine()
         {
-            StateMachine stateMachine = new StateMachine();
-            Assert.IsNotNull(stateMachine.AddSubStateMachine("newState", "newSubMachine", true));
+            Assert.IsNotNull(stateMachine.AddSubStateMachine(iD, subMachineName, true));
         }
 
         [TestMethod]
         public void AddSubMachineWithNullParamsWithIsLoop_ThrowsException()
         {
-            StateMachine stateMachine = new StateMachine();
-            Assert.ThrowsException<NullReferenceException>(() => stateMachine.AddSubStateMachine(null, "newSubMachine", true));
-            Assert.ThrowsException<NullReferenceException>(() => stateMachine.AddSubStateMachine("newState", null, true));
+            Assert.ThrowsException<NullReferenceException>(() => stateMachine.AddSubStateMachine(null, subMachineName, true));
+            Assert.ThrowsException<NullReferenceException>(() => stateMachine.AddSubStateMachine(iD, null, true));
             Assert.ThrowsException<NullReferenceException>(() => stateMachine.AddSubStateMachine(null, null, true));
         }
 
         [TestMethod]
         public void AddSubMachineWithEmptyParamsWithIsLoop_ThrowsException()
         {
-            StateMachine stateMachine = new StateMachine();
-            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine("", "newSubMachine", true));
-            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine("newState", "", true));
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine("", subMachineName, true));
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine(iD, "", true));
             Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine("", "", true));
 
         }
@@ -91,59 +89,111 @@ namespace StateMachinePack.Tests
         [TestMethod]
         public void AddSubMachineToLayerWithIsLoop_ReturnsSubMachine()
         {
-            StateMachine stateMachine = new StateMachine();
-            Assert.IsNotNull(stateMachine.AddSubStateMachine("newState", "newSubMachine", Layer.DEFAULT, true));
+            Assert.IsNotNull(stateMachine.AddSubStateMachine(iD, subMachineName, Layer.DEFAULT, true));
         }
 
         [TestMethod]
         public void AddSubMachineToLayerWithIsLoopWithStateTransitionType_ReturnsSubMachine()
         {
-            StateMachine stateMachine = new StateMachine();
-            Assert.IsNotNull(stateMachine.AddSubStateMachine("newState", "newSubMachine", Layer.DEFAULT, true, StateTransitionType.Default));
+            Assert.IsNotNull(stateMachine.AddSubStateMachine(iD, subMachineName, Layer.DEFAULT, true, StateTransitionType.Default));
+        }
+
+        [TestMethod]
+        public void AddSubMachineToLayerByObjectWithIsLoopWithStateTransitionType_ReturnsSubMachine()
+        {
+            Layer layer = stateMachine.AddLayer(layerName);
+            Assert.IsNotNull(stateMachine.AddSubStateMachine(iD, subMachineName, layer, true, StateTransitionType.Default));
+        }
+
+        [TestMethod]
+        public void AddSubMachineToLayerByObjectWithStateTransitionType_ReturnsSubMachine()
+        {
+            Layer layer = stateMachine.AddLayer(layerName);
+            Assert.IsNotNull(stateMachine.AddSubStateMachine(iD, subMachineName, layer, StateTransitionType.Default));
+        }
+
+        [TestMethod]
+        public void AddSubMachineToLayerByObjectWithIsLoop_ReturnsSubMachine()
+        {
+            Layer layer = stateMachine.AddLayer(layerName);
+            Assert.IsNotNull(stateMachine.AddSubStateMachine(iD, subMachineName, layer, true));
+        }
+
+        [TestMethod]
+        public void AddSubMachineToLayerByObject_ReturnsSubMachine()
+        {
+            Layer layer = stateMachine.AddLayer(layerName);
+            Assert.IsNotNull(stateMachine.AddSubStateMachine(iD, subMachineName, layer));
         }
 
         [TestMethod]
         public void AddSubMachineWithIsLoopWithStateTransitionType_ReturnsSubMachine()
         {
-            StateMachine stateMachine = new StateMachine();
-            Assert.IsNotNull(stateMachine.AddSubStateMachine("newState", "newSubMachine", true, StateTransitionType.Default));
+            Assert.IsNotNull(stateMachine.AddSubStateMachine(iD, subMachineName, true, StateTransitionType.Default));
         }
 
         [TestMethod]
         public void AddSubMachineWithEmptyParamsWithIsLoopWithStateTransitionType_ThrowsException()
         {
-            StateMachine stateMachine = new StateMachine();
-            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine("", "newSubMachine", true, StateTransitionType.Default));
-            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine("newState", "", true, StateTransitionType.Default));
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine("", subMachineName, true, StateTransitionType.Default));
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine(iD, "", true, StateTransitionType.Default));
             Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine("", "", true, StateTransitionType.Default));
         }
 
         [TestMethod]
         public void AddSubMachineToLayerByIndex_ReturnsSubMachine()
         {
-            StateMachine stateMachine = new StateMachine();
-            Assert.IsNotNull(stateMachine.AddSubStateMachine("newState", "newSubMachine", 0));
+            Assert.IsNotNull(stateMachine.AddSubStateMachine(iD, subMachineName, 0));
         }
 
         [TestMethod]
         public void AddSubMachineToLayerByIndexWithStateTransitionType_ReturnsSubMachine()
         {
-            StateMachine stateMachine = new StateMachine();
-            Assert.IsNotNull(stateMachine.AddSubStateMachine("newState", "newSubMachine", 0, StateTransitionType.Default));
+            Assert.IsNotNull(stateMachine.AddSubStateMachine(iD, subMachineName, 0, StateTransitionType.Default));
         }
 
         [TestMethod]
         public void AddSubMachineToLayerByIndexWithIsLoop_ReturnsSubMachine()
         {
-            StateMachine stateMachine = new StateMachine();
-            Assert.IsNotNull(stateMachine.AddSubStateMachine("newState", "newSubMachine", 0, true));
+            Assert.IsNotNull(stateMachine.AddSubStateMachine(iD, subMachineName, 0, true));
         }
 
         [TestMethod]
         public void AddSubMachineToLayerByIndexWithIsLoopWithStateTransitionType_ReturnsSubMachine()
         {
-            StateMachine stateMachine = new StateMachine();
-            Assert.IsNotNull(stateMachine.AddSubStateMachine("newState", "newSubMachine", 0, true, StateTransitionType.Default));
+            Assert.IsNotNull(stateMachine.AddSubStateMachine(iD, subMachineName, 0, true, StateTransitionType.Default));
+        }
+
+        [TestMethod]
+        public void AddSubMachineWithInvalidNameAndID_ThrowsException()
+        {
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine(iD, invalidID));
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine(invalidID, subMachineName));
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine(invalidID, invalidID));
+        }
+
+        [TestMethod]
+        public void AddSubMachineWithInvalidNameAndIDWithIsLoop_ThrowsException()
+        {
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine(iD, invalidID, true));
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine(invalidID, subMachineName, true));
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine(invalidID, invalidID, true));
+        }
+
+        [TestMethod]
+        public void AddSubMachineWithInvalidNameAndIDWithIsLoopWithStateTransitionType_ThrowsException()
+        {
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine(iD, invalidID, true, StateTransitionType.Default));
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine(invalidID, subMachineName, true, StateTransitionType.Default));
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine(invalidID, invalidID, true, StateTransitionType.Default));
+        }
+
+        [TestMethod]
+        public void AddSubMachineWithInvalidNameAndIDWithStateTransitionType_ThrowsException()
+        {
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine(iD, invalidID, StateTransitionType.Default));
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine(invalidID, subMachineName, StateTransitionType.Default));
+            Assert.ThrowsException<Exception>(() => stateMachine.AddSubStateMachine(invalidID, invalidID, StateTransitionType.Default));
         }
     }
 }

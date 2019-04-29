@@ -10,18 +10,22 @@ namespace StateMachinePack
             return AddSubStateMachine(iD, subMachineName, lastLayerAdded, stateTransitionType);
         }
 
-        public SubStateMachine AddSubStateMachine(string iD, string subMachineName, bool isLoop = false, StateTransitionType stateTransitionType = StateTransitionType.Default)
+        public SubStateMachine AddSubStateMachine(string iD, string subMachineName, bool isLoop = false,
+                                                  StateTransitionType stateTransitionType = StateTransitionType.Default)
         {
             return AddSubStateMachine(iD, subMachineName, lastLayerAdded, isLoop, stateTransitionType);
         }
 
-        public SubStateMachine AddSubStateMachine(string iD, string subMachineName, Layer layerToAddState, StateTransitionType stateTransitionType)
+        public SubStateMachine AddSubStateMachine(string iD, string subMachineName, Layer layerToAddState,
+                                                  StateTransitionType stateTransitionType)
         {
             return AddSubStateMachine(iD, subMachineName, layerToAddState, false, stateTransitionType);
         }
 
         //CORE
-        public SubStateMachine AddSubStateMachine(string iD, string subMachineName, Layer layerToAddState, bool isLoop = false, StateTransitionType stateTransitionType = StateTransitionType.Default)
+        public SubStateMachine AddSubStateMachine(string iD, string subMachineName, Layer layerToAddState,
+                                                  bool isLoop = false,
+                                                  StateTransitionType stateTransitionType = StateTransitionType.Default)
         {
             return layerToAddState.AddSubStateMachine(iD, subMachineName, isLoop, stateTransitionType);
         }
@@ -31,7 +35,8 @@ namespace StateMachinePack
             return AddSubStateMachine(iD, subMachineName, GetLayer(layerID), stateTransitionType);
         }
 
-        public SubStateMachine AddSubStateMachine(string iD, string subMachineName, string layerID, bool isLoop = false, StateTransitionType stateTransitionType = StateTransitionType.Default)
+        public SubStateMachine AddSubStateMachine(string iD, string subMachineName, string layerID, bool isLoop = false,
+                                                  StateTransitionType stateTransitionType = StateTransitionType.Default)
         {
             return AddSubStateMachine(iD, subMachineName, GetLayer(layerID), isLoop, stateTransitionType);
         }
@@ -41,7 +46,8 @@ namespace StateMachinePack
             return AddSubStateMachine(iD, subMachineName, GetLayer(layerIndex), StateTransitionType.Default);
         }
 
-        public SubStateMachine AddSubStateMachine(string iD, string subMachineName, int layerIndex, bool isLoop = false, StateTransitionType stateTransitionType = StateTransitionType.Default)
+        public SubStateMachine AddSubStateMachine(string iD, string subMachineName, int layerIndex, bool isLoop = false,
+                                                  StateTransitionType stateTransitionType = StateTransitionType.Default)
         {
             return AddSubStateMachine(iD, subMachineName, GetLayer(layerIndex), isLoop, StateTransitionType.Default);
         }
@@ -108,47 +114,31 @@ namespace StateMachinePack
 
         public bool HasSubStateMachine(SubStateMachineSelection selectionWay, string text)
         {
-            throw new NotImplementedException();
-        }
+            foreach (Layer layer in layers)
+                if (HasSubStateMachine(selectionWay, text, layer))
+                    return true;
 
-        public bool HasSubStateMachine(string iD, string machineName)
-        {
-            throw new NotImplementedException();
+            return false;
         }
 
         public bool HasSubStateMachine(SubStateMachineSelection selectionWay, string text, string layerID)
         {
-            throw new NotImplementedException();
+            return HasSubStateMachine(selectionWay, text, GetLayer(layerID));
         }
 
         public bool HasSubStateMachine(SubStateMachineSelection selectionWay, string text, Layer layerToFindSubStateMachine)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool HasSubStateMachine(string iD, string machineName, string layerID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool HasSubStateMachine(string iD, string machineName, Layer layerToFindSubStateMachine)
-        {
-            throw new NotImplementedException();
+            return layerToFindSubStateMachine.HasSubStateMachine(selectionWay, text);
         }
 
         public bool HasSubStateMachine(SubStateMachineSelection selectionWay, string text, int layerIndex)
         {
-            throw new NotImplementedException();
+            return HasSubStateMachine(selectionWay, text, GetLayer(layerIndex));
         }
 
         public bool HasSubStateMachine(SubStateMachineSelection selectionWay, string text, InListLocation layerLocation = InListLocation.First)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool HasSubStateMachine(string iD, string machineName, InListLocation layerLocation = InListLocation.First)
-        {
-            throw new NotImplementedException();
+            return HasSubStateMachine(selectionWay, text, GetLayer(layerLocation));
         }
 
         public bool HasSubStateMachine(Predicate<SubStateMachine> stateCheckerMethod)
@@ -158,6 +148,8 @@ namespace StateMachinePack
 
         public bool HasSubStateMachine(Predicate<SubStateMachine> stateCheckerMethod, Predicate<Layer> layerCheckerMethod)
         {
+            if(stateCheckerMethod == null)
+                throw new NullReferenceException();
             throw new NotImplementedException();
         }
 

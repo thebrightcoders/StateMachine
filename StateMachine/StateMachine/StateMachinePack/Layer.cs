@@ -86,7 +86,8 @@ namespace StateMachinePack
 
         public bool HasSubStateMachine(SubStateMachineSelection nameOrID, string text)
         {
-            throw new NotImplementedException();
+            Validator.ValidateID(ref text);
+            return nameOrID == SubStateMachineSelection.Name ? subMachines.ContainsKey(text) : states.ContainsKey(text);
         }
 
         public void RemoveSubStateMachine(SubStateMachine subMachine)
