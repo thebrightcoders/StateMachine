@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace StateMachinePack.Tests
+﻿namespace StateMachinePack.Tests
 {
     public class StateMachineBuilder
     {
@@ -59,6 +57,30 @@ namespace StateMachinePack.Tests
         }
         public StateMachineBuilder WithStates()
         {
+            stateMachine.AddState("StateIDToLastAddedLayer");
+            stateMachine.AddState("StateIDToLastAddedLayerStateTransition", StateTransitionType.StartUp);
+            stateMachine.AddState("StateIDToLastAddedLayerIsLoop", true);
+            stateMachine.AddState("StateIDToLastAddedLayerBoth", true, StateTransitionType.FromAny);
+            for (int i = 0; i < stateMachine.GetLayersListCount(); i++)
+            {
+                Layer layer = stateMachine.GetLayer(i);
+                string layerID = layer.iD;
+
+                stateMachine.AddState("subStateIDToLayerByObject", layer);
+                stateMachine.AddState("subStateIDToLayerByObjectStateTransition", layer, StateTransitionType.StartUp);
+                stateMachine.AddState("subStateIDToLayerByObjectIsLoop", layer, true);
+                stateMachine.AddState("subStateIDToLayerByObjectBoth", layer, true, StateTransitionType.FromAny);
+
+                stateMachine.AddState("subStateIDToLayerByID", layerID);
+                stateMachine.AddState("subStateIDToLayerByIDStateTransition", layerID, StateTransitionType.StartUp);
+                stateMachine.AddState("subStateIDToLayerByIDIsLoop", layerID, true);
+                stateMachine.AddState("subStateIDToLayerByIDBoth", layerID, true, StateTransitionType.FromAny);
+
+                stateMachine.AddState("subStateIDToLayerByIndex", i);
+                stateMachine.AddState("subStateIDToLayerByIndexStateTransition", i, StateTransitionType.StartUp);
+                stateMachine.AddState("subStateIDToLayerByIndexIsLoop", i, true);
+                stateMachine.AddState("subStateIDToLayerByIndexBoth", i, true, StateTransitionType.FromAny);
+            }
             return this;
         }
         public StateMachineBuilder WithTransitions()
