@@ -33,5 +33,17 @@ namespace StateMachinePack.Tests
             StateMachine stateMachine = new StateMachine();
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => stateMachine.GetLayer(324));
         }
+        [TestMethod]
+        public void GetLastLayer()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.IsNotNull(stateMachine.GetLastLayer());
+        }
+        [TestMethod]
+        public void GetFirstLayer()
+        {
+            StateMachine stateMachine = new StateMachine();
+            Assert.IsNotNull(stateMachine.GetFirstLayer());
+        }
     }
 }
