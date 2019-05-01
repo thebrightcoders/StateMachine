@@ -85,7 +85,7 @@ namespace StateMachinePack
 
         public Layer[] GetLayers(Predicate<Layer> layerCheckerMethod)
         {
-            return layers.FindAll(layer => layerCheckerMethod(layer)).ToArray();
+            return layers.FindAll(layerCheckerMethod).ToArray();
         }
 
         public void MoveLayer(Layer layerToMove, int targetIndex)

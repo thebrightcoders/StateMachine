@@ -4,8 +4,8 @@
     {
         private StateMachine stateMachine;
 
-        public static readonly string layerOnly = "LayerOnly";
-        public static readonly string layerwithindex = "LayerWithIndex";
+        public static readonly string layerWithID = "LayerWithID";
+        public static readonly string layerWithIndex = "LayerWithIndex";
         public static readonly string layerWithEnum = "LayerWithEnum";
 
         public StateMachineBuilder()
@@ -20,8 +20,8 @@
 
         public StateMachineBuilder WithLayers()
         {
-            stateMachine.AddLayer(layerOnly);
-            stateMachine.AddLayer(layerwithindex, 1);
+            stateMachine.AddLayer(layerWithID);
+            stateMachine.AddLayer(layerWithIndex, 1);
             stateMachine.AddLayer(layerWithEnum, InListLocation.First);
 
             return this;
@@ -66,20 +66,20 @@
                 Layer layer = stateMachine.GetLayer(i);
                 string layerID = layer.iD;
 
-                stateMachine.AddState("subStateIDToLayerByObject", layer);
-                stateMachine.AddState("subStateIDToLayerByObjectStateTransition", layer, StateTransitionType.StartUp);
-                stateMachine.AddState("subStateIDToLayerByObjectIsLoop", layer, true);
-                stateMachine.AddState("subStateIDToLayerByObjectBoth", layer, true, StateTransitionType.FromAny);
+                stateMachine.AddState("StateIDToLayerByObject", layer);
+                stateMachine.AddState("StateIDToLayerByObjectStateTransition", layer, StateTransitionType.StartUp);
+                stateMachine.AddState("StateIDToLayerByObjectIsLoop", layer, true);
+                stateMachine.AddState("StateIDToLayerByObjectBoth", layer, true, StateTransitionType.FromAny);
 
-                stateMachine.AddState("subStateIDToLayerByID", layerID);
-                stateMachine.AddState("subStateIDToLayerByIDStateTransition", layerID, StateTransitionType.StartUp);
-                stateMachine.AddState("subStateIDToLayerByIDIsLoop", layerID, true);
-                stateMachine.AddState("subStateIDToLayerByIDBoth", layerID, true, StateTransitionType.FromAny);
+                stateMachine.AddState("StateIDToLayerByID", layerID);
+                stateMachine.AddState("StateIDToLayerByIDStateTransition", layerID, StateTransitionType.StartUp);
+                stateMachine.AddState("StateIDToLayerByIDIsLoop", layerID, true);
+                stateMachine.AddState("StateIDToLayerByIDBoth", layerID, true, StateTransitionType.FromAny);
 
-                stateMachine.AddState("subStateIDToLayerByIndex", i);
-                stateMachine.AddState("subStateIDToLayerByIndexStateTransition", i, StateTransitionType.StartUp);
-                stateMachine.AddState("subStateIDToLayerByIndexIsLoop", i, true);
-                stateMachine.AddState("subStateIDToLayerByIndexBoth", i, true, StateTransitionType.FromAny);
+                stateMachine.AddState("StateIDToLayerByIndex", i);
+                stateMachine.AddState("StateIDToLayerByIndexStateTransition", i, StateTransitionType.StartUp);
+                stateMachine.AddState("StateIDToLayerByIndexIsLoop", i, true);
+                stateMachine.AddState("StateIDToLayerByIndexBoth", i, true, StateTransitionType.FromAny);
             }
             return this;
         }

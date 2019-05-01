@@ -4,7 +4,8 @@
     {
         public StateInfo(string iD, bool isLoop)
         {
-            
+            this.iD = iD;
+            this.isLoop = isLoop;
         }
 
         internal string iD { get; set; }

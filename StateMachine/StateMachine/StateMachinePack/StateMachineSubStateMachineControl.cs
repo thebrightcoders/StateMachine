@@ -1,5 +1,6 @@
 ﻿using StateMachinePack.StateMachineInterfaces.StateMachineSubStateMachineControllerInterfaces;
 using System;
+using System.Collections.Generic;
 
 namespace StateMachinePack
 {
@@ -22,7 +23,7 @@ namespace StateMachinePack
             return AddSubStateMachine(iD, subMachineName, layerToAddState, false, stateTransitionType);
         }
 
-        //CORE
+
         public SubStateMachine AddSubStateMachine(string iD, string subMachineName, Layer layerToAddState,
                                                   bool isLoop = false,
                                                   StateTransitionType stateTransitionType = StateTransitionType.Default)
@@ -143,14 +144,22 @@ namespace StateMachinePack
 
         public bool HasSubStateMachine(Predicate<SubStateMachine> stateCheckerMethod)
         {
-            throw new NotImplementedException();
+            return GetSubStateMachinesInLayers(stateCheckerMethod, layers);
         }
 
         public bool HasSubStateMachine(Predicate<SubStateMachine> stateCheckerMethod, Predicate<Layer> layerCheckerMethod)
         {
-            if(stateCheckerMethod == null)
-                throw new NullReferenceException();
-            throw new NotImplementedException();
+            return GetSubStateMachinesInLayers(stateCheckerMethod, new List<Layer>(GetLayers(layerCheckerMethod)));
+        }
+
+        private bool GetSubStateMachinesInLayers(Predicate<SubStateMachine> stateCheckerMethod, List<Layer> layers)
+        {
+            foreach (Layer layer in layers)
+                foreach (SubStateMachine subStateMachine in layer.subMachines.Values)
+                    if (stateCheckerMethod(subStateMachine))
+                        return true;
+
+            return false;
         }
 
         public void RemoveSubStateMachine(SubStateMachine subMachine)

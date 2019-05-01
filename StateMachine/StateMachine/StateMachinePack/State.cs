@@ -8,6 +8,12 @@
         public State(string iD, bool isLoop = false)
         {
             Validator.ValidateID(ref iD);
+            stateInfo = new StateInfo(iD, isLoop);
+        }
+
+        public string GetID()
+        {
+            return stateInfo.iD;
         }
     }
 }

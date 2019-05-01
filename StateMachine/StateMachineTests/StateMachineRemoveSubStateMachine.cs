@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace StateMachinePack.Test
+namespace StateMachinePack.Tests
 {
     [TestClass]
     public class StateMachineRemoveSubStateMachine
