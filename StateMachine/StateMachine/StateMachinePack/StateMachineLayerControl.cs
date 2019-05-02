@@ -1,5 +1,6 @@
 ﻿using StateMachinePack.StateMachineInterfaces.StateMachineLayerControllerInterfaces;
 using System;
+using System.Collections.Generic;
 
 namespace StateMachinePack
 {
@@ -60,7 +61,7 @@ namespace StateMachinePack
 
         public Layer GetLayer(InListLocation layerLocation)
         {
-            return GetLayer(GetListLocationIndex(layerLocation));
+            return GetLayer(GetLayerListLocationIndex(layerLocation));
         }
 
         public Layer GetLayer(int index)
@@ -70,12 +71,12 @@ namespace StateMachinePack
 
         public Layer GetFirstLayer()
         {
-            return GetLayer(0);
+            return GetLayer(InListLocation.First);
         }
 
         public Layer GetLastLayer()
         {
-            return GetLayer(layers.Count - 1);
+            return GetLayer(InListLocation.Last);
         }
 
         public int GetLayersListCount()
@@ -90,16 +91,13 @@ namespace StateMachinePack
 
         public void MoveLayer(Layer layerToMove, int targetIndex)
         {
-            //if (!Validator.IsValidIndexInLayersList(targetIndex, layers))
-            //    throw new Exception(string.Format("The targetIndex {0} is OUT OF RANGE.", targetIndex));
-
             layers.Insert(targetIndex, layerToMove);
             layers.Remove(layerToMove);
         }
 
         public void MoveLayer(Layer layerToMove, InListLocation layerTargetLocation)
         {
-            MoveLayer(layerToMove, GetListLocationIndex(layerTargetLocation));
+            MoveLayer(layerToMove, GetLayerListLocationIndex(layerTargetLocation));
         }
 
         public void MoveLayer(string iD, int targetIndex)
@@ -124,17 +122,22 @@ namespace StateMachinePack
 
         public void MoveLayer(InListLocation layerSourceLocation, int targetIndex)
         {
-            MoveLayer(GetListLocationIndex(layerSourceLocation), targetIndex);
+            MoveLayer(GetLayerListLocationIndex(layerSourceLocation), targetIndex);
         }
 
         public void MoveLayer(InListLocation layerSourceLocation, InListLocation layerTargetLocation)
         {
-            MoveLayer(GetListLocationIndex(layerSourceLocation), layerTargetLocation);
+            MoveLayer(GetLayerListLocationIndex(layerSourceLocation), layerTargetLocation);
         }
 
-        private int GetListLocationIndex(InListLocation location)
+        private int GetLayerListLocationIndex(InListLocation location)
         {
-            return location == InListLocation.First ? 0 : layers.Count - 1;
+            return GetListLocationIndex(location, layers);
+        }
+
+        private int GetListLocationIndex<T>(InListLocation location, List<T> list)
+        {
+            return location == InListLocation.First ? 0 : Math.Max(list.Count - 1, 0);
         }
 
         public void MoveLayerToFirst(Layer layerToMove)
@@ -179,12 +182,12 @@ namespace StateMachinePack
 
         public void RemoveLayer(InListLocation layerTargetLocation)
         {
-            RemoveLayer(GetListLocationIndex(layerTargetLocation));
+            RemoveLayer(GetLayerListLocationIndex(layerTargetLocation));
         }
 
         public void RemoveLayers(Predicate<Layer> layerCheckerMethod)
         {
-            layers.RemoveAll(layer => layerCheckerMethod(layer));
+            layers.RemoveAll(layerCheckerMethod);
         }
     }
 }

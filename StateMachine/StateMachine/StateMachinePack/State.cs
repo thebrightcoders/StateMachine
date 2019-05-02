@@ -5,15 +5,26 @@
         internal Layer layer { get; set; }
         internal StateInfo stateInfo { get; set; }
 
-        public State(string iD, bool isLoop = false)
+        public State(string iD, Layer layerToAdd, bool isLoop = false)
         {
             Validator.ValidateID(ref iD);
-            stateInfo = new StateInfo(iD, isLoop);
+            this.stateInfo = new StateInfo(iD, isLoop);
+            this.layer = layerToAdd;
+        }
+
+        public void SetID(string iD)
+        {
+            stateInfo.iD = iD;
         }
 
         public string GetID()
         {
             return stateInfo.iD;
+        }
+
+        public Layer GetLayer()
+        {
+            return layer;
         }
     }
 }

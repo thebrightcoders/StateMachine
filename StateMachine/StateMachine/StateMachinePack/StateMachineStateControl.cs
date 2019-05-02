@@ -73,21 +73,25 @@ namespace StateMachinePack
 
         public bool HasState(string iD, InListLocation layerLocation = InListLocation.First)
         {
-            return HasState(iD, GetListLocationIndex(layerLocation));
+            return HasState(iD, GetLayerListLocationIndex(layerLocation));
+        }
+
+        public bool HasState(Predicate<State> stateCheckerMethod)
+        {
+            return HasStateInLayers(stateCheckerMethod, layers.ToArray());
         }
 
         public bool HasState(Predicate<State> stateCheckerMethod, Predicate<Layer> layerCheckerMethod)
         {
-            foreach (Layer layer in GetLayers(layerCheckerMethod))
-            {
+            return HasStateInLayers(stateCheckerMethod, GetLayers(layerCheckerMethod));
+        }
+
+        private bool HasStateInLayers(Predicate<State> stateCheckerMethod, Layer[] layers)
+        {
+            foreach (Layer layer in layers)
                 foreach (State state in layer.states.Values)
-                {
                     if (stateCheckerMethod(state))
-                    {
                         return true;
-                    }
-                }
-            }
 
             return false;
         }
@@ -102,7 +106,7 @@ namespace StateMachinePack
                     gotStates.Add(found);
             }
 
-            return gotStates[GetListLocationIndex(stateSelection)];
+            return gotStates[GetLayerListLocationIndex(stateSelection)];
         }
 
         public State GetState(string iD, Layer layerToGetState)
@@ -121,24 +125,31 @@ namespace StateMachinePack
             return GetState(iD, GetLayer(layerIndexToGetState));
         }
 
-        public State[] GetStates(Predicate<State> stateCheckerMethod)
+        public State[] GetStates(string iD)
         {
             List<State> gotStates = new List<State>();
             foreach (Layer layer in layers)
-            {
-                gotStates.AddRange(
-                    layer.states.Values.ToList()
-                        .FindAll(stateCheckerMethod));
-            }
+                if (layer.HasState(iD))
+                    gotStates.Add(layer.GetState(iD));
 
             return gotStates.ToArray();
         }
 
+        public State[] GetStates(Predicate<State> stateCheckerMethod)
+        {
+            return GetStatesInLayers(stateCheckerMethod, layers.ToArray());
+        }
+
         public State[] GetStates(Predicate<State> stateCheckerMethod, Predicate<Layer> layerCheckerMethod)
+        {
+            return GetStatesInLayers(stateCheckerMethod, GetLayers(layerCheckerMethod));
+        }
+
+        private State[] GetStatesInLayers(Predicate<State> stateCheckerMethod, Layer[] layers)
         {
             List<State> states = new List<State>();
 
-            foreach (Layer layer in GetLayers(layerCheckerMethod))
+            foreach (Layer layer in layers)
             {
                 foreach (State state in layer.states.Values)
                 {
@@ -152,6 +163,7 @@ namespace StateMachinePack
             return states.ToArray();
         }
 
+
         public void RemoveState(State state)
         {
             state.layer.RemoveState(state);
@@ -159,7 +171,7 @@ namespace StateMachinePack
 
         public void RemoveState(string iD, InListLocation stateSelection = InListLocation.First)
         {
-            RemoveState(GetStates(state => state.stateInfo.iD == iD)[GetListLocationIndex(stateSelection)]);
+            RemoveState(GetStates(state => state.stateInfo.iD == iD)[GetLayerListLocationIndex(stateSelection)]);
         }
 
         public void RemoveState(string iD, string layerID)
@@ -204,5 +216,6 @@ namespace StateMachinePack
                 }
             }
         }
+
     }
 }

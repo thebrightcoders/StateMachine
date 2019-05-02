@@ -10,7 +10,6 @@ namespace StateMachinePack
 
     public partial class StateMachine : StateMachineProcessControllers
     {
-        //vars
         public string name;
         private List<Layer> layers = new List<Layer>();
         private MachineExecutionType executionType { get; set; }
@@ -20,7 +19,6 @@ namespace StateMachinePack
         private bool isPaused { get; set; }
         private Layer lastLayerAdded;
 
-        //function pointers
         protected event StateMachineEvent OnMachineStart;
         protected event StateMachineEvent OnMachineUpdate;
         protected event StateMachineEvent OnMachineStop;
@@ -37,7 +35,6 @@ namespace StateMachinePack
         {
         }
 
-        //Constructors
         public StateMachine()
         {
             AddLayer(Layer.DEFAULT);
@@ -58,7 +55,6 @@ namespace StateMachinePack
 
         }
 
-        //functions
         public void AddMachineEventMethod(IStateMachineEventMethods methods)
         {
 

@@ -21,7 +21,6 @@ namespace StateMachinePack
         internal State anyState { get; set; }
         internal State exitState { get; set; }
 
-        //Constructor
         public Layer(string iD, params State[] states)
         {
             Validator.ValidateID(ref iD);
@@ -43,7 +42,7 @@ namespace StateMachinePack
         public State AddState(string iD, bool isLoop = false, StateTransitionType stateTransitionType = StateTransitionType.Default)
         {
             Validator.ValidateStateExistance(iD, states);
-            State state = new State(iD, isLoop);
+            State state = new State(iD, this, isLoop);
             this.states.Add(iD, state);
             //TODO ::: Checking the StateTransitionType is not implemented!
             return state;
@@ -65,15 +64,13 @@ namespace StateMachinePack
 
         public void RemoveState(State state)
         {
-            //if (!this.states.ContainsValue(state))
-            //    throw new Exception("The is no such state in this layer!");
             this.states.Remove(state.stateInfo.iD);
         }
 
         public SubStateMachine AddSubStateMachine(string iD, string machineName, bool isLoop = false,
                                                   StateTransitionType stateTransitionType = StateTransitionType.Default)
         {
-            SubStateMachine subStateMachine = new SubStateMachine(iD, machineName);
+            SubStateMachine subStateMachine = new SubStateMachine(iD, machineName, this, isLoop);
             this.states.Add(iD, subStateMachine);
             this.subMachines.Add(machineName, subStateMachine);
             return subStateMachine;
@@ -81,7 +78,9 @@ namespace StateMachinePack
 
         public SubStateMachine GetSubStateMachine(SubStateMachineSelection nameOrID, string text)
         {
-            throw new NotImplementedException();
+            if (HasSubStateMachine(nameOrID, text))
+                return nameOrID == SubStateMachineSelection.Name ? subMachines[text] : states[text] as SubStateMachine;
+            return null;
         }
 
         public bool HasSubStateMachine(SubStateMachineSelection nameOrID, string text)

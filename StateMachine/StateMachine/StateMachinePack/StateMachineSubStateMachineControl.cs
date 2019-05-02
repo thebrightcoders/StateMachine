@@ -55,62 +55,55 @@ namespace StateMachinePack
 
         public SubStateMachine GetSubStateMachine(SubStateMachineSelection selectionWay, string text, InListLocation stateSelection = InListLocation.First)
         {
-            throw new NotImplementedException();
-        }
+            List<Layer> foundLayers = new List<Layer>(GetLayers(layer => layer.HasSubStateMachine(selectionWay, text)));
 
-        public SubStateMachine GetSubStateMachine(string iD, string subMachineName, InListLocation stateSelection = InListLocation.First)
-        {
-            throw new NotImplementedException();
+            return GetSubStateMachine(selectionWay, text, GetLayer(GetListLocationIndex(stateSelection, foundLayers)));
         }
 
         public SubStateMachine GetSubStateMachine(SubStateMachineSelection selectionWay, string text, Layer layerToGetState)
         {
-            throw new NotImplementedException();
-        }
-
-        public SubStateMachine GetSubStateMachine(string iD, string subMachineName, Layer layerToGetState)
-        {
-            throw new NotImplementedException();
+            return layerToGetState.GetSubStateMachine(selectionWay, text);
         }
 
         public SubStateMachine GetSubStateMachine(SubStateMachineSelection selectionWay, string text, string layerIDToGetState)
         {
-            throw new NotImplementedException();
-        }
-
-        public SubStateMachine GetSubStateMachine(string iD, string subMachineName, string layerIDToGetState)
-        {
-            throw new NotImplementedException();
+            return GetSubStateMachine(selectionWay, text, GetLayer(layerIDToGetState));
         }
 
         public SubStateMachine GetSubStateMachine(SubStateMachineSelection selectionWay, string text, int layerIndexToGetState)
         {
-            throw new NotImplementedException();
-        }
-
-        public SubStateMachine GetSubStateMachine(string iD, string subMachineName, int layerIndexToGetState)
-        {
-            throw new NotImplementedException();
+            return GetSubStateMachine(selectionWay, text, GetLayer(layerIndexToGetState));
         }
 
         public SubStateMachine[] GetSubStateMachines(SubStateMachineSelection selectionWay, string text)
         {
-            throw new NotImplementedException();
-        }
+            List<SubStateMachine> gotSubStateMachines = new List<SubStateMachine>();
+            foreach (Layer layer in layers)
+                if (layer.HasSubStateMachine(selectionWay, text))
+                    gotSubStateMachines.Add(layer.GetSubStateMachine(selectionWay, text));
 
-        public SubStateMachine[] GetSubStateMachines(string iD, string machineName)
-        {
-            throw new NotImplementedException();
+            return gotSubStateMachines.ToArray();
         }
 
         public SubStateMachine[] GetSubStateMachines(Predicate<SubStateMachine> subStateMachineCheckerMethod)
         {
-            throw new NotImplementedException();
+            return GetSubStateMachinesInLayers(subStateMachineCheckerMethod, layers.ToArray());
         }
 
         public SubStateMachine[] GetSubStateMachines(Predicate<SubStateMachine> subStateMachineCheckerMethod, Predicate<Layer> layerCheckerMethod)
         {
-            throw new NotImplementedException();
+            return GetSubStateMachinesInLayers(subStateMachineCheckerMethod, GetLayers(layerCheckerMethod));
+        }
+
+        private SubStateMachine[] GetSubStateMachinesInLayers(Predicate<SubStateMachine> stateCheckerMethod, Layer[] layers)
+        {
+            List<SubStateMachine> subStateMachines = new List<SubStateMachine>();
+            foreach (Layer layer in layers)
+                foreach (SubStateMachine subStateMachine in layer.subMachines.Values)
+                    if (stateCheckerMethod(subStateMachine))
+                        subStateMachines.Add(subStateMachine);
+
+            return subStateMachines.ToArray();
         }
 
         public bool HasSubStateMachine(SubStateMachineSelection selectionWay, string text)
@@ -144,15 +137,15 @@ namespace StateMachinePack
 
         public bool HasSubStateMachine(Predicate<SubStateMachine> stateCheckerMethod)
         {
-            return GetSubStateMachinesInLayers(stateCheckerMethod, layers);
+            return HasSubStateMachinesInLayers(stateCheckerMethod, layers);
         }
 
         public bool HasSubStateMachine(Predicate<SubStateMachine> stateCheckerMethod, Predicate<Layer> layerCheckerMethod)
         {
-            return GetSubStateMachinesInLayers(stateCheckerMethod, new List<Layer>(GetLayers(layerCheckerMethod)));
+            return HasSubStateMachinesInLayers(stateCheckerMethod, new List<Layer>(GetLayers(layerCheckerMethod)));
         }
 
-        private bool GetSubStateMachinesInLayers(Predicate<SubStateMachine> stateCheckerMethod, List<Layer> layers)
+        private bool HasSubStateMachinesInLayers(Predicate<SubStateMachine> stateCheckerMethod, List<Layer> layers)
         {
             foreach (Layer layer in layers)
                 foreach (SubStateMachine subStateMachine in layer.subMachines.Values)

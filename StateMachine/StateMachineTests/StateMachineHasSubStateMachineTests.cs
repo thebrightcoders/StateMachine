@@ -18,7 +18,6 @@ namespace StateMachinePack.Tests
         [TestMethod]
         public void SearchWithIDNull_ThorwsException()
         {
-            Assert.ThrowsException<NullReferenceException>(() => stateMachine.HasState(null));
             Assert.ThrowsException<NullReferenceException>(() => stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, null));
             Assert.ThrowsException<NullReferenceException>(() => stateMachine.HasSubStateMachine(SubStateMachineSelection.Name, null));
         }

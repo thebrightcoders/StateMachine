@@ -8,7 +8,7 @@
         public static readonly string layerWithIndex = "LayerWithIndex";
         public static readonly string layerWithEnum = "LayerWithEnum";
 
-        public StateMachineBuilder()
+        private StateMachineBuilder()
         {
             this.stateMachine = new StateMachine();
         }
