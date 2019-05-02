@@ -1,8 +1,10 @@
-﻿namespace StateMachinePack.Tests
+﻿using StateMachinePack;
+
+namespace StateMachineTests
 {
     public class StateMachineBuilder
     {
-        private StateMachine stateMachine;
+        private StateMachinePack.StateMachine stateMachine;
 
         public static readonly string layerWithID = "LayerWithID";
         public static readonly string layerWithIndex = "LayerWithIndex";
@@ -10,7 +12,7 @@
 
         private StateMachineBuilder()
         {
-            this.stateMachine = new StateMachine();
+            this.stateMachine = new StateMachinePack.StateMachine();
         }
 
         public static StateMachineBuilder Build()
@@ -93,7 +95,7 @@
         }
 
 
-        public static implicit operator StateMachine(StateMachineBuilder smb)
+        public static implicit operator StateMachinePack.StateMachine(StateMachineBuilder smb)
         {
             return smb.stateMachine;
         }

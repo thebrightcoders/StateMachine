@@ -1,12 +1,14 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using StateMachinePack;
+using StateMachineTests.StateMachineLayerTests;
 
-namespace StateMachinePack.Tests
+namespace StateMachineTests.StateMachineSubStateMachineTests
 {
     [TestClass]
     public class StateMachineRemoveSubStateMachine
     {
-        private StateMachine stateMachine;
+        private StateMachinePack.StateMachine stateMachine;
         [TestInitialize]
         public void SetUp()
         {
