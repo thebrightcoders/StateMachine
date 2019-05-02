@@ -157,67 +157,56 @@ namespace StateMachinePack
 
         public void RemoveSubStateMachine(SubStateMachine subMachine)
         {
-            throw new NotImplementedException();
+            subMachine.GetLayer().RemoveSubStateMachine(subMachine);
         }
 
         public void RemoveSubStateMachine(SubStateMachineSelection selectionWay, string text, InListLocation stateSelection = InListLocation.First)
         {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveSubStateMachine(string iD, string subMachineName, InListLocation stateSelection = InListLocation.First)
-        {
-            throw new NotImplementedException();
+            RemoveSubStateMachine(GetSubStateMachine(selectionWay, text, stateSelection));
         }
 
         public void RemoveSubStateMachine(SubStateMachineSelection selectionWay, string text, string layerID)
         {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveSubStateMachine(string iD, string subMachineName, string layerID)
-        {
-            throw new NotImplementedException();
+            RemoveSubStateMachine(GetSubStateMachine(selectionWay, text, GetLayer(layerID)));
         }
 
         public void RemoveSubStateMachine(SubStateMachineSelection selectionWay, string text, int layerIndex)
         {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveSubStateMachine(string iD, string subMachineName, int layerIndex)
-        {
-            throw new NotImplementedException();
+            RemoveSubStateMachine(GetSubStateMachine(selectionWay, text, GetLayer(layerIndex)));
         }
 
         public void RemoveSubStateMachine(SubStateMachineSelection selectionWay, string text, Layer layerToRemoveState)
         {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveSubStateMachine(string iD, string subMachineName, Layer layerToRemoveState)
-        {
-            throw new NotImplementedException();
+            RemoveSubStateMachine(layerToRemoveState.GetSubStateMachine(selectionWay, text));
         }
 
         public void RemoveSubStateMachines(SubStateMachineSelection selectionWay, string text)
         {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveSubStateMachines(string iD, string machineName)
-        {
-            throw new NotImplementedException();
+            foreach (Layer layer in layers)
+                if (layer.HasSubStateMachine(selectionWay, text))
+                    layer.RemoveSubStateMachine(GetSubStateMachine(selectionWay, text, layer));
         }
 
         public void RemoveSubStateMachines(Predicate<SubStateMachine> subStateMachineCheckerMethod)
         {
-            throw new NotImplementedException();
+            RemoveSubStateMachinesInLayers(subStateMachineCheckerMethod, layers.ToArray());
         }
 
         public void RemoveSubStateMachines(Predicate<SubStateMachine> subStateMachineCheckerMethod, Predicate<Layer> layerCheckerMethod)
         {
-            throw new NotImplementedException();
+            RemoveSubStateMachinesInLayers(subStateMachineCheckerMethod, GetLayers(layerCheckerMethod));
+        }
+
+        private void RemoveSubStateMachinesInLayers(Predicate<SubStateMachine> subStateMachineCheckerMethod, Layer[] layers)
+        {
+            List<SubStateMachine> subStateMachines = new List<SubStateMachine>();
+            foreach (Layer layer in layers)
+                foreach (SubStateMachine subStateMachine in layer.subMachines.Values)
+                    if (subStateMachineCheckerMethod(subStateMachine))
+                        subStateMachines.Add(subStateMachine);
+
+            foreach (SubStateMachine subStateMachine in subStateMachines)
+                RemoveSubStateMachine(subStateMachine);
         }
     }
 }

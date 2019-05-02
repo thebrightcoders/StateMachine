@@ -35,8 +35,11 @@ namespace StateMachinePack
         {
         }
 
-        public StateMachine()
+        
+        public StateMachine(string name = "State Machine")
         {
+            Validator.ValidateID(ref name);
+            this.name = name;
             AddLayer(Layer.DEFAULT);
         }
 
@@ -51,6 +54,21 @@ namespace StateMachinePack
         }
 
         public StateMachine(MachineMethodType[] methodType, params StateMachineEvent[] methods) : this()
+        {
+
+        }
+
+        public StateMachine(string name, params IStateMachineEventMethods[] methods) : this(name)
+        {
+
+        }
+
+        public StateMachine(string name, MachineMethodType methodType, params StateMachineEvent[] methods) : this(name)
+        {
+
+        }
+
+        public StateMachine(string name, MachineMethodType[] methodType, params StateMachineEvent[] methods) : this(name)
         {
 
         }

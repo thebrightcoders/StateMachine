@@ -5,7 +5,7 @@ namespace StateMachinePack
 {
     public static class Validator
     {
-        private const string VALID_CHARS = "1234567890_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+        private const string VALID_CHARS = "1234567890_qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM ";
         private static List<char> ValidCharsList;
 
         static Validator()

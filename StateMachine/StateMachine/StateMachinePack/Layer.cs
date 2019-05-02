@@ -91,7 +91,8 @@ namespace StateMachinePack
 
         public void RemoveSubStateMachine(SubStateMachine subMachine)
         {
-            throw new NotImplementedException();
+            RemoveState(subMachine);
+            subMachines.Remove(subMachine.GetName());
         }
 
         public Transition AddTransition(string iD, State sourceState, State targetState, params Condition[] conditionMethods)
