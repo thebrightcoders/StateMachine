@@ -3,7 +3,7 @@
     public interface IStateMachineEventMethods
     {
         void OnMachineStart(StateMachine machine);
-        void OnMachineUpdate(StateMachine machine);
+        void OnMachineProcess(StateMachine machine);
         void OnMachineStop(StateMachine machine);
     }
 }

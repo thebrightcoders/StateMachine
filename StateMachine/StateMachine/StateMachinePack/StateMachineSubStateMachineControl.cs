@@ -157,7 +157,7 @@ namespace StateMachinePack
 
         public void RemoveSubStateMachine(SubStateMachine subMachine)
         {
-            subMachine.GetLayer().RemoveSubStateMachine(subMachine);
+            subMachine.GetParentLayer().RemoveSubStateMachine(subMachine);
         }
 
         public void RemoveSubStateMachine(SubStateMachineSelection selectionWay, string text, InListLocation stateSelection = InListLocation.First)

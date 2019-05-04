@@ -20,14 +20,14 @@ namespace StateMachinePack
         private Layer lastLayerAdded;
 
         protected event StateMachineEvent OnMachineStart;
-        protected event StateMachineEvent OnMachineUpdate;
+        protected event StateMachineEvent OnMachineProcess;
         protected event StateMachineEvent OnMachineStop;
 
         protected void InvokeOnMachineStart()
         {
         }
 
-        protected void InvokeOnMachineUpdate()
+        protected void InvokeOnMachineProcess()
         {
         }
 

@@ -14,11 +14,11 @@
     }
     public enum MachineMethodType
     {
-        Start, Update, Stop
+        Start, Process, Stop
     }
     public enum StateMethodType
     {
-        Enter, Update, Exit
+        Enter, Process, Exit
     }
     public enum StateTransitionType
     {

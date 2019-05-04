@@ -31,13 +31,13 @@ namespace StateMachinePack
 
         public State AddState(string iD, string layerID, StateTransitionType stateTransitionType)
         {
-            return AddState(iD, GetLayer(iD), stateTransitionType);
+            return AddState(iD, GetLayer(layerID), stateTransitionType);
         }
 
         public State AddState(string iD, string layerID, bool isLoop = false,
                               StateTransitionType stateTransitionType = StateTransitionType.Default)
         {
-            return AddState(iD, GetLayer(iD), isLoop, stateTransitionType);
+            return AddState(iD, GetLayer(layerID), isLoop, stateTransitionType);
         }
 
         public State AddState(string iD, int layerIndex, StateTransitionType stateTransitionType)
@@ -166,7 +166,7 @@ namespace StateMachinePack
 
         public void RemoveState(State state)
         {
-            state.layer.RemoveState(state);
+            state.parentLayer.RemoveState(state);
         }
 
         public void RemoveState(string iD, InListLocation stateSelection = InListLocation.First)

@@ -20,7 +20,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
             SubStateMachine subStateMachine =
                 stateMachine.GetSubStateMachine(SubStateMachineSelection.ID, "subStateIDToLastAddedLayer");
             Assert.IsNotNull(subStateMachine);
-            Assert.AreEqual(subStateMachine.GetLayer().iD, StateMachineBuilder.layerWithEnum);
+            Assert.AreEqual(subStateMachine.GetParentLayer().iD, StateMachineBuilder.layerWithEnum);
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
             SubStateMachine subStateMachine = stateMachine.GetSubStateMachine(SubStateMachineSelection.Name,
                 "subMachineNameToLayerByObjectIsLoop");
             Assert.IsNotNull(subStateMachine);
-            Assert.AreEqual(subStateMachine.GetLayer().iD, StateMachineBuilder.layerWithEnum);
+            Assert.AreEqual(subStateMachine.GetParentLayer().iD, StateMachineBuilder.layerWithEnum);
         }
 
         [TestMethod]
@@ -50,7 +50,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
             SubStateMachine subStateMachine = stateMachine.GetSubStateMachine(SubStateMachineSelection.ID,
                 "subStateIDToLayerByObject", InListLocation.Last);
             Assert.IsNotNull(subStateMachine);
-            Assert.AreEqual(subStateMachine.GetLayer().iD, StateMachineBuilder.layerWithID);
+            Assert.AreEqual(subStateMachine.GetParentLayer().iD, StateMachineBuilder.layerWithID);
         }
 
         [TestMethod]
@@ -66,7 +66,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
             SubStateMachine subStateMachine = stateMachine.GetSubStateMachine(SubStateMachineSelection.Name,
                 "subMachineNameToLayerByObjectIsLoop", InListLocation.Last);
             Assert.IsNotNull(subStateMachine);
-            Assert.AreEqual(subStateMachine.GetLayer().iD, StateMachineBuilder.layerWithID);
+            Assert.AreEqual(subStateMachine.GetParentLayer().iD, StateMachineBuilder.layerWithID);
         }
 
         [TestMethod]
@@ -82,7 +82,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
             SubStateMachine subStateMachine = stateMachine.GetSubStateMachine(SubStateMachineSelection.ID,
                 "subStateIDToLastAddedLayer", StateMachineBuilder.layerWithEnum);
             Assert.IsNotNull(subStateMachine);
-            Assert.AreEqual(subStateMachine.GetLayer().iD, StateMachineBuilder.layerWithEnum);
+            Assert.AreEqual(subStateMachine.GetParentLayer().iD, StateMachineBuilder.layerWithEnum);
         }
 
         [TestMethod]
@@ -98,7 +98,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
             SubStateMachine subStateMachine = stateMachine.GetSubStateMachine(SubStateMachineSelection.Name,
                 "subMachineNameToLayerByObjectIsLoop", StateMachineBuilder.layerWithEnum);
             Assert.IsNotNull(subStateMachine);
-            Assert.AreEqual(subStateMachine.GetLayer().iD, StateMachineBuilder.layerWithEnum);
+            Assert.AreEqual(subStateMachine.GetParentLayer().iD, StateMachineBuilder.layerWithEnum);
         }
 
         [TestMethod]
@@ -114,7 +114,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
             SubStateMachine subStateMachine = stateMachine.GetSubStateMachine(SubStateMachineSelection.ID,
                 "subStateIDToLayerByObject", 3);
             Assert.IsNotNull(subStateMachine);
-            Assert.AreEqual(subStateMachine.GetLayer().iD, StateMachineBuilder.layerWithID);
+            Assert.AreEqual(subStateMachine.GetParentLayer().iD, StateMachineBuilder.layerWithID);
         }
 
         [TestMethod]
@@ -129,7 +129,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
             SubStateMachine subStateMachine = stateMachine.GetSubStateMachine(SubStateMachineSelection.Name,
                 "subMachineNameToLayerByObjectIsLoop", 3);
             Assert.IsNotNull(subStateMachine);
-            Assert.AreEqual(subStateMachine.GetLayer().iD, StateMachineBuilder.layerWithID);
+            Assert.AreEqual(subStateMachine.GetParentLayer().iD, StateMachineBuilder.layerWithID);
         }
 
         [TestMethod]
@@ -147,7 +147,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
             Assert.IsNotNull(
                 stateMachine.GetSubStateMachine(SubStateMachineSelection.ID, "NewSubState", layer));
             Assert.AreEqual(
-                stateMachine.GetSubStateMachine(SubStateMachineSelection.ID, "NewSubState", layer).GetLayer().iD,
+                stateMachine.GetSubStateMachine(SubStateMachineSelection.ID, "NewSubState", layer).GetParentLayer().iD,
                 "NewLayer");
         }
 
@@ -160,7 +160,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
             Assert.IsNotNull(
                 stateMachine.GetSubStateMachine(SubStateMachineSelection.Name, "NewSubStateMachine", layer));
             Assert.AreEqual(
-                stateMachine.GetSubStateMachine(SubStateMachineSelection.Name, "NewSubStateMachine", layer).GetLayer().iD,
+                stateMachine.GetSubStateMachine(SubStateMachineSelection.Name, "NewSubStateMachine", layer).GetParentLayer().iD,
                 "NewLayer");
         }
 

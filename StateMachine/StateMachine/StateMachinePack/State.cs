@@ -1,15 +1,15 @@
 ﻿namespace StateMachinePack
 {
-    public class State
+    public class State :IState
     {
-        internal Layer layer { get; set; }
+        internal Layer parentLayer { get; set; }
         internal StateInfo stateInfo { get; set; }
 
-        public State(string iD, Layer layerToAdd, bool isLoop = false)
+        public State(string iD, Layer parentLayerToAdd, bool isLoop = false)
         {
             Validator.ValidateID(ref iD);
             this.stateInfo = new StateInfo(iD, isLoop);
-            this.layer = layerToAdd;
+            this.parentLayer = parentLayerToAdd;
         }
 
         public void SetID(string iD)
@@ -22,9 +22,39 @@
             return stateInfo.iD;
         }
 
-        public Layer GetLayer()
+        public Layer GetParentLayer()
         {
-            return layer;
+            return parentLayer;
+        }
+
+        public void OnStateEnter(StateInfo stateInfo, StateMachine machine, Layer layer)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnStateProcess(StateInfo stateInfo, StateMachine machine, Layer layer)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnStateExit(StateInfo stateInfo, StateMachine machine, Layer layer)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected void InvokeOnStateEnter()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected void InvokeOnStateProcess()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected void InvokeOnStateExit()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -5,7 +5,7 @@ namespace StateMachinePack
     public class SubStateMachine : State
     {
         public StateMachine machine;
-        public SubStateMachine(string iD, string subMachineName, Layer layerToAdd, bool isLoop = false) : base(iD, layerToAdd, isLoop)
+        public SubStateMachine(string iD, string subMachineName, Layer parentLayerToAdd, bool isLoop = false) : base(iD, parentLayerToAdd, isLoop)
         {
             machine = new StateMachine(subMachineName);
         }
