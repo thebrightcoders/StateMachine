@@ -59,6 +59,7 @@
     <Compile Include="StateMachineStateTests\StateMachineAddStateTests.cs" />
     <Compile Include="StateMachineStateTests\StateMachineGetStateTests.cs" />
     <Compile Include="StateMachineStateTests\StateMachineHasStateTests.cs" />
+    <Compile Include="StateMachineStateTests\StateMachineRemoveStatesTests.cs" />
     <Compile Include="StateMachineSubStateMachineTests\StateMachineAddSubStateMachineTests.cs" />
     <Compile Include="StateMachineBuilder.cs" />
     <Compile Include="StateMachineLayerTests\StateMachineGetLayerTests.cs" />
