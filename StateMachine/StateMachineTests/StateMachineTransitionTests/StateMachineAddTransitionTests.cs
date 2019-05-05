@@ -11,13 +11,45 @@ namespace StateMachineTests.StateMachineTransitionTests
         [TestInitialize]
         public void SetUp()
         {
-            stateMachine = StateMachineBuilder.Build().WithLayers();
+            stateMachine = StateMachineBuilder.Build().WithLayers().WithStates();
         }
 
         [TestMethod]
-        public void TestMethod1()
+        public void AddTransition3ParamsWithNullIDWithStateObjects()
         {
-            Assert.Fail();
+            Assert.ThrowsException<NullReferenceException>(() =>
+                stateMachine.AddTransition(null,
+                                           stateMachine.GetState("StateIDToLastAddedLayer"),
+                                           stateMachine.GetState("StateIDToLastAddedLayerBoth")));
         }
+
+        [TestMethod]
+        public void AddTransition3ParamsWithNullIDWithStateIDs()
+        {
+            Assert.ThrowsException<NullReferenceException>(() =>
+                stateMachine.AddTransition(null,
+                                           "StateIDToLastAddedLayer",
+                                           "StateIDToLastAddedLayerBoth"));
+        }
+
+        [TestMethod]
+        public void AddTransition3ParamsWithNullIDWithStateIDAndObject1()
+        {
+            Assert.ThrowsException<NullReferenceException>(() =>
+                stateMachine.AddTransition(null,
+                                           stateMachine.GetState("StateIDToLastAddedLayer"),
+                                           "StateIDToLastAddedLayerBoth"));
+        }
+
+        [TestMethod]
+        public void AddTransition3ParamsWithNullIDWithStateIDAndObject2()
+        {
+            Assert.ThrowsException<NullReferenceException>(() =>
+                stateMachine.AddTransition(null,
+                                           "StateIDToLastAddedLayerBoth",
+                                           stateMachine.GetState("StateIDToLastAddedLayer")));
+        }
+
+
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace StateMachinePack
+﻿using System.Text.RegularExpressions;
+
+namespace StateMachinePack
 {
     public class Transition
     {
@@ -6,8 +8,9 @@
         internal State sourceState;
         internal State targetState;
 
-        internal Transition(string iD, State sourceState, State targetState)
+        internal Transition(string iD, State sourceState, State targetState, params Condition[] conditionMethods)
         {
+            Validator.ValidateID(ref iD);
             this.iD = iD;
             this.sourceState = sourceState;
             this.targetState = targetState;

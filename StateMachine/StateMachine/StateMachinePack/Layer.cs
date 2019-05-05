@@ -14,7 +14,7 @@ namespace StateMachinePack
         internal Dictionary<string, State> states { get; set; }
         internal Dictionary<string, SubStateMachine> subMachines { get; set; }
         private StateMachine machine { get; set; }
-        internal Transition[] transitions { get; set; }
+        internal Dictionary<string, Transition> transitions { get; set; }
         internal State previousState { get; set; }
         internal State currentState { get; set; }
         internal State startUpState { get; set; }
@@ -27,6 +27,7 @@ namespace StateMachinePack
             this.iD = iD;
             this.states = new Dictionary<string, State>();
             this.subMachines = new Dictionary<string, SubStateMachine>();
+            this.transitions = new Dictionary<string, Transition>();
             if (states != null)
                 foreach (State state in states)
                     this.states.Add(state.stateInfo.iD, state);
@@ -97,7 +98,9 @@ namespace StateMachinePack
 
         public Transition AddTransition(string iD, State sourceState, State targetState, params Condition[] conditionMethods)
         {
-            throw new NotImplementedException();
+            Transition transition = new Transition(iD, sourceState, targetState, conditionMethods);
+            this.transitions.Add(iD, transition);
+            return transition;
         }
 
         public Transition GetTransition(string iD)
