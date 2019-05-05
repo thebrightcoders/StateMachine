@@ -41,7 +41,7 @@ namespace StateMachineTests.StateMachineStateTests
         {
             Assert.IsTrue(
                 stateMachine.GetStates(
-                    state=>state.GetID() ==Layer.DEFAULTSTARTSTATEID).Length >= 0);
+                    state => state.GetID() == Layer.DEFAULTSTARTSTATEID).Length >= 0);
         }
         [TestMethod]
         public void StateMachineGetStatesWithPredicateStateAndLayer()
