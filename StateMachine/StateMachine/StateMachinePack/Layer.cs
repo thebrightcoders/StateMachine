@@ -8,7 +8,7 @@ namespace StateMachinePack
     public class Layer : ILayerStateMethods, ILayerSubStateMachineMethods, ILayerTransitionMethods, ILayerConditionMethods
     {
         public static readonly string DEFAULT = "DEFAULT";
-        private static readonly string DEFAULTSTARTSTATEID = "StartState";
+        public static readonly string DEFAULTSTARTSTATEID = "STARTSTATE";
 
         public string iD { get; set; }
         internal Dictionary<string, State> states { get; set; }
@@ -21,7 +21,7 @@ namespace StateMachinePack
         internal State anyState { get; set; }
         internal State exitState { get; set; }
 
-        public Layer(string iD, params State[] states)
+        internal Layer(string iD, params State[] states)
         {
             Validator.ValidateID(ref iD);
             this.iD = iD;
@@ -34,7 +34,7 @@ namespace StateMachinePack
             this.startUpState = this.states.Count <= 0 ? AddState(DEFAULTSTARTSTATEID) : states[0];
         }
 
-        public Layer() : this(DEFAULT)
+        internal Layer() : this(DEFAULT)
         {
 
         }

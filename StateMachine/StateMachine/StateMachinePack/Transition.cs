@@ -6,7 +6,7 @@
         internal State sourceState;
         internal State targetState;
 
-        public Transition(string iD, State sourceState, State targetState)
+        internal Transition(string iD, State sourceState, State targetState)
         {
             this.iD = iD;
             this.sourceState = sourceState;

@@ -7,7 +7,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
     [TestClass]
     public class StateMachineGetSubStateMachineTests
     {
-        private StateMachinePack.StateMachine stateMachine;
+        private StateMachine stateMachine;
         [TestInitialize]
         public void SetUp()
         {

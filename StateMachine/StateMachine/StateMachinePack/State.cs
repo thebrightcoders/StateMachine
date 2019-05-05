@@ -5,7 +5,7 @@
         internal Layer parentLayer { get; set; }
         internal StateInfo stateInfo { get; set; }
 
-        public State(string iD, Layer parentLayerToAdd, bool isLoop = false)
+        internal State(string iD, Layer parentLayerToAdd, bool isLoop = false)
         {
             Validator.ValidateID(ref iD);
             this.stateInfo = new StateInfo(iD, isLoop);

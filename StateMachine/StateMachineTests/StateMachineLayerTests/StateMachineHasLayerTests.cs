@@ -32,7 +32,7 @@ namespace StateMachineTests.StateMachineLayerTests
         public void HasLayerByLayer()
         {
             StateMachinePack.StateMachine stateMachine = new StateMachinePack.StateMachine();
-            Assert.IsNotNull(stateMachine.HasLayer(new Layer("DEFAULT")));
+            Assert.IsNotNull(stateMachine.HasLayer(stateMachine.GetLayer(Layer.DEFAULT)));
         }
 
         [TestMethod]

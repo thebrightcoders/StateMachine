@@ -56,6 +56,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="StateMachineStateTests\StateMachineAddStateTests.cs" />
+    <Compile Include="StateMachineStateTests\StateMachineGetStateTests.cs" />
+    <Compile Include="StateMachineStateTests\StateMachineHasStateTests.cs" />
     <Compile Include="StateMachineSubStateMachineTests\StateMachineAddSubStateMachineTests.cs" />
     <Compile Include="StateMachineBuilder.cs" />
     <Compile Include="StateMachineLayerTests\StateMachineGetLayerTests.cs" />
@@ -79,6 +82,7 @@
       <Name>StateMachine</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

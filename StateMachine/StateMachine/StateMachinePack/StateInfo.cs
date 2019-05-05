@@ -2,7 +2,7 @@
 {
     public class StateInfo
     {
-        public StateInfo(string iD, bool isLoop)
+        internal StateInfo(string iD, bool isLoop)
         {
             this.iD = iD;
             this.isLoop = isLoop;
