@@ -186,7 +186,7 @@ namespace StateMachinePack
 
         public void RemoveState(string iD, Layer layerToRemoveState)
         {
-            layerToRemoveState.RemoveState(GetState(iD));
+            layerToRemoveState.RemoveState(GetState(iD, layerToRemoveState));
         }
 
         public void RemoveStates(Predicate<State> stateCheckerMethod)

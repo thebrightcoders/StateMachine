@@ -12,7 +12,7 @@ namespace StateMachineTests.StateMachineStateTests
         public void SetUp()
         {
             stateMachine = StateMachineBuilder.Build().WithLayers().WithStates();
-         
+
             //---------------------------
             stateMachine.AddLayer("LayerA");
 
@@ -42,14 +42,20 @@ namespace StateMachineTests.StateMachineStateTests
         public void StateMachineRemoveStateDefaultStateFromDefaultLayer()
         {
             stateMachine.RemoveState(Layer.DEFAULTSTARTSTATEID, Layer.DEFAULT);
-            Assert.IsFalse(stateMachine.HasState(Layer.DEFAULTSTARTSTATEID,Layer.DEFAULT));
+            Assert.IsFalse(stateMachine.HasState(Layer.DEFAULTSTARTSTATEID, Layer.DEFAULT));
         }
         [TestMethod]
-        public void StateMachineRemoveStateAFromLayerA()
+        public void StateMachineRemoveStatea15445FromLayerA()
         {
-            stateMachine.RemoveState("a15445", "LayerA");
-//            Assert.IsFalse(stateMachine.HasState(Layer.DEFAULTSTARTSTATEID, Layer.DEFAULT));
-// ASK OMID
+            Assert.ThrowsException<NullReferenceException>(
+                () => stateMachine.RemoveState("a15445", "LayerA"));
         }
+        [TestMethod]
+        public void StateMachineRemoveStateAFromLayerB()
+        {
+            stateMachine.RemoveState("a15445", "LayerB");
+            Assert.IsFalse(stateMachine.HasState("a15445", "LayerB"));
+        }
+
     }
 }
