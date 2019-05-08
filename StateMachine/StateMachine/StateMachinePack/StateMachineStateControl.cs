@@ -105,8 +105,9 @@ namespace StateMachinePack
                 if (found != null)
                     gotStates.Add(found);
             }
-
-            return gotStates[GetLayerListLocationIndex(stateSelection)];
+            if (gotStates.Count == 0)
+                return null;
+            return gotStates[GetListLocationIndex(stateSelection, gotStates)];
         }
 
         public State GetState(string iD, Layer layerToGetState)
@@ -127,12 +128,7 @@ namespace StateMachinePack
 
         public State[] GetStates(string iD)
         {
-            List<State> gotStates = new List<State>();
-            foreach (Layer layer in layers)
-                if (layer.HasState(iD))
-                    gotStates.Add(layer.GetState(iD));
-
-            return gotStates.ToArray();
+            return GetStates(state => state.GetID() == iD);
         }
 
         public State[] GetStates(Predicate<State> stateCheckerMethod)

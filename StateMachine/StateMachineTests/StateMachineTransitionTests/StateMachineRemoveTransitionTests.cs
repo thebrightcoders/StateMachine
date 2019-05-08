@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StateMachinePack;
 
 namespace StateMachineTests.StateMachineTransitionTests
@@ -17,7 +16,6 @@ namespace StateMachineTests.StateMachineTransitionTests
         [TestMethod]
         public void TestMethod1()
         {
-            Assert.Fail();
         }
     }
 }

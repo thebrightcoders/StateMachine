@@ -1,5 +1,6 @@
 ﻿using StateMachinePack.StateMachineInterfaces.StateMachineTransitionControllerInterfaces;
 using System;
+using System.Collections.Generic;
 
 namespace StateMachinePack
 {
@@ -134,69 +135,126 @@ namespace StateMachinePack
             return AddTransition(iD, GetState(sourceStateID, layer), GetState(targetStateID, layer), layer, conditions);
         }
 
-        public Transition GetTransition(string iD, InListLocation stateSelection = InListLocation.First)
+        public Transition AddTransition(string iD, Predicate<State> sourceStateCheckerMethod, Predicate<State> targetStateCheckerMethod, Predicate<Layer> layerCheckerMethod, params Condition[] conditions)
         {
             throw new NotImplementedException();
+        }
+
+        public Transition AddTransition(string iD, State state, StateTransitionType transitionType, params Condition[] conditions)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Transition AddTransition(string iD, string stateID, StateTransitionType transitionType, params Condition[] conditions)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Transition AddTransition(string iD, Predicate<State> stateCheckerMethod, StateTransitionType transitionType, params Condition[] conditions)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Transition GetTransition(string iD, InListLocation transitionSelection = InListLocation.First)
+        {
+            List<Transition> gotTransitions = new List<Transition>();
+            foreach (Layer layer in layers)
+                if(HasTransition(iD, layer))
+                    gotTransitions.Add(GetTransition(iD, layer));
+            if (gotTransitions.Count == 0)
+                return null;
+            return gotTransitions[GetListLocationIndex(transitionSelection, gotTransitions)];
         }
 
         public Transition GetTransition(string iD, Layer layerToGetTransition)
         {
-            throw new NotImplementedException();
+            return layerToGetTransition.GetTransition(iD);
         }
 
         public Transition GetTransition(string iD, int layerIndex)
         {
-            throw new NotImplementedException();
+            return GetTransition(iD, GetLayer(layerIndex));
         }
 
         public Transition GetTransition(string iD, string layerID)
         {
-            throw new NotImplementedException();
+            return GetTransition(iD, GetLayer(layerID));
         }
 
-        public Transition GetTransition(Predicate<Transition> transitionCheckerMethod)
+        public Transition[] GetTransitions(string iD)
         {
-            throw new NotImplementedException();
+            return GetTransitions(state => state.iD == iD);
         }
 
-        public Transition GetTransition(Predicate<Transition> transitionCheckerMethod, Predicate<Layer> layerCheckerMethod)
+        public Transition[] GetTransitions(Predicate<Transition> transitionCheckerMethod)
         {
-            throw new NotImplementedException();
+            return GetTransitionInLayers(transitionCheckerMethod, layers.ToArray());
+        }
+
+        public Transition[] GetTransitions(Predicate<Transition> transitionCheckerMethod, Predicate<Layer> layerCheckerMethod)
+        {
+            return GetTransitionInLayers(transitionCheckerMethod, GetLayers(layerCheckerMethod));
+        }
+
+        private Transition[] GetTransitionInLayers(Predicate<Transition> transitionCheckerMethod, Layer[] layers)
+        {
+            List<Transition> gotTransitions = new List<Transition>();
+            foreach (Layer layer in layers)
+                foreach (Transition transition in layer.transitions.Values)
+                    if (transitionCheckerMethod(transition))
+                        gotTransitions.Add(transition);
+            if (gotTransitions.Count == 0)
+                return null;
+            return gotTransitions.ToArray();
         }
 
         public bool HasTransition(string iD)
         {
-            throw new NotImplementedException();
+            foreach (Layer layer in layers)
+                if (HasTransition(iD, layer))
+                    return true;
+
+            return false;
         }
 
         public bool HasTransition(string iD, Layer layerToFindTransition)
         {
-            throw new NotImplementedException();
+            return layerToFindTransition.HasTransition(iD);
         }
 
         public bool HasTransition(string iD, string layerID)
         {
-            throw new NotImplementedException();
+            return HasTransition(iD, GetLayer(layerID));
         }
 
         public bool HasTransition(string iD, int layerIndex)
         {
-            throw new NotImplementedException();
+            return HasTransition(iD, GetLayer(layerIndex));
         }
 
         public bool HasTransition(string iD, InListLocation layerLocation = InListLocation.First)
         {
-            throw new NotImplementedException();
+            return HasTransition(iD, GetLayer(GetLayerListLocationIndex(layerLocation)));
         }
 
         public bool HasTransition(Predicate<Transition> transitionCheckerMethod)
         {
-            throw new NotImplementedException();
+            return HasTransitionInLayers(transitionCheckerMethod, layers.ToArray());
         }
 
         public bool HasTransition(Predicate<Transition> transitionCheckerMethod, Predicate<Layer> layerCheckerMethod)
         {
-            throw new NotImplementedException();
+            return HasTransitionInLayers(transitionCheckerMethod, GetLayers(layerCheckerMethod));
+        }
+
+        private bool HasTransitionInLayers(Predicate<Transition> transitionCheckerMethod, Layer[] layers)
+        {
+            foreach (Layer layer in layers)
+                foreach (Transition transition in layer.transitions.Values)                
+                    if (transitionCheckerMethod(transition))
+                        return true;
+
+            return false;
         }
 
         public void RemoveTransition(Transition transition)

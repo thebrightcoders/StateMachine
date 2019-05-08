@@ -105,12 +105,16 @@ namespace StateMachinePack
 
         public Transition GetTransition(string iD)
         {
-            throw new NotImplementedException();
+            Validator.ValidateID(ref iD);
+            return transitions.TryGetValue(iD, out Transition transition) == true ? transition : null;
         }
 
         public bool HasTransition(string iD)
         {
-            throw new NotImplementedException();
+            if (iD == null)
+                throw new NullReferenceException();
+
+            return transitions.ContainsKey(iD);
         }
 
         public void RemoveTransition(Transition transition)

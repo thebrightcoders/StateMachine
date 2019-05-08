@@ -46,7 +46,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
         [TestMethod]
         public void SearchWithIDExistant_ReturnsTrue()
         {
-            Assert.IsTrue(stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, "subStateIDToLayerByObject"));
+            Assert.IsTrue(stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, "SubStateIDToLayerByObject"));
         }
 
         [TestMethod]
@@ -58,7 +58,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
         [TestMethod]
         public void SearchWithNameExistant_ReturnsTrue()
         {
-            Assert.IsTrue(stateMachine.HasSubStateMachine(SubStateMachineSelection.Name, "subMachineNameToLayerByObject"));
+            Assert.IsTrue(stateMachine.HasSubStateMachine(SubStateMachineSelection.Name, "SubMachineNameToLayerByObject"));
         }
 
         [TestMethod]
@@ -70,7 +70,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
         [TestMethod]
         public void SearchWithIDExistantInLastAddLayer_ReturnsTrue()
         {
-            Assert.IsTrue(stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, "subStateIDToLastAddedLayer", stateMachine.GetLayer(StateMachineBuilder.layerWithEnum)));
+            Assert.IsTrue(stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, "SubStateIDToLastAddedLayer", stateMachine.GetLayer(StateMachineBuilder.layerWithEnum)));
         }
 
         [TestMethod]
@@ -82,43 +82,43 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
         [TestMethod]
         public void SearchWithIDExistantInFirstLayer_ReturnsTrue()
         {
-            Assert.IsTrue(stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, "subStateIDToLastAddedLayer", InListLocation.First));
+            Assert.IsTrue(stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, "SubStateIDToLastAddedLayer", InListLocation.First));
         }
 
         [TestMethod]
         public void SearchWithIDNonExistantInLastLayer_ReturnsFalse()
         {
-            Assert.IsFalse(stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, "subStateIDToLastAddedLayer", InListLocation.Last));
+            Assert.IsFalse(stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, "SubStateIDToLastAddedLayer", InListLocation.Last));
         }
 
         [TestMethod]
         public void SearchWithIDExistantInLayerIndex2_ReturnsTrue()
         {
-            Assert.IsTrue(stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, "subStateIDToLayerByIDBoth", 2));
+            Assert.IsTrue(stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, "SubStateIDToLayerByIDBoth", 2));
         }
 
         [TestMethod]
         public void SearchWithIDNonExistantInLayerIndex2_ReturnsFalse()
         {
-            Assert.IsFalse(stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, "subStateIDToLastAddedLayer", 2));
+            Assert.IsFalse(stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, "SubStateIDToLastAddedLayer", 2));
         }
 
         [TestMethod]
         public void SearchWithIDExistantInLayerID_ReturnsTrue()
         {
-            Assert.IsTrue(stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, "subStateIDToLayerByIDBoth", StateMachineBuilder.layerWithID));
+            Assert.IsTrue(stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, "SubStateIDToLayerByIDBoth", StateMachineBuilder.layerWithID));
         }
 
         [TestMethod]
         public void SearchWithIDNonExistantInLayerIndexID_ReturnsFalse()
         {
-            Assert.IsFalse(stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, "subStateIDToLastAddedLayer", StateMachineBuilder.layerWithID));
+            Assert.IsFalse(stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, "SubStateIDToLastAddedLayer", StateMachineBuilder.layerWithID));
         }
 
         [TestMethod]
         public void SearchWithPredicateSingleExistant_ReturnsTrue()
         {
-            Assert.IsTrue(stateMachine.HasSubStateMachine((subMachine) => subMachine.GetID() == "subStateIDToLastAddedLayer"));
+            Assert.IsTrue(stateMachine.HasSubStateMachine((subMachine) => subMachine.GetID() == "SubStateIDToLastAddedLayer"));
         }
 
         [TestMethod]
@@ -131,7 +131,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
         public void SearchWithPredicateBothExistant_ReturnsTrue()
         {
             Assert.IsTrue(stateMachine.HasSubStateMachine(
-                (subMachine) => subMachine.GetID() == "subStateIDToLastAddedLayer",
+                (subMachine) => subMachine.GetID() == "SubStateIDToLastAddedLayer",
                 (layer) => layer.iD == StateMachineBuilder.layerWithEnum));
         }
 
@@ -139,7 +139,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
         public void SearchWithPredicateBothNonExistant_ReturnsFalse()
         {
             Assert.IsFalse(stateMachine.HasSubStateMachine(
-                (subMachine) => subMachine.GetID() == "subStateIDToLastAddedLayer",
+                (subMachine) => subMachine.GetID() == "SubStateIDToLastAddedLayer",
                 (layer) => layer.iD == StateMachineBuilder.layerWithID));
         }
     }

@@ -49,7 +49,5 @@ namespace StateMachineTests.StateMachineTransitionTests
                                            "StateIDToLastAddedLayerBoth",
                                            stateMachine.GetState("StateIDToLastAddedLayer")));
         }
-
-
     }
 }

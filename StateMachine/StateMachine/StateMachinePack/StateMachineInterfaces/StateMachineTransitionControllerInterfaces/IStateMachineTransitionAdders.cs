@@ -55,5 +55,18 @@ namespace StateMachinePack.StateMachineInterfaces.StateMachineTransitionControll
         Transition AddTransition(string iD, string sourceState, string targetState, Predicate<Layer> layerCheckerMethod,
             params Condition[] conditions);
 
+        Transition AddTransition(string iD, Predicate<State> sourceStateCheckerMethod,
+                                 Predicate<State> targetStateCheckerMethod, Predicate<Layer> layerCheckerMethod,
+                                 params Condition[] conditions);
+
+        Transition AddTransition(string iD, State state, StateTransitionType transitionType,
+                                 params Condition[] conditions);
+        Transition AddTransition(string iD, string stateID, StateTransitionType transitionType,
+                                 params Condition[] conditions);
+
+        Transition AddTransition(string iD, Predicate<State> stateCheckerMethod, StateTransitionType transitionType,
+                                 params Condition[] conditions);
+
+
     }
 }

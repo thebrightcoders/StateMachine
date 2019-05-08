@@ -4,7 +4,7 @@ namespace StateMachinePack.StateMachineInterfaces.StateMachineTransitionControll
 {
     interface IStateMachineTransitionGetters
     {
-        Transition GetTransition(string iD, InListLocation stateSelection = InListLocation.First);
+        Transition GetTransition(string iD, InListLocation transitionSelection = InListLocation.First);
 
         Transition GetTransition(string iD, Layer layerToGetTransition);
 
@@ -12,8 +12,10 @@ namespace StateMachinePack.StateMachineInterfaces.StateMachineTransitionControll
 
         Transition GetTransition(string iD, string layerID);
 
-        Transition GetTransition(Predicate<Transition> transitionCheckerMethod);
+        Transition[] GetTransitions(string iD);
 
-        Transition GetTransition(Predicate<Transition> transitionCheckerMethod, Predicate<Layer> layerCheckerMethod);
+        Transition[] GetTransitions(Predicate<Transition> transitionCheckerMethod);
+
+        Transition[] GetTransitions(Predicate<Transition> transitionCheckerMethod, Predicate<Layer> layerCheckerMethod);
     }
 }

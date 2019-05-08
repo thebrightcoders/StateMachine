@@ -18,7 +18,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
         public void GetSubMachineIDExistant_ReturnsNotNullAndFromFirstLayer()
         {
             SubStateMachine subStateMachine =
-                stateMachine.GetSubStateMachine(SubStateMachineSelection.ID, "subStateIDToLastAddedLayer");
+                stateMachine.GetSubStateMachine(SubStateMachineSelection.ID, "SubStateIDToLastAddedLayer");
             Assert.IsNotNull(subStateMachine);
             Assert.AreEqual(subStateMachine.GetParentLayer().iD, StateMachineBuilder.layerWithEnum);
         }
@@ -33,7 +33,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
         public void GetSubMachineNameExistant_ReturnsNotNullAndFromFirstLayer()
         {
             SubStateMachine subStateMachine = stateMachine.GetSubStateMachine(SubStateMachineSelection.Name,
-                "subMachineNameToLayerByObjectIsLoop");
+                "SubMachineNameToLayerByObjectIsLoop");
             Assert.IsNotNull(subStateMachine);
             Assert.AreEqual(subStateMachine.GetParentLayer().iD, StateMachineBuilder.layerWithEnum);
         }
@@ -48,7 +48,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
         public void GetSubMachineIDExistant_ReturnsNotNullAndFromLastLayer()
         {
             SubStateMachine subStateMachine = stateMachine.GetSubStateMachine(SubStateMachineSelection.ID,
-                "subStateIDToLayerByObject", InListLocation.Last);
+                "SubStateIDToLayerByObject", InListLocation.Last);
             Assert.IsNotNull(subStateMachine);
             Assert.AreEqual(subStateMachine.GetParentLayer().iD, StateMachineBuilder.layerWithID);
         }
@@ -64,7 +64,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
         public void GetSubMachineNameExistant_ReturnsNotNullAndFromLastLayer()
         {
             SubStateMachine subStateMachine = stateMachine.GetSubStateMachine(SubStateMachineSelection.Name,
-                "subMachineNameToLayerByObjectIsLoop", InListLocation.Last);
+                "SubMachineNameToLayerByObjectIsLoop", InListLocation.Last);
             Assert.IsNotNull(subStateMachine);
             Assert.AreEqual(subStateMachine.GetParentLayer().iD, StateMachineBuilder.layerWithID);
         }
@@ -80,7 +80,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
         public void GetSubMachineIDExistant_ReturnsNotNullAndFromLayerID()
         {
             SubStateMachine subStateMachine = stateMachine.GetSubStateMachine(SubStateMachineSelection.ID,
-                "subStateIDToLastAddedLayer", StateMachineBuilder.layerWithEnum);
+                "SubStateIDToLastAddedLayer", StateMachineBuilder.layerWithEnum);
             Assert.IsNotNull(subStateMachine);
             Assert.AreEqual(subStateMachine.GetParentLayer().iD, StateMachineBuilder.layerWithEnum);
         }
@@ -96,7 +96,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
         public void GetSubMachineNameExistant_ReturnsNotNullAndFromLayerID()
         {
             SubStateMachine subStateMachine = stateMachine.GetSubStateMachine(SubStateMachineSelection.Name,
-                "subMachineNameToLayerByObjectIsLoop", StateMachineBuilder.layerWithEnum);
+                "SubMachineNameToLayerByObjectIsLoop", StateMachineBuilder.layerWithEnum);
             Assert.IsNotNull(subStateMachine);
             Assert.AreEqual(subStateMachine.GetParentLayer().iD, StateMachineBuilder.layerWithEnum);
         }
@@ -112,7 +112,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
         public void GetSubMachineIDExistant_ReturnsNotNullAndFromLayerIndex()
         {
             SubStateMachine subStateMachine = stateMachine.GetSubStateMachine(SubStateMachineSelection.ID,
-                "subStateIDToLayerByObject", 3);
+                "SubStateIDToLayerByObject", 3);
             Assert.IsNotNull(subStateMachine);
             Assert.AreEqual(subStateMachine.GetParentLayer().iD, StateMachineBuilder.layerWithID);
         }
@@ -127,7 +127,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
         public void GetSubMachineNameExistant_ReturnsNotNullAndFromLayerIndex()
         {
             SubStateMachine subStateMachine = stateMachine.GetSubStateMachine(SubStateMachineSelection.Name,
-                "subMachineNameToLayerByObjectIsLoop", 3);
+                "SubMachineNameToLayerByObjectIsLoop", 3);
             Assert.IsNotNull(subStateMachine);
             Assert.AreEqual(subStateMachine.GetParentLayer().iD, StateMachineBuilder.layerWithID);
         }
@@ -168,7 +168,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
         public void GetAllSubStateMachineIDExistant_Returns4OfThem()
         {
             SubStateMachine[] subStateMachines =
-                stateMachine.GetSubStateMachines(SubStateMachineSelection.ID, "subStateIDToLayerByIDBoth");
+                stateMachine.GetSubStateMachines(SubStateMachineSelection.ID, "SubStateIDToLayerByIDBoth");
             Assert.IsNotNull(subStateMachines);
             Assert.IsTrue(subStateMachines.Length == 4);
         }
@@ -186,7 +186,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
         public void GetAllSubStateMachineNameExistant_Returns4OfThem()
         {
             SubStateMachine[] subStateMachines =
-                stateMachine.GetSubStateMachines(SubStateMachineSelection.Name, "subMachineToLayerByIndexName");
+                stateMachine.GetSubStateMachines(SubStateMachineSelection.Name, "SubMachineToLayerByIndexName");
             Assert.IsNotNull(subStateMachines);
             Assert.IsTrue(subStateMachines.Length == 4);
         }
@@ -204,7 +204,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
         public void GetPredicateSubStateMachineExistant_Returns4AndNotNull()
         {
             SubStateMachine[] subStateMachines =
-                stateMachine.GetSubStateMachines(subMachine => subMachine.GetID() == "subStateIDToLayerByIDIsLoop");
+                stateMachine.GetSubStateMachines(subMachine => subMachine.GetID() == "SubStateIDToLayerByIDIsLoop");
             Assert.IsNotNull(subStateMachines);
             Assert.IsTrue(subStateMachines.Length == 4);
         }
@@ -222,7 +222,7 @@ namespace StateMachineTests.StateMachineSubStateMachineTests
         public void GetPredicatesSubStateMachineExistant_Returns4AndNotNull()
         {
             SubStateMachine[] subStateMachines =
-                stateMachine.GetSubStateMachines(subMachine => subMachine.GetID() == "subStateIDToLayerByIDIsLoop",
+                stateMachine.GetSubStateMachines(subMachine => subMachine.GetID() == "SubStateIDToLayerByIDIsLoop",
                     layer => layer.iD == StateMachineBuilder.layerWithID);
             Assert.IsNotNull(subStateMachines);
             Assert.IsTrue(subStateMachines.Length == 1);
