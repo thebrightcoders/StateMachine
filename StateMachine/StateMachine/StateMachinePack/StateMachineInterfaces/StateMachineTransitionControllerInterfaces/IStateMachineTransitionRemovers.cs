@@ -14,9 +14,9 @@ namespace StateMachinePack.StateMachineInterfaces.StateMachineTransitionControll
 
         void RemoveTransition(string iD, string layerID);
 
-        void RemoveTransition(Predicate<Transition> transitionCheckerMethod);
+        void RemoveTransitions(Predicate<Transition> transitionCheckerMethod);
 
-        void RemoveTransition(Predicate<Transition> transitionCheckerMethod, Predicate<Layer> layerCheckerMethod);
+        void RemoveTransitions(Predicate<Transition> transitionCheckerMethod, Predicate<Layer> layerCheckerMethod);
 
     }
 }

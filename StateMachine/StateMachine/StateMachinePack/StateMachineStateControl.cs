@@ -187,31 +187,22 @@ namespace StateMachinePack
 
         public void RemoveStates(Predicate<State> stateCheckerMethod)
         {
-            foreach (Layer layer in layers)
-            {
-                foreach (State state in layer.states.Values)
-                {
-                    if (stateCheckerMethod(state))
-                    {
-                        RemoveState(state);
-                    }
-                }
-            }
+            RemoveStatesInLayers(stateCheckerMethod, layers.ToArray());
         }
 
         public void RemoveStates(Predicate<State> stateCheckerMethod, Predicate<Layer> layerCheckerMethod)
         {
-            foreach (Layer layer in GetLayers(layerCheckerMethod))
-            {
-                foreach (State state in layer.states.Values)
-                {
-                    if (stateCheckerMethod(state))
-                    {
-                        RemoveState(state);
-                    }
-                }
-            }
+            RemoveStatesInLayers(stateCheckerMethod, GetLayers(layerCheckerMethod));
         }
+
+        private void RemoveStatesInLayers(Predicate<State> stateCheckerMethod, Layer[] layers)
+        {
+            foreach (Layer layer in layers)
+            foreach (State state in layer.states.Values)
+                if (stateCheckerMethod(state))
+                    RemoveState(state);
+        }
+
 
     }
 }

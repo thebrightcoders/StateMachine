@@ -4,49 +4,49 @@ namespace StateMachinePack
 {
     public partial class StateMachine : IStateMachineConditionMethods
     {
+        //public Condition AddCondition(string transitionID, Condition conditionMethod)
+        //{
+        //    return AddCondition(GetTransition(transitionID), conditionMethod));
+        //}
+
         public Condition AddCondition(Transition transition, Condition conditionMethod)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public Condition AddCondition(string transitionID, Condition conditionMethod)
-        {
-            throw new System.NotImplementedException();
+            return transition.AddCondition(conditionMethod);
         }
 
         public Condition AddCondition(string transitionID, string layerID, Condition conditionMethod)
         {
-            throw new System.NotImplementedException();
+            return AddCondition(transitionID, GetLayer(layerID), conditionMethod);
         }
 
         public Condition AddCondition(string transitionID, Layer layer, Condition conditionMethod)
         {
-            throw new System.NotImplementedException();
+            return AddCondition(GetTransition(transitionID, layer), conditionMethod);
         }
 
         public Condition AddCondition(string transitionID, int layerIndex, Condition conditionMethod)
         {
-            throw new System.NotImplementedException();
+            return AddCondition(transitionID, GetLayer(layerIndex), conditionMethod);
         }
 
         public void RemoveCondition(Transition transition, Condition conditionMethod)
         {
-            throw new System.NotImplementedException();
+            transition.RemoveCondition(conditionMethod);
         }
 
         public void RemoveCondition(string transitionID, string layerID, Condition conditionMethod)
         {
-            throw new System.NotImplementedException();
+            RemoveCondition(transitionID, GetLayer(layerID), conditionMethod);
         }
 
         public void RemoveCondition(string transitionID, Layer layer, Condition conditionMethod)
         {
-            throw new System.NotImplementedException();
+            RemoveCondition(GetTransition(transitionID, layer), conditionMethod);
         }
 
         public void RemoveCondition(string transitionID, int layerIndex, Condition conditionMethod)
         {
-            throw new System.NotImplementedException();
+            RemoveCondition(transitionID, GetLayer(layerIndex), conditionMethod);
         }
     }
 }

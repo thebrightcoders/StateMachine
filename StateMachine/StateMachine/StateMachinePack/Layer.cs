@@ -32,7 +32,7 @@ namespace StateMachinePack
                 foreach (State state in states)
                     this.states.Add(state.stateInfo.iD, state);
 
-            this.startUpState = this.states.Count <= 0 ? AddState(DEFAULTSTARTSTATEID) : states[0];
+            this.startUpState = this.states.Count <= 0 ? AddState(DEFAULTSTARTSTATEID, false, StateTransitionType.StartUp) : states[0];
         }
 
         internal Layer() : this(DEFAULT)
@@ -98,7 +98,7 @@ namespace StateMachinePack
 
         public Transition AddTransition(string iD, State sourceState, State targetState, params Condition[] conditionMethods)
         {
-            Transition transition = new Transition(iD, sourceState, targetState, conditionMethods);
+            Transition transition = new Transition(iD, sourceState, targetState, this, conditionMethods);
             this.transitions.Add(iD, transition);
             return transition;
         }
@@ -119,7 +119,7 @@ namespace StateMachinePack
 
         public void RemoveTransition(Transition transition)
         {
-            throw new NotImplementedException();
+            transitions.Remove(transition.iD);
         }
 
         public Condition AddCondition(Transition transition, Condition condition)

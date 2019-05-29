@@ -1,19 +1,30 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace StateMachinePack
 {
     public class Transition
     {
         internal string iD;
+
+        internal Layer layer;
+
         internal State sourceState;
         internal State targetState;
 
-        internal Transition(string iD, State sourceState, State targetState, params Condition[] conditionMethods)
+        internal Transition(string iD, State sourceState, State targetState, Layer layer, params Condition[] conditionMethods)
         {
             Validator.ValidateID(ref iD);
             this.iD = iD;
             this.sourceState = sourceState;
             this.targetState = targetState;
+            this.layer = layer;
+        }
+
+        internal Condition AddCondition(Condition conditionMethod)
+        {
+            AreConditionsMet += conditionMethod;
+            return conditionMethod;
         }
 
         public string getID()
@@ -31,5 +42,9 @@ namespace StateMachinePack
 
         protected event Condition AreConditionsMet;
 
+        internal void RemoveCondition(Condition conditionMethod)
+        {
+            AreConditionsMet -= conditionMethod;
+        }
     }
 }

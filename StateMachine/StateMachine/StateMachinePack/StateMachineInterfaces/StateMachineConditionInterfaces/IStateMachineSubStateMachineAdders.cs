@@ -4,8 +4,6 @@
     {
         Condition AddCondition(Transition transition, Condition conditionMethod);
 
-        Condition AddCondition(string transitionID, Condition conditionMethod);
-
         Condition AddCondition(string transitionID, string layerID, Condition conditionMethod);
 
         Condition AddCondition(string transitionID, Layer layer, Condition conditionMethod);

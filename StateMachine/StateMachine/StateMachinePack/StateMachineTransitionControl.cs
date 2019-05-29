@@ -159,7 +159,7 @@ namespace StateMachinePack
         {
             List<Transition> gotTransitions = new List<Transition>();
             foreach (Layer layer in layers)
-                if(HasTransition(iD, layer))
+                if (HasTransition(iD, layer))
                     gotTransitions.Add(GetTransition(iD, layer));
             if (gotTransitions.Count == 0)
                 return null;
@@ -250,7 +250,7 @@ namespace StateMachinePack
         private bool HasTransitionInLayers(Predicate<Transition> transitionCheckerMethod, Layer[] layers)
         {
             foreach (Layer layer in layers)
-                foreach (Transition transition in layer.transitions.Values)                
+                foreach (Transition transition in layer.transitions.Values)
                     if (transitionCheckerMethod(transition))
                         return true;
 
@@ -259,37 +259,50 @@ namespace StateMachinePack
 
         public void RemoveTransition(Transition transition)
         {
-            throw new NotImplementedException();
+            transition.layer.RemoveTransition(transition);
         }
 
-        public void RemoveTransition(string iD, InListLocation stateSelection = InListLocation.First)
+        public void RemoveTransition(string iD, InListLocation transitionSelection = InListLocation.First)
         {
-            throw new NotImplementedException();
+            List<Transition> transitions = new List<Transition>(GetTransitions(transition => transition.iD == iD));
+            RemoveTransition(transitions[GetListLocationIndex(transitionSelection, transitions)]);
         }
 
         public void RemoveTransition(string iD, Layer layerToRemoveTransition)
         {
-            throw new NotImplementedException();
+            RemoveTransition(GetTransition(iD, layerToRemoveTransition));
         }
 
         public void RemoveTransition(string iD, int layerIndex)
         {
-            throw new NotImplementedException();
+            RemoveTransition(iD, GetLayer(layerIndex));
         }
 
         public void RemoveTransition(string iD, string layerID)
         {
-            throw new NotImplementedException();
+            RemoveTransition(iD, GetLayer(layerID));
         }
 
-        public void RemoveTransition(Predicate<Transition> transitionCheckerMethod)
+        public void RemoveTransitions(Predicate<Transition> transitionCheckerMethod)
         {
-            throw new NotImplementedException();
+            RemoveTransitionsInLayers(transitionCheckerMethod, layers.ToArray());
         }
 
-        public void RemoveTransition(Predicate<Transition> transitionCheckerMethod, Predicate<Layer> layerCheckerMethod)
+        public void RemoveTransitions(Predicate<Transition> transitionCheckerMethod, Predicate<Layer> layerCheckerMethod)
         {
-            throw new NotImplementedException();
+            RemoveTransitionsInLayers(transitionCheckerMethod, GetLayers(layerCheckerMethod));
+        }
+
+        private void RemoveTransitionsInLayers(Predicate<Transition> transitionCheckerMethod, Layer[] layers)
+        {
+            List<Transition> foundTransitions = new List<Transition>();
+            foreach (Layer layer in layers)
+                foreach (Transition transition in layer.transitions.Values)
+                    if (transitionCheckerMethod(transition))
+                        foundTransitions.Add(transition);
+
+            foreach (Transition foundTransition in foundTransitions)
+                RemoveTransition(foundTransition);
         }
     }
 }
