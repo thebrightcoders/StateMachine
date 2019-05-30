@@ -2,10 +2,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StateMachinePack;
 
-namespace StateMachineTests.StateMachineLayerTests
+namespace StateMachineTests.BasicTests.BasicLayerTests
 {
     [TestClass]
-    public class StateMachineAddLayerTests
+    public class BasicAddLayerTests
     {
         [TestMethod]
         public void AddLayer2paramsDefaultLayerTest()

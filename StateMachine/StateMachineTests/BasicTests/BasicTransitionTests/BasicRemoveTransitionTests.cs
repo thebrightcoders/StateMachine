@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StateMachinePack;
 
-namespace StateMachineTests.StateMachineTransitionTests
+namespace StateMachineTests.BasicTests.BasicTransitionTests
 {
     [TestClass]
-    public class StateMachineRemoveTransitionTests
+    public class BasicRemoveTransitionTests
     {
         private StateMachine stateMachine;
         [TestInitialize]

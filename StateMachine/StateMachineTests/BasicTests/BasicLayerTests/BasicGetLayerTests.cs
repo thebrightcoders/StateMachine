@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace StateMachineTests.StateMachineLayerTests
+namespace StateMachineTests.BasicTests.BasicLayerTests
 {
     [TestClass]
-    public class StateMachineGetLayerTests
+    public class BasicGetLayerTests
     {
         [TestMethod]
         public void GetLayer()

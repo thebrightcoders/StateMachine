@@ -2,10 +2,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StateMachinePack;
 
-namespace StateMachineTests.StateMachineLayerTests
+namespace StateMachineTests.BasicTests.BasicLayerTests
 {
     [TestClass]
-    public class StateMachineHasLayerTests
+    public class BasicHasLayerTests
     {
         [TestMethod]
         public void HasLayerById()

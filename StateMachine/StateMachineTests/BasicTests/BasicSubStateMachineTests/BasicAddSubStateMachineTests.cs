@@ -1,12 +1,11 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StateMachinePack;
-using StateMachineTests.StateMachineLayerTests;
 
-namespace StateMachineTests.StateMachineSubStateMachineTests
+namespace StateMachineTests.BasicTests.BasicSubStateMachineTests
 {
     [TestClass]
-    public class StateMachineAddSubStateMachineTests
+    public class BasicAddSubStateMachineTests
     {
         const string iD = "newState", subMachineName = "newSubMachine", layerName = "newLayer", invalidID = "!@#";
 

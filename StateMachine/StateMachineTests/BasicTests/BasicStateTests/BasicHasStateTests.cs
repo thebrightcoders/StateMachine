@@ -2,10 +2,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StateMachinePack;
 
-namespace StateMachineTests.StateMachineStateTests
+namespace StateMachineTests.BasicTests.BasicStateTests
 {
     [TestClass]
-    public class StateMachineHasStateTests
+    public class BasicHasStateTests
     {
         private StateMachine stateMachine;
         [TestInitialize]
