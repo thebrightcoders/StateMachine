@@ -37,11 +37,6 @@ namespace StateMachinePack
             return conditionMethod;
         }
 
-        public string iD
-        {
-            return this.iD;
-        }
-
         public State getSourceState()
         {
             return this.sourceState;
