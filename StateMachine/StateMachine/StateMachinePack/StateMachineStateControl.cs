@@ -128,7 +128,7 @@ namespace StateMachinePack
 
         public State[] GetStates(string iD)
         {
-            return GetStates(state => state.GetID() == iD);
+            return GetStates(state => state.iD == iD);
         }
 
         public State[] GetStates(Predicate<State> stateCheckerMethod)

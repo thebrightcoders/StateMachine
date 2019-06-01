@@ -22,7 +22,7 @@
     }
     public enum StateTransitionType
     {
-        Default, StartUp, FromAny, Exit = 4
+        Default, Startup, FromAny, Exit = 4
     }
 
     public enum SubStateMachineSelection

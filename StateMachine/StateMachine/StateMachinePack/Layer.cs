@@ -7,35 +7,52 @@ namespace StateMachinePack
 
     public class Layer : ILayerStateMethods, ILayerSubStateMachineMethods, ILayerTransitionMethods, ILayerConditionMethods
     {
-        public static readonly string DEFAULT = "DEFAULT";
+        public static readonly string DEFAULTID = "DEFAULT";
         public static readonly string DEFAULTSTARTSTATEID = "STARTSTATE";
 
-        public string iD { get; set; }
+        private string ID;
+
+        public string iD
+        {
+            get { return ID; }
+            set
+            {
+                Validator.ValidateID(ref value);
+                ID = value;
+            }
+        }
+
         internal Dictionary<string, State> states { get; set; }
         internal Dictionary<string, SubStateMachine> subMachines { get; set; }
         private StateMachine machine { get; set; }
         internal Dictionary<string, Transition> transitions { get; set; }
+
+        public bool IsStartupState(State state)
+        {
+            return state == startupState;
+        }
+
+        public bool IsStartupState(string stateID)
+        {
+            return stateID == startupState.iD;
+        }
+
         internal State previousState { get; set; }
         internal State currentState { get; set; }
-        internal State startUpState { get; set; }
+        internal State startupState { get; set; }
         internal State anyState { get; set; }
         internal State exitState { get; set; }
 
-        internal Layer(string iD, params State[] states)
+        internal Layer(string iD)
         {
-            Validator.ValidateID(ref iD);
             this.iD = iD;
             this.states = new Dictionary<string, State>();
             this.subMachines = new Dictionary<string, SubStateMachine>();
             this.transitions = new Dictionary<string, Transition>();
-            if (states != null)
-                foreach (State state in states)
-                    this.states.Add(state.stateInfo.iD, state);
-
-            this.startUpState = this.states.Count <= 0 ? AddState(DEFAULTSTARTSTATEID, false, StateTransitionType.StartUp) : states[0];
+            this.startupState = AddState(DEFAULTSTARTSTATEID, false, StateTransitionType.Startup);
         }
 
-        internal Layer() : this(DEFAULT)
+        internal Layer() : this(DEFAULTID)
         {
 
         }

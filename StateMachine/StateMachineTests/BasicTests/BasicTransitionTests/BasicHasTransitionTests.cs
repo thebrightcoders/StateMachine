@@ -88,32 +88,32 @@ namespace StateMachineTests.BasicTests.BasicTransitionTests
         public void HasTransitionPredicateExistent_ReturnsTrue()
         {
             Assert.IsTrue(stateMachine.HasTransition(state =>
-                state.getID() == StateMachineBuilder.TransitionIDByLayerObjectToStateIDs));
+                state.iD == StateMachineBuilder.TransitionIDByLayerObjectToStateIDs));
         }
 
         [TestMethod]
         public void HasTransitionPredicateNonExistent_ReturnsFalse()
         {
             Assert.IsFalse(stateMachine.HasTransition(state =>
-                state.getID() == "Something"));
+                state.iD == "Something"));
         }
 
         [TestMethod]
         public void HasTransitionPredicatesExistent_ReturnsTrue()
         {
             Assert.IsTrue(stateMachine.HasTransition(
-                state => state.getID() == StateMachineBuilder.TransitionIDByLayerObjectToStateIDs,
+                state => state.iD == StateMachineBuilder.TransitionIDByLayerObjectToStateIDs,
                 layer => layer.iD == StateMachineBuilder.layerWithIndex));
         }
 
         [TestMethod]
         public void HasTransitionPredicatesNonExistent_ReturnsFalse()
         {
-            Assert.IsFalse(stateMachine.HasTransition(state => state.getID() == "Something",
+            Assert.IsFalse(stateMachine.HasTransition(state => state.iD == "Something",
                 layer => layer.iD == StateMachineBuilder.layerWithIndex));
 
             Assert.IsFalse(stateMachine.HasTransition(
-                state => state.getID() == StateMachineBuilder.TransitionIDToLastAddedLayerToStateIDs,
+                state => state.iD == StateMachineBuilder.TransitionIDToLastAddedLayerToStateIDs,
                 layer => layer.iD == "SomethingElse"));
 
         }

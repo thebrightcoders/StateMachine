@@ -96,13 +96,13 @@ namespace StateMachineTests.BasicTests.BasicTransitionTests
         [TestMethod]
         public void GetTransitionPredicateExistant_ReturnsCount4()
         {
-            Assert.IsTrue(stateMachine.GetTransitions(state => state.getID() == StateMachineBuilder.TransitionIDByLayerIDToStateIDs).Length == 4);
+            Assert.IsTrue(stateMachine.GetTransitions(state => state.iD == StateMachineBuilder.TransitionIDByLayerIDToStateIDs).Length == 4);
         }
 
         [TestMethod]
         public void GetTransitionPredicateNonExistant_ReturnsNull()
         {
-            Assert.IsNull(stateMachine.GetTransitions(state => state.getID() == "Something"));
+            Assert.IsNull(stateMachine.GetTransitions(state => state.iD == "Something"));
         }
 
         [TestMethod]
@@ -110,7 +110,7 @@ namespace StateMachineTests.BasicTests.BasicTransitionTests
         {
             Assert.IsTrue(stateMachine
                               .GetTransitions(
-                                  state => state.getID() == StateMachineBuilder.TransitionIDByLayerIDToStateIDs,
+                                  state => state.iD == StateMachineBuilder.TransitionIDByLayerIDToStateIDs,
                                   layer => layer.iD == StateMachineBuilder.layerWithIndex).Length == 1);
         }
 
@@ -118,10 +118,10 @@ namespace StateMachineTests.BasicTests.BasicTransitionTests
         public void GetTransitionPredicatesNonExistant_ReturnsNull()
         {
             Assert.IsNull(stateMachine.GetTransitions(
-                                  state => state.getID() == StateMachineBuilder.TransitionIDToLastAddedLayerToStateIDs,
+                                  state => state.iD == StateMachineBuilder.TransitionIDToLastAddedLayerToStateIDs,
                                   layer => layer.iD == StateMachineBuilder.layerWithIndex));
 
-            Assert.IsNull(stateMachine.GetTransitions(state => state.getID() == "Something",
+            Assert.IsNull(stateMachine.GetTransitions(state => state.iD == "Something",
                 layer => layer.iD == StateMachineBuilder.layerWithIndex));
         }
     }

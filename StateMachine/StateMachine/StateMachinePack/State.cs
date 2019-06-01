@@ -1,25 +1,20 @@
 ﻿namespace StateMachinePack
 {
-    public class State :IState
+    public class State : IState
     {
+        public string iD
+        {
+            get { return stateInfo.iD; }
+            set { stateInfo.iD = value; }
+
+        }
         internal Layer parentLayer { get; set; }
         internal StateInfo stateInfo { get; set; }
 
         internal State(string iD, Layer parentLayerToAdd, bool isLoop = false)
         {
-            Validator.ValidateID(ref iD);
             this.stateInfo = new StateInfo(iD, isLoop);
             this.parentLayer = parentLayerToAdd;
-        }
-
-        public void SetID(string iD)
-        {
-            stateInfo.iD = iD;
-        }
-
-        public string GetID()
-        {
-            return stateInfo.iD;
         }
 
         public Layer GetParentLayer()

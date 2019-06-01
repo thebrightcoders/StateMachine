@@ -33,7 +33,7 @@ namespace StateMachineTests.BasicTests.BasicStateTests
         [TestMethod]
         public void StateMachineHasStateWithWrongLayerId()
         {
-            Assert.IsFalse(stateMachine.HasState("abc", Layer.DEFAULT));
+            Assert.IsFalse(stateMachine.HasState("abc", Layer.DEFAULTID));
         }
         [TestMethod]
         public void StateMachineHasStateWithWrongLayerIndex()
@@ -43,32 +43,32 @@ namespace StateMachineTests.BasicTests.BasicStateTests
         [TestMethod]
         public void StateMachineHasStateDefault()
         {
-            Assert.IsTrue(stateMachine.HasState(Layer.DEFAULTSTARTSTATEID, Layer.DEFAULT));
+            Assert.IsTrue(stateMachine.HasState(Layer.DEFAULTSTARTSTATEID, Layer.DEFAULTID));
         }
         [TestMethod]
         public void StateMachineHasStatePredicate()
         {
-            Assert.IsTrue(stateMachine.HasState(state => state.GetID() == "abc"));
+            Assert.IsTrue(stateMachine.HasState(state => state.iD == "abc"));
         }
         [TestMethod]
         public void StateMachineHasStatePredicateWrongID()
         {
-            Assert.IsFalse(stateMachine.HasState(state => state.GetID() == "abadfafc"));
+            Assert.IsFalse(stateMachine.HasState(state => state.iD == "abadfafc"));
         }
         [TestMethod]
         public void StateMachineHasStatePredicates()
         {
-            Assert.IsTrue(stateMachine.HasState(state => state.GetID() == "abc", layer => layer.iD == StateMachineBuilder.layerWithEnum));
+            Assert.IsTrue(stateMachine.HasState(state => state.iD == "abc", layer => layer.iD == StateMachineBuilder.layerWithEnum));
         }
         [TestMethod]
         public void StateMachineHasStatePredicatesWithWrongId()
         {
-            Assert.IsFalse(stateMachine.HasState(state => state.GetID() == "abadfadfadfc", layer => layer.iD == StateMachineBuilder.layerWithEnum));
+            Assert.IsFalse(stateMachine.HasState(state => state.iD == "abadfadfadfc", layer => layer.iD == StateMachineBuilder.layerWithEnum));
         }
         [TestMethod]
         public void StateMachineHasStatePredicatesWithWrongLayer()
         {
-            Assert.IsFalse(stateMachine.HasState(state => state.GetID() == "abc", layer => layer.iD == Layer.DEFAULT));
+            Assert.IsFalse(stateMachine.HasState(state => state.iD == "abc", layer => layer.iD == Layer.DEFAULTID));
         }
     }
 }

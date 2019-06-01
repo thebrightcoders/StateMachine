@@ -5,7 +5,17 @@ namespace StateMachinePack
 {
     public class Transition
     {
-        internal string iD;
+        private string ID;
+
+        public string iD
+        {
+            get { return ID; }
+            set
+            {
+                Validator.ValidateID(ref value);
+                ID = value;
+            }
+        }
 
         internal Layer layer;
 
@@ -27,10 +37,11 @@ namespace StateMachinePack
             return conditionMethod;
         }
 
-        public string getID()
+        public string iD
         {
             return this.iD;
         }
+
         public State getSourceState()
         {
             return this.sourceState;

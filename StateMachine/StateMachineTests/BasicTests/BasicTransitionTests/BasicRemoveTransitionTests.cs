@@ -26,7 +26,7 @@ namespace StateMachineTests.BasicTests.BasicTransitionTests
         [TestMethod]
         public void RemovePredicate()
         {
-            stateMachine.RemoveTransitions(transition => transition.getID() == StateMachineBuilder.TransitionIDByLayerIDToStateIDs);
+            stateMachine.RemoveTransitions(transition => transition.iD == StateMachineBuilder.TransitionIDByLayerIDToStateIDs);
             Assert.IsFalse(stateMachine.HasTransition(StateMachineBuilder.TransitionIDByLayerIDToStateIDs, StateMachineBuilder.layerWithID));
         }
 
@@ -34,7 +34,7 @@ namespace StateMachineTests.BasicTests.BasicTransitionTests
         public void RemovePredicates()
         {
             stateMachine.RemoveTransitions(
-                transition => transition.getID() == StateMachineBuilder.TransitionIDByLayerIDToStateIDs, layer => layer.iD == StateMachineBuilder.layerWithID);
+                transition => transition.iD == StateMachineBuilder.TransitionIDByLayerIDToStateIDs, layer => layer.iD == StateMachineBuilder.layerWithID);
             Assert.IsFalse(stateMachine.HasTransition(StateMachineBuilder.TransitionIDByLayerIDToStateIDs, StateMachineBuilder.layerWithID));
         }
     }

@@ -41,8 +41,8 @@ namespace StateMachineTests.BasicTests.BasicStateTests
         [TestMethod]
         public void StateMachineRemoveStateDefaultStateFromDefaultLayer()
         {
-            stateMachine.RemoveState(Layer.DEFAULTSTARTSTATEID, Layer.DEFAULT);
-            Assert.IsFalse(stateMachine.HasState(Layer.DEFAULTSTARTSTATEID, Layer.DEFAULT));
+            stateMachine.RemoveState(Layer.DEFAULTSTARTSTATEID, Layer.DEFAULTID);
+            Assert.IsFalse(stateMachine.HasState(Layer.DEFAULTSTARTSTATEID, Layer.DEFAULTID));
         }
         [TestMethod]
         public void StateMachineRemoveStatea15445FromLayerA()

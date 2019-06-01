@@ -24,7 +24,7 @@ namespace StateMachineTests.BasicTests.BasicLayerTests
         public void GetLayerWithInvalidId()
         {
             StateMachinePack.StateMachine stateMachine = new StateMachinePack.StateMachine();
-            Assert.ThrowsException<Exception>(() => stateMachine.GetLayer("!#$!#$"));
+            Assert.ThrowsException<ArgumentException>(() => stateMachine.GetLayer("!#$!#$"));
         }
 
         [TestMethod]

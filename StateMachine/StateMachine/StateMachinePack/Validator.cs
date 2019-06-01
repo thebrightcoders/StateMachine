@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace StateMachinePack
 {
@@ -17,7 +19,7 @@ namespace StateMachinePack
         {
             iD = iD.Trim();
             if (layers.Find(layerTofind => layerTofind.iD == iD) != null)
-                throw new Exception(string.Format("The Layer With ID = {0} Already Exists.", iD));
+                throw new ArgumentException(string.Format("The Layer With ID = {0} Already Exists.", iD));
         }
 
         private static void StringToChar(string rawString)
@@ -32,7 +34,9 @@ namespace StateMachinePack
 
         public static bool IsValidString(string rawString)
         {
-            char[] rawStringChars = new char[rawString.Length];
+            return rawString.All(c => char.IsLetterOrDigit(c) || c == '_' || c == ' ');
+
+            /*char[] rawStringChars = new char[rawString.Length];
             if (rawString != null)
             {
                 rawStringChars = rawString.ToCharArray();
@@ -45,7 +49,7 @@ namespace StateMachinePack
                     }
                 }
             }
-            return true;
+            return true;*/
         }
 
         public static bool IsValidIndexInLayersList(int index, List<Layer> list)
@@ -70,10 +74,11 @@ namespace StateMachinePack
         internal static void ValidateID(ref string iD)
         {
             iD = iD.Trim();
+            //iD = (new Regex("\\s+")).Replace(iD, " ");
             if (IsStringEmpty(iD))
-                throw new Exception("The ID can't be empty!");
+                throw new ArgumentException("The ID can't be empty!");
             if (!IsValidString(iD))
-                throw new Exception("The Id is not valid!");
+                throw new ArgumentException("The ID is not valid!");
         }
     }
 }

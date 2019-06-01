@@ -26,20 +26,20 @@ namespace StateMachineTests.BasicTests.BasicSubStateMachineTests
         [TestMethod]
         public void SearchWithIDInvalid_ThorwsException()
         {
-            Assert.ThrowsException<Exception>(() => stateMachine.HasState(invalidID));
-            Assert.ThrowsException<Exception>(() => stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, invalidID));
-            Assert.ThrowsException<Exception>(() => stateMachine.HasSubStateMachine(SubStateMachineSelection.Name, invalidID));
+            Assert.ThrowsException<ArgumentException>(() => stateMachine.HasState(invalidID));
+            Assert.ThrowsException<ArgumentException>(() => stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, invalidID));
+            Assert.ThrowsException<ArgumentException>(() => stateMachine.HasSubStateMachine(SubStateMachineSelection.Name, invalidID));
         }
 
         [TestMethod]
         public void SearchWithIDEmpty_ThorwsException()
         {
-            Assert.ThrowsException<Exception>(() => stateMachine.HasState(""));
-            Assert.ThrowsException<Exception>(() => stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, ""));
-            Assert.ThrowsException<Exception>(() => stateMachine.HasSubStateMachine(SubStateMachineSelection.Name, ""));
-            Assert.ThrowsException<Exception>(() => stateMachine.HasState("     "));
-            Assert.ThrowsException<Exception>(() => stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, "     "));
-            Assert.ThrowsException<Exception>(() => stateMachine.HasSubStateMachine(SubStateMachineSelection.Name, "     "));
+            Assert.ThrowsException<ArgumentException>(() => stateMachine.HasState(""));
+            Assert.ThrowsException<ArgumentException>(() => stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, ""));
+            Assert.ThrowsException<ArgumentException>(() => stateMachine.HasSubStateMachine(SubStateMachineSelection.Name, ""));
+            Assert.ThrowsException<ArgumentException>(() => stateMachine.HasState("     "));
+            Assert.ThrowsException<ArgumentException>(() => stateMachine.HasSubStateMachine(SubStateMachineSelection.ID, "     "));
+            Assert.ThrowsException<ArgumentException>(() => stateMachine.HasSubStateMachine(SubStateMachineSelection.Name, "     "));
         }
 
         [TestMethod]
@@ -117,20 +117,20 @@ namespace StateMachineTests.BasicTests.BasicSubStateMachineTests
         [TestMethod]
         public void SearchWithPredicateSingleExistant_ReturnsTrue()
         {
-            Assert.IsTrue(stateMachine.HasSubStateMachine((subMachine) => subMachine.GetID() == "SubStateIDToLastAddedLayer"));
+            Assert.IsTrue(stateMachine.HasSubStateMachine((subMachine) => subMachine.iD == "SubStateIDToLastAddedLayer"));
         }
 
         [TestMethod]
         public void SearchWithPredicateSingleNonExistant_ReturnsFalse()
         {
-            Assert.IsFalse(stateMachine.HasSubStateMachine((subMachine) => subMachine.GetID() == "Something"));
+            Assert.IsFalse(stateMachine.HasSubStateMachine((subMachine) => subMachine.iD == "Something"));
         }
 
         [TestMethod]
         public void SearchWithPredicateBothExistant_ReturnsTrue()
         {
             Assert.IsTrue(stateMachine.HasSubStateMachine(
-                (subMachine) => subMachine.GetID() == "SubStateIDToLastAddedLayer",
+                (subMachine) => subMachine.iD == "SubStateIDToLastAddedLayer",
                 (layer) => layer.iD == StateMachineBuilder.layerWithEnum));
         }
 
@@ -138,7 +138,7 @@ namespace StateMachineTests.BasicTests.BasicSubStateMachineTests
         public void SearchWithPredicateBothNonExistant_ReturnsFalse()
         {
             Assert.IsFalse(stateMachine.HasSubStateMachine(
-                (subMachine) => subMachine.GetID() == "SubStateIDToLastAddedLayer",
+                (subMachine) => subMachine.iD == "SubStateIDToLastAddedLayer",
                 (layer) => layer.iD == StateMachineBuilder.layerWithID));
         }
     }

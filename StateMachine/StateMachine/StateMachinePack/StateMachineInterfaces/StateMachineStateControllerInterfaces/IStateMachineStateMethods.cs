@@ -1,6 +1,6 @@
 ﻿namespace StateMachinePack.StateMachineInterfaces.StateMachineStateControllerInterfaces
 {
-    public interface IStateMachineStateMethods :
+    internal interface IStateMachineStateMethods :
         IStateMachineStateAdders,
         IStateMachineStateCheckers,
         IStateMachineStateGetters,

@@ -6,16 +6,16 @@ namespace StateMachinePack
 {
     public partial class StateMachine : IStateMachineLayerMethods
     {
-        public Layer AddLayer(string iD, params State[] states)
+        public Layer AddLayer(string iD)
         {
-            Layer layer = CheckExistanceAndCreateLayer(iD, states);
+            Layer layer = CheckExistanceAndCreateLayer(iD);
             layers.Add(layer);
             return layer;
         }
 
-        public Layer AddLayer(string iD, int index, params State[] states)
+        public Layer AddLayer(string iD, int index)
         {
-            Layer layer = CheckExistanceAndCreateLayer(iD, states);
+            Layer layer = CheckExistanceAndCreateLayer(iD);
             if (Validator.IsValidIndexInLayersList(index, layers))
                 layers.Insert(index, layer);
             else
@@ -23,9 +23,9 @@ namespace StateMachinePack
             return layer;
         }
 
-        public Layer AddLayer(string iD, InListLocation LocationToAdd, params State[] states)
+        public Layer AddLayer(string iD, InListLocation LocationToAdd)
         {
-            Layer layer = CheckExistanceAndCreateLayer(iD, states);
+            Layer layer = CheckExistanceAndCreateLayer(iD);
             if (LocationToAdd == InListLocation.First)
                 layers.Insert(0, layer);
             else if (LocationToAdd == InListLocation.Last)
@@ -33,15 +33,15 @@ namespace StateMachinePack
             return layer;
         }
 
-        private Layer CheckExistanceAndCreateLayer(string iD, State[] states)
+        private Layer CheckExistanceAndCreateLayer(string iD)
         {
             Validator.ValidateLayerExistance(iD, layers);
-            Layer layer = new Layer(iD, states);
+            Layer layer = new Layer(iD);
             this.lastLayerAdded = layer;
             return layer;
         }
 
-        public bool HasLayerById(string iD)
+        public bool HasLayer(string iD)
         {
             return HasLayer(GetLayer(iD));
         }

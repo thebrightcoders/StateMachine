@@ -147,10 +147,10 @@ namespace StateMachineTests.BasicTests.BasicSubStateMachineTests
         public void RemoveSubMachineWithIDFromLayerByIndex()
         {
             Assert.IsTrue(stateMachine.HasSubStateMachine(SubStateMachineSelection.ID,
-                "SubStateIDToLayerByIndex", Layer.DEFAULT));
+                "SubStateIDToLayerByIndex", Layer.DEFAULTID));
             stateMachine.RemoveSubStateMachine(SubStateMachineSelection.ID, "SubStateIDToLayerByIndex", 1);
             Assert.IsFalse(stateMachine.HasSubStateMachine(SubStateMachineSelection.ID,
-                "SubStateIDToLayerByIndex", Layer.DEFAULT));
+                "SubStateIDToLayerByIndex", Layer.DEFAULTID));
         }
 
         [TestMethod]
@@ -264,7 +264,7 @@ namespace StateMachineTests.BasicTests.BasicSubStateMachineTests
         {
             Assert.IsTrue(
                 stateMachine.GetSubStateMachines(SubStateMachineSelection.ID, "SubStateIDToLayerByID").Length == 4);
-            stateMachine.RemoveSubStateMachines((subStateMachine) => subStateMachine.GetID() == "SubStateIDToLayerByID");
+            stateMachine.RemoveSubStateMachines((subStateMachine) => subStateMachine.iD == "SubStateIDToLayerByID");
             Assert.IsTrue(
                 stateMachine.GetSubStateMachines(SubStateMachineSelection.ID, "SubStateIDToLayerByID").Length == 0);
         }
@@ -275,7 +275,7 @@ namespace StateMachineTests.BasicTests.BasicSubStateMachineTests
 
             Assert.IsTrue(
                 stateMachine.GetSubStateMachines(SubStateMachineSelection.ID, "SomeThing").Length == 0);
-            stateMachine.RemoveSubStateMachines((subStateMachine) => subStateMachine.GetID() == "SomeThing");
+            stateMachine.RemoveSubStateMachines((subStateMachine) => subStateMachine.iD == "SomeThing");
             Assert.IsTrue(
                 stateMachine.GetSubStateMachines(SubStateMachineSelection.ID, "SomeThing").Length == 0);
         }
@@ -285,7 +285,7 @@ namespace StateMachineTests.BasicTests.BasicSubStateMachineTests
         {
             Assert.IsTrue(
                 stateMachine.GetSubStateMachines(SubStateMachineSelection.ID, "SubStateIDToLayerByID").Length == 4);
-            stateMachine.RemoveSubStateMachines((subStateMachine) => subStateMachine.GetID() == "SubStateIDToLayerByID",
+            stateMachine.RemoveSubStateMachines((subStateMachine) => subStateMachine.iD == "SubStateIDToLayerByID",
                 layer => layer.iD == StateMachineBuilder.layerWithIndex);
             Assert.IsTrue(
                 stateMachine.GetSubStateMachines(SubStateMachineSelection.ID, "SubStateIDToLayerByID").Length == 3);
@@ -296,7 +296,7 @@ namespace StateMachineTests.BasicTests.BasicSubStateMachineTests
         {
             Assert.IsTrue(
                 stateMachine.GetSubStateMachines(SubStateMachineSelection.ID, "Something").Length == 0);
-            stateMachine.RemoveSubStateMachines((subStateMachine) => subStateMachine.GetID() == "Something",
+            stateMachine.RemoveSubStateMachines((subStateMachine) => subStateMachine.iD == "Something",
                 layer => layer.iD == StateMachineBuilder.layerWithIndex);
             Assert.IsTrue(
                 stateMachine.GetSubStateMachines(SubStateMachineSelection.ID, "Something").Length == 0);

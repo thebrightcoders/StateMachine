@@ -203,7 +203,7 @@ namespace StateMachineTests.BasicTests.BasicSubStateMachineTests
         public void GetPredicateSubStateMachineExistant_Returns4AndNotNull()
         {
             SubStateMachine[] subStateMachines =
-                stateMachine.GetSubStateMachines(subMachine => subMachine.GetID() == "SubStateIDToLayerByIDIsLoop");
+                stateMachine.GetSubStateMachines(subMachine => subMachine.iD == "SubStateIDToLayerByIDIsLoop");
             Assert.IsNotNull(subStateMachines);
             Assert.IsTrue(subStateMachines.Length == 4);
         }
@@ -212,7 +212,7 @@ namespace StateMachineTests.BasicTests.BasicSubStateMachineTests
         public void GetPredicateSubStateMachineNonExistant_Returns0AndNotNull()
         {
             SubStateMachine[] subStateMachines =
-                stateMachine.GetSubStateMachines(subMachine => subMachine.GetID() == "Something");
+                stateMachine.GetSubStateMachines(subMachine => subMachine.iD == "Something");
             Assert.IsNotNull(subStateMachines);
             Assert.IsTrue(subStateMachines.Length == 0);
         }
@@ -221,7 +221,7 @@ namespace StateMachineTests.BasicTests.BasicSubStateMachineTests
         public void GetPredicatesSubStateMachineExistant_Returns4AndNotNull()
         {
             SubStateMachine[] subStateMachines =
-                stateMachine.GetSubStateMachines(subMachine => subMachine.GetID() == "SubStateIDToLayerByIDIsLoop",
+                stateMachine.GetSubStateMachines(subMachine => subMachine.iD == "SubStateIDToLayerByIDIsLoop",
                     layer => layer.iD == StateMachineBuilder.layerWithID);
             Assert.IsNotNull(subStateMachines);
             Assert.IsTrue(subStateMachines.Length == 1);
@@ -231,7 +231,7 @@ namespace StateMachineTests.BasicTests.BasicSubStateMachineTests
         public void GetPredicatesSubStateMachineNonExistant_Returns0AndNotNull()
         {
             SubStateMachine[] subStateMachines =
-                stateMachine.GetSubStateMachines(subMachine => subMachine.GetID() == "Something",
+                stateMachine.GetSubStateMachines(subMachine => subMachine.iD == "Something",
                     layer => layer.iD == StateMachineBuilder.layerWithID);
             Assert.IsNotNull(subStateMachines);
             Assert.IsTrue(subStateMachines.Length == 0);

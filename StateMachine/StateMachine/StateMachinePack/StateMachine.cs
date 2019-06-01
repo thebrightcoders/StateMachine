@@ -10,7 +10,16 @@ namespace StateMachinePack
 
     public partial class StateMachine : StateMachineProcessControllers
     {
-        public string name;
+        private string Name;
+        public string name
+        {
+            get { return Name; }
+            set
+            {
+                Validator.ValidateID(ref value);
+                Name = value;
+            }
+        }
         private List<Layer> layers = new List<Layer>();
         private MachineExecutionType executionType { get; set; }
         private MachineExecutionOrder machineExecutionOrder { get; set; }
@@ -25,24 +34,27 @@ namespace StateMachinePack
 
         protected void InvokeOnMachineStart()
         {
+            throw new NotImplementedException();
         }
 
         protected void InvokeOnMachineProcess()
         {
+            throw new NotImplementedException();
         }
 
         protected void InvokeOnMachineStop()
         {
+            throw new NotImplementedException();
         }
 
-        
+
         public StateMachine(string name = "State Machine")
         {
-            Validator.ValidateID(ref name);
             this.name = name;
-            AddLayer(Layer.DEFAULT);
+            AddLayer(Layer.DEFAULTID);
         }
 
+        //Methods Below Are Considered Functionality Methods. Not Creation Methods
         public StateMachine(params IStateMachineEventMethods[] methods) : this()
         {
 
@@ -73,17 +85,7 @@ namespace StateMachinePack
 
         }
 
-        public void AddMachineEventMethod(IStateMachineEventMethods methods)
-        {
-
-        }
-
         public void AddMachineEventMethod(params IStateMachineEventMethods[] methods)
-        {
-
-        }
-
-        public void AddMachineEventMethod(MachineMethodType methodType, StateMachineEvent method)
         {
 
         }
@@ -94,6 +96,21 @@ namespace StateMachinePack
         }
 
         public void AddMachineEventMethod(MachineMethodType[] methodType, params StateMachineEvent[] method)
+        {
+
+        }
+
+        public void RemoveMachineEventMethod(params IStateMachineEventMethods[] methods)
+        {
+
+        }
+
+        public void RemoveMachineEventMethod(MachineMethodType methodType, params StateMachineEvent[] method)
+        {
+
+        }
+
+        public void RemoveMachineEventMethod(MachineMethodType[] methodType, params StateMachineEvent[] method)
         {
 
         }

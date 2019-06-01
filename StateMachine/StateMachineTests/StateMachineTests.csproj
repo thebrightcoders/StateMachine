@@ -61,6 +61,8 @@
     <Compile Include="BasicTests\BasicStateTests\BasicHasStateTests.cs" />
     <Compile Include="BasicTests\BasicStateTests\BasicRemoveStatesTests.cs" />
     <Compile Include="BasicTests\BasicSubStateMachineTests\BasicAddSubStateMachineTests.cs" />
+    <Compile Include="FullCreationTests\FullLayerTests\FullAddLayerTests.cs" />
+    <Compile Include="FullCreationTests\FullMachineCreateTests.cs" />
     <Compile Include="StateMachineBuilder.cs" />
     <Compile Include="BasicTests\BasicLayerTests\BasicGetLayerTests.cs" />
     <Compile Include="BasicTests\BasicSubStateMachineTests\BasicGetSubStateMachineTests.cs" />
@@ -85,7 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FullCreationTests\FullConditionTests\" />
-    <Folder Include="FullCreationTests\FullLayerTests\" />
     <Folder Include="FullCreationTests\FullStateTests\" />
     <Folder Include="FullCreationTests\FullSubStateMachineTests\" />
     <Folder Include="FullCreationTests\FullTransitionTests\" />

@@ -8,7 +8,18 @@
             this.isLoop = isLoop;
         }
 
-        internal string iD { get; set; }
+        public string iD
+        {
+            get { return ID; }
+            set
+            {
+                Validator.ValidateID(ref value);
+                ID = value;
+            }
+
+        }
+
+        private string ID;
         internal bool isLoop { get; set; }
 
     }

@@ -41,15 +41,15 @@ namespace StateMachineTests.BasicTests.BasicStateTests
         {
             Assert.IsTrue(
                 stateMachine.GetStates(
-                    state => state.GetID() == Layer.DEFAULTSTARTSTATEID).Length >= 0);
+                    state => state.iD == Layer.DEFAULTSTARTSTATEID).Length >= 0);
         }
         [TestMethod]
         public void StateMachineGetStatesWithPredicateStateAndLayer()
         {
             Assert.IsTrue(
                 stateMachine.GetStates(
-                    state => state.GetID() == Layer.DEFAULTSTARTSTATEID,
-                    layer => layer.iD == Layer.DEFAULT).Length == 1);
+                    state => state.iD == Layer.DEFAULTSTARTSTATEID,
+                    layer => layer.iD == Layer.DEFAULTID).Length == 1);
         }
     }
 }
